@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Megha Shivhare</title>
+  <meta name="description" content="DevOps engineering blog by Megha Shivhare — interview prep, Kubernetes, AWS, CI/CD, and cloud infrastructure.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #080D1A;
+      --surface:   #0F1729;
+      --surface2:  #162035;
+      --border:    #1E2D4A;
+      --border2:   #263654;
+      --text:      #D4E5FF;
+      --muted:     #6B8CB8;
+      --dim:       #3A5070;
+      --green:     #00D97E;
+      --green-dim: rgba(0, 217, 126, 0.12);
+      --amber:     #F5A623;
+      --blue:      #4C9EFF;
+      --blue-dim:  rgba(76, 158, 255, 0.10);
+      --mono: 'JetBrains Mono', 'Cascadia Code', 'SF Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --radius: 8px;
+      --max-w: 800px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--text); }
+
+    .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
+
+    /* NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--green); }
+    .nav-logo span { color: var(--muted); }
+    .nav-back {
+      font-family: var(--mono); font-size: 12px; color: var(--muted);
+      padding: 5px 10px; border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-back:hover { color: var(--text); background: var(--surface); }
+
+    /* HEADER */
+    .page-header {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+    .eyebrow {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--green); }
+    .page-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.75rem;
+    }
+    .page-desc { font-size: 14px; color: var(--muted); max-width: 480px; }
+
+    /* POST LIST */
+    .post-list { display: flex; flex-direction: column; gap: 1px; }
+    .post-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      margin-bottom: 10px;
+    }
+    .post-item:hover { border-color: var(--border2); background: var(--surface2); }
+    .post-tag {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 5px; display: block;
+    }
+    .post-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 5px; }
+    .post-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+    .post-meta {
+      display: flex; gap: 8px; margin-top: 8px;
+      font-family: var(--mono); font-size: 10px; color: var(--dim);
+    }
+    .post-arrow {
+      font-family: var(--mono); font-size: 16px; color: var(--dim);
+      margin-top: 2px; transition: color 0.15s, transform 0.15s;
+    }
+    .post-item:hover .post-arrow { color: var(--green); transform: translateX(3px); }
+
+    /* COMING SOON */
+    .coming-soon {
+      background: var(--surface);
+      border: 1px dashed var(--border2);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .coming-soon p { font-size: 13px; color: var(--dim); font-family: var(--mono); }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); padding: 1.5rem 0; text-align: center; margin-top: 4rem; }
+    .footer p { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+    .footer a { color: var(--green); }
+
+    @media (max-width: 480px) {
+      .post-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">ms<span>/blog</span></div>
+      <a href="../" class="nav-back">← back to portfolio</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="page-header">
+        <div class="eyebrow">Writing</div>
+        <h1 class="page-title">Blog</h1>
+        <p class="page-desc">DevOps notes, interview prep, and things I've learned operating cloud-native infrastructure.</p>
+      </div>
+
+      <div class="post-list">
+        <a href="interview-questions.html" class="post-item">
+          <div>
+            <span class="post-tag">Interview Prep</span>
+            <div class="post-title">DevOps Most Asked Interview Questions</div>
+            <p class="post-desc">60+ questions covering Kubernetes, Docker, AWS, CI/CD, Terraform, monitoring, Linux, and more — with detailed answers.</p>
+            <div class="post-meta">
+              <span>60+ questions</span>
+              <span>·</span>
+              <span>Kubernetes · AWS · Terraform · Docker</span>
+            </div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+      </div>
+
+      <div class="coming-soon">
+        <p># more posts coming soon</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p><a href="../">meghashivhare.github.io</a> · blog</p>
+    </div>
+  </footer>
+
+</body>
+</html>
