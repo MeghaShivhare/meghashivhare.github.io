@@ -3,157 +3,405 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevOps Interview Questions — Megha Shivhare</title>
-<meta name="description" content="60+ most asked DevOps interview questions with answers — Kubernetes, Docker, AWS, CI/CD, Terraform, Monitoring, Linux, and more.">
+<title>DevOps Interview Q&amp;A — Windows Help</title>
+<meta name="description" content="60+ most asked DevOps interview questions with answers — Kubernetes, Docker, AWS, CI/CD, Terraform, Monitoring, Linux.">
 <style>
-:root {
-  --bg:#0D1117; --surface:#161B22; --surface2:#1C2128; --border:#30363D;
-  --text:#CDD9E5; --muted:#7D8590; --dim:#484F58;
-  --blue:#58A6FF; --teal:#2DD4BF; --orange:#F0A500; --purple:#C084FC;
-  --green:#4ADE80; --pink:#F472B6; --emerald:#34D399; --amber:#FFA657;
-  --slate:#94A3B8; --lavender:#A78BFA; --red:#F85149;
-  --mono:ui-monospace,'SF Mono','Cascadia Code',Consolas,monospace;
-  --sans:system-ui,-apple-system,sans-serif;
-  --nav:230px;
+:root{
+  --grey:#c0c0c0;--dark:#808080;--light:#fff;--black:#000;
+  --navy:#000080;--blue2:#1084D0;--teal:#008080;
+  --font:'Tahoma','MS Sans Serif',Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --mono:'Courier New',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh}
+html,body{height:100%;overflow:hidden;background:var(--grey)}
 
-/* LAYOUT */
-.shell{display:grid;grid-template-columns:var(--nav) 1fr;min-height:100vh}
+/* ── WIN98 APP SHELL ──────────────────────────────── */
+#app{
+  display:flex;flex-direction:column;height:100vh;
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+}
 
-/* SIDEBAR */
-nav{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:1.25rem 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.nav-brand{padding:0 1.25rem 1rem;border-bottom:1px solid var(--border);margin-bottom:0.75rem}
-.nav-brand strong{display:block;font-family:var(--mono);font-size:12px;color:var(--text);margin-bottom:1px}
-.nav-brand span{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.nav-search{padding:0 1rem .75rem;border-bottom:1px solid var(--border);margin-bottom:.5rem}
-.nav-search input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:5px 9px;font-size:12px;color:var(--text);font-family:var(--sans);outline:none}
-.nav-search input::placeholder{color:var(--dim)}
-.nav-search input:focus{border-color:var(--blue)}
-.nav-link{display:flex;align-items:center;gap:8px;padding:5px 1.25rem;text-decoration:none;color:var(--muted);font-size:12.5px;transition:color .12s}
-.nav-link:hover,.nav-link.active{color:var(--text)}
-.nav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.nav-count{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--dim);background:var(--surface2);padding:1px 6px;border-radius:10px}
+/* ── TITLE BAR ───────────────────────────────────── */
+.w-titlebar{
+  height:22px;background:linear-gradient(to right,var(--navy),var(--blue2));
+  display:flex;align-items:center;padding:2px 4px;gap:4px;flex-shrink:0;
+}
+.w-titlebar .ico{font-size:14px;line-height:1}
+.w-titlebar .title{font-size:11px;font-weight:bold;color:#fff;font-family:var(--font);flex:1;white-space:nowrap;overflow:hidden}
+.w-btns{display:flex;gap:2px}
+.w-btn{
+  width:16px;height:14px;background:var(--grey);border:none;font-size:9px;font-family:var(--font);
+  font-weight:bold;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+}
+.w-btn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
 
-/* MAIN */
-main{padding:2.5rem 3rem 5rem;max-width:940px}
+/* ── MENU BAR ────────────────────────────────────── */
+.w-menubar{
+  height:20px;background:var(--grey);border-bottom:1px solid var(--dark);
+  display:flex;align-items:stretch;flex-shrink:0;
+  box-shadow:0 1px #fff;
+}
+.w-menu-item{font-size:11px;font-family:var(--font);padding:0 8px;display:flex;align-items:center;cursor:default}
+.w-menu-item:hover{background:var(--navy);color:#fff}
+.w-menu-item:first-child{text-decoration:underline}
 
-/* HERO */
-.hero{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
-.hero h1{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--text);line-height:1.15;margin-bottom:.6rem}
-.hero p{font-size:13.5px;color:var(--muted);line-height:1.75;max-width:620px}
-.stats{display:flex;gap:2rem;margin-top:1.25rem;flex-wrap:wrap}
-.stat-num{font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--text);display:block;line-height:1}
-.stat-lbl{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px;display:block}
+/* ── TOOLBAR ─────────────────────────────────────── */
+.w-toolbar{
+  height:28px;background:var(--grey);padding:2px 4px;
+  display:flex;align-items:center;gap:2px;flex-shrink:0;
+  border-bottom:2px solid var(--dark);box-shadow:0 2px #fff;
+}
+.tbtn{
+  height:22px;padding:0 8px;background:var(--grey);border:none;font-size:11px;font-family:var(--font);
+  display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap;
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+}
+.tbtn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+.tbtn.active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;background:#d8d8d8}
+.tbtn .ti{font-size:13px}
+.tsep{width:1px;height:22px;background:var(--dark);box-shadow:1px 0 #fff;margin:0 3px}
 
-/* CATEGORY SECTION */
-.cat{margin-bottom:2.5rem;scroll-margin-top:1.5rem}
-.cat-hdr{display:flex;align-items:center;gap:9px;margin-bottom:.85rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-.cat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.cat-title{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text)}
-.cat-n{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+/* ── SPLIT PANE ──────────────────────────────────── */
+.w-split{
+  display:flex;flex:1;overflow:hidden;
+  border-top:1px solid #fff;
+}
 
-/* Q&A ACCORDION */
-.qa{border:1px solid var(--border);border-radius:6px;margin-bottom:5px;overflow:hidden}
-.qa summary{display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;background:var(--surface);list-style:none;transition:background .12s}
+/* ── TOC / LEFT PANE ─────────────────────────────── */
+.w-toc{
+  width:230px;flex-shrink:0;background:var(--grey);
+  display:flex;flex-direction:column;
+  border-right:2px solid var(--dark);box-shadow:2px 0 #fff;
+}
+.toc-tabs{display:flex;border-bottom:1px solid var(--dark);flex-shrink:0}
+.toc-tab{
+  flex:1;height:24px;background:var(--grey);border:none;font-size:11px;font-family:var(--font);
+  cursor:pointer;
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+}
+.toc-tab.active{
+  background:#d8d8d8;z-index:1;
+  box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;
+}
+.toc-search{padding:4px;flex-shrink:0;display:none}
+.toc-search.show{display:block}
+.toc-search input{
+  width:100%;height:20px;background:#fff;font-size:11px;font-family:var(--font);
+  padding:1px 4px;border:none;
+  box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;
+  outline:none;
+}
+.toc-tree{flex:1;overflow-y:auto;padding:4px 0;scrollbar-width:thin;scrollbar-color:var(--dark) var(--grey)}
+.toc-item{
+  display:flex;align-items:center;gap:5px;padding:3px 8px;
+  font-size:11px;font-family:var(--font);cursor:default;
+  white-space:nowrap;overflow:hidden;
+}
+.toc-item:hover{background:var(--navy);color:#fff}
+.toc-item:hover .toc-dot{filter:brightness(2)}
+.toc-item.active{background:var(--navy);color:#fff}
+.toc-item.active .toc-dot{filter:brightness(2)}
+.toc-ico{font-size:14px;flex-shrink:0}
+.toc-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;flex-shrink:0}
+.toc-count{
+  margin-left:auto;font-size:10px;color:var(--dark);
+  background:#d8d8d8;padding:0 4px;font-family:var(--mono);
+}
+.toc-item:hover .toc-count,.toc-item.active .toc-count{color:#ccc;background:rgba(255,255,255,.2)}
+.toc-div{height:1px;background:var(--dark);margin:4px 6px;box-shadow:0 1px #fff}
+.back-btn{
+  margin:4px 6px;height:22px;background:var(--grey);border:none;font-size:11px;font-family:var(--font);
+  cursor:pointer;display:flex;align-items:center;gap:5px;padding:0 8px;
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+}
+.back-btn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+
+/* ── CONTENT PANE ────────────────────────────────── */
+.w-content{
+  flex:1;overflow-y:auto;background:#fff;
+  scrollbar-width:thin;scrollbar-color:var(--dark) var(--grey);
+}
+
+/* ── STATUS BAR ──────────────────────────────────── */
+.w-status{
+  height:20px;display:flex;align-items:stretch;flex-shrink:0;
+  border-top:1px solid var(--dark);box-shadow:inset 0 1px #fff;
+}
+.w-status-cell{
+  font-size:11px;font-family:var(--font);padding:1px 8px;
+  display:flex;align-items:center;
+  box-shadow:inset 1px 1px var(--dark),inset -1px -1px #fff;
+  min-width:80px;
+}
+.w-status-cell:first-child{flex:1}
+
+/* ══ CONTENT AREA STYLES ══════════════════════════ */
+
+/* hero / page header */
+.hero{
+  background:linear-gradient(to right,var(--navy),var(--blue2));
+  color:#fff;padding:18px 24px 16px;border-bottom:2px solid var(--dark);
+}
+.eyebrow{
+  font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(255,255,255,.65);margin-bottom:6px;
+}
+.hero h1{font-size:18px;font-weight:bold;font-family:var(--font);margin-bottom:5px;line-height:1.2}
+.hero p{font-size:12px;color:rgba(255,255,255,.8);font-family:var(--font);line-height:1.6;max-width:520px}
+.stats{display:flex;gap:24px;margin-top:12px;flex-wrap:wrap}
+.stat-num{font-size:22px;font-weight:bold;font-family:var(--font);display:block;line-height:1}
+.stat-lbl{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-top:2px;display:block}
+
+/* category section */
+.cat{margin-bottom:0;scroll-margin-top:0}
+.cat-hdr{
+  display:flex;align-items:center;gap:8px;padding:8px 16px;
+  background:var(--grey);border-bottom:2px solid var(--dark);border-top:2px solid #fff;
+  position:sticky;top:0;z-index:10;
+}
+.cat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.3)}
+.cat-title{font-size:12px;font-weight:bold;font-family:var(--font);color:var(--navy);text-transform:uppercase;letter-spacing:.06em}
+.cat-n{margin-left:auto;font-size:10px;font-family:var(--mono);color:var(--dark);
+  box-shadow:inset 1px 1px var(--dark),inset -1px -1px #fff;padding:0 6px}
+
+/* Q&A accordion */
+.qa{border-bottom:1px solid #d8d8d8;overflow:hidden}
+.qa summary{
+  display:flex;align-items:center;gap:8px;padding:9px 14px;
+  cursor:pointer;background:var(--light);list-style:none;
+  transition:background .12s;
+}
 .qa summary::-webkit-details-marker{display:none}
-.qa summary:hover{background:var(--surface2)}
-.qa[open] summary{background:var(--surface2);border-bottom:1px solid var(--border)}
-.q-text{flex:1;font-size:13px;color:var(--text);line-height:1.4;font-weight:500}
-.q-arr{font-size:10px;color:var(--muted);transition:transform .18s;flex-shrink:0}
+.qa summary:hover{background:#f0f0f8}
+.qa[open] summary{
+  background:#e8e8f0;border-bottom:1px solid #d0d0d8;
+}
+.q-text{flex:1;font-size:13px;font-family:var(--font);color:var(--black);line-height:1.4;font-weight:500}
+.q-arr{font-size:9px;color:var(--dark);transition:transform .15s;flex-shrink:0;font-family:var(--mono)}
 .qa[open] .q-arr{transform:rotate(90deg)}
-.diff{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid;flex-shrink:0;white-space:nowrap}
-.easy{color:#3FB950;border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.07)}
-.med{color:#F0A500;border-color:rgba(240,165,0,.3);background:rgba(240,165,0,.07)}
-.hard{color:#F85149;border-color:rgba(248,81,73,.3);background:rgba(248,81,73,.07)}
-.sys{color:#A78BFA;border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.07)}
 
-/* ANSWER BODY */
-.ans{padding:14px 16px 16px;background:var(--surface)}
-.ans p{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:.6rem}
+/* difficulty chips */
+.diff{
+  font-size:10px;font-family:var(--mono);padding:1px 6px;flex-shrink:0;white-space:nowrap;
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+}
+.easy{background:#e0f0e0;color:#006400}
+.med{background:#f5f0e0;color:#804000}
+.hard{background:#f5e0e0;color:#800000}
+.sys{background:#ece0f5;color:#400080}
+
+/* answer body */
+.ans{
+  padding:12px 16px 16px;background:#fafafa;
+  border-top:1px solid #e0e0e0;
+}
+.ans p{font-size:13px;font-family:var(--serif);color:#111;line-height:1.75;margin-bottom:.6rem}
 .ans p:last-child{margin-bottom:0}
-.ans ul,.ans ol{margin:.4rem 0 .7rem 1.2rem}
-.ans li{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:2px}
-.ans strong{color:var(--text);font-weight:600}
-.ans h4{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:.9rem 0 .4rem}
+.ans ul,.ans ol{margin:.4rem 0 .7rem 1.4rem}
+.ans li{font-size:13px;font-family:var(--serif);color:#111;line-height:1.7;margin-bottom:3px}
+.ans strong{color:var(--navy);font-weight:600}
+.ans h4{
+  font-size:10px;font-family:var(--mono);color:var(--dark);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin:.9rem 0 .4rem;border-left:3px solid var(--navy);padding-left:6px;
+}
 .ans h4:first-child{margin-top:0}
+.ans code{
+  font-family:var(--mono);font-size:11.5px;
+  background:#e8e8e8;padding:1px 4px;color:var(--navy);
+  box-shadow:inset 1px 1px #808080,inset -1px -1px #fff;
+}
 
-/* inline code */
-.ans code{font-family:var(--mono);font-size:11.5px;background:var(--surface2);border:1px solid var(--border);padding:1px 5px;border-radius:3px;color:#A8C7E8}
+/* code block — DOS terminal style */
+.cb{
+  background:#000;border:2px solid var(--dark);
+  box-shadow:inset 1px 1px #404040,inset -1px -1px #404040;
+  overflow:hidden;margin:.65rem 0;
+}
+.cb-hdr{
+  padding:2px 10px;background:var(--navy);
+  font-family:var(--mono);font-size:10px;color:#c0c0c0;
+  letter-spacing:.05em;
+}
+.cb pre{
+  padding:10px 12px;overflow-x:auto;
+  font-family:var(--mono);font-size:11.5px;line-height:1.6;
+  color:#c0c0c0;
+}
+/* Scroll container for code */
+.cb pre::-webkit-scrollbar{height:8px}
+.cb pre::-webkit-scrollbar-track{background:#1a1a1a}
+.cb pre::-webkit-scrollbar-thumb{background:var(--grey)}
 
-/* code block */
-.cb{background:#010409;border:1px solid var(--border);border-radius:5px;overflow:hidden;margin:.65rem 0}
-.cb-hdr{padding:5px 12px;background:var(--surface2);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--muted)}
-.cb pre{padding:11px 14px;overflow-x:auto;font-family:var(--mono);font-size:12px;line-height:1.65;color:var(--text)}
-
-/* tip box */
-.tip{border-left:2px solid;padding:9px 13px;border-radius:0 4px 4px 0;margin:.65rem 0;font-size:12.5px;line-height:1.65;color:var(--muted)}
-.tip.info{border-color:var(--blue);background:rgba(88,166,255,.06)}
-.tip.good{border-color:var(--emerald);background:rgba(52,211,153,.06)}
-.tip.warn{border-color:var(--amber);background:rgba(255,166,87,.06)}
-.tip strong{color:var(--text)}
+/* tip boxes */
+.tip{
+  border-left:3px solid;padding:8px 12px;margin:.65rem 0;
+  font-size:12px;font-family:var(--font);line-height:1.65;color:#222;
+}
+.tip.info{border-color:var(--navy);background:#e8ecf8}
+.tip.good{border-color:#006400;background:#e8f4e8}
+.tip.warn{border-color:#804000;background:#f4f0e0}
+.tip strong{color:var(--navy);font-weight:bold}
+.tip.good strong{color:#006400}
+.tip.warn strong{color:#804000}
 
 /* comparison table */
-.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:.65rem 0;border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.tbl th{background:var(--surface2);padding:6px 12px;text-align:left;font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}
-.tbl td{padding:6px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.55}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin:.65rem 0;border:1px solid #c0c0c0;overflow:hidden}
+.tbl th{
+  background:var(--navy);color:#fff;padding:5px 10px;
+  text-align:left;font-family:var(--font);font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+}
+.tbl td{
+  padding:5px 10px;border-bottom:1px solid #d8d8d8;
+  font-family:var(--serif);font-size:12px;color:#111;vertical-align:top;line-height:1.5;
+}
 .tbl tr:last-child td{border-bottom:none}
-.tbl tr:hover td{background:var(--surface2)}
-.tbl td:first-child{font-family:var(--mono);font-size:11.5px;color:var(--blue);white-space:nowrap}
+.tbl tr:hover td{background:#f0f0f8}
+.tbl td:first-child{font-family:var(--mono);font-size:11px;color:var(--navy);white-space:nowrap}
 
 /* precedence list */
-.prec{counter-reset:prec;margin:.5rem 0 .75rem}
-.prec li{counter-increment:prec;display:flex;align-items:baseline;gap:10px;padding:5px 10px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text)}
-.prec li::before{content:counter(prec);font-family:var(--mono);font-size:10px;color:var(--dim);flex-shrink:0;min-width:16px}
+.prec{counter-reset:prec;margin:.5rem 0 .75rem;border:1px solid #d8d8d8}
+.prec li{
+  counter-increment:prec;display:flex;align-items:baseline;gap:10px;
+  padding:5px 10px;border-bottom:1px solid #d8d8d8;
+  font-size:12px;font-family:var(--font);color:#111;
+}
+.prec li::before{
+  content:counter(prec);font-family:var(--mono);font-size:10px;
+  color:#fff;background:var(--navy);padding:0 5px;flex-shrink:0;min-width:20px;text-align:center;
+}
 .prec li:last-child{border-bottom:none}
-.prec-arrow{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:auto}
+.prec-arrow{font-family:var(--mono);font-size:10px;color:var(--dark);margin-left:auto}
 
-/* hidden by search */
+/* search hidden */
 .hidden{display:none!important}
 
-/* TOPBAR */
-.topbar{background:#080D1A;border-bottom:1px solid #1E2D4A;padding:0 1.5rem;height:44px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
-.topbar-logo{font-family:var(--mono);font-size:12px;color:#00D97E;font-weight:600}
-.topbar-logo span{color:var(--muted)}
-.topbar-back{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;transition:color .15s,background .15s}
-.topbar-back:hover{color:#D4E5FF;background:#0F1729}
-
-/* RESPONSIVE */
-@media(max-width:768px){.shell{grid-template-columns:1fr}nav{display:none}main{padding:1.5rem 1rem 3rem}}
+/* ── MOBILE ──────────────────────────────────────── */
+@media(max-width:680px){
+  .w-toc{display:none}
+  .hero h1{font-size:16px}
+  #app{height:100vh;overflow:hidden}
+  .w-content{font-size:14px}
+  .ans p,.ans li{font-size:13px}
+}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-logo">ms<span>/blog/interview-questions</span></div>
-  <a href="../" class="topbar-back">← portfolio</a>
-</div>
-<div class="shell">
 
-<!-- ── SIDEBAR ──────────────────────────────── -->
-<nav id="sidebar">
-  <div class="nav-brand">
-    <strong>Interview Q&amp;A</strong>
-    <span>meghashivhare.github.io</span>
-  </div>
-  <div class="nav-search">
-    <input type="text" id="searchInput" placeholder="Search questions…">
-  </div>
-  <a href="#k8s"        class="nav-link"><span class="nav-dot" style="background:var(--blue)"></span>Kubernetes &amp; EKS<span class="nav-count">19</span></a>
-  <a href="#docker"     class="nav-link"><span class="nav-dot" style="background:var(--teal)"></span>Docker &amp; Containers<span class="nav-count">10</span></a>
-  <a href="#aws"        class="nav-link"><span class="nav-dot" style="background:var(--orange)"></span>AWS Services<span class="nav-count">17</span></a>
-  <a href="#net"        class="nav-link"><span class="nav-dot" style="background:var(--purple)"></span>Networking &amp; DNS<span class="nav-count">6</span></a>
-  <a href="#cicd"       class="nav-link"><span class="nav-dot" style="background:var(--green)"></span>CI/CD &amp; Deployments<span class="nav-count">5</span></a>
-  <a href="#obs"        class="nav-link"><span class="nav-dot" style="background:var(--pink)"></span>Monitoring &amp; SRE<span class="nav-count">6</span></a>
-  <a href="#iac"        class="nav-link"><span class="nav-dot" style="background:var(--emerald)"></span>Terraform &amp; IaC<span class="nav-count">3</span></a>
-  <a href="#security"   class="nav-link"><span class="nav-dot" style="background:var(--amber)"></span>Security &amp; IAM<span class="nav-count">3</span></a>
-  <a href="#linux"      class="nav-link"><span class="nav-dot" style="background:var(--slate)"></span>Linux &amp; Systems<span class="nav-count">4</span></a>
-</nav>
+<div id="app">
 
-<!-- ── MAIN ─────────────────────────────────── -->
-<main>
+  <!-- TITLE BAR -->
+  <div class="w-titlebar">
+    <span class="ico">❓</span>
+    <span class="title">DevOps Interview Q&amp;A — Windows Help</span>
+    <div class="w-btns">
+      <button class="w-btn">_</button>
+      <button class="w-btn">□</button>
+      <button class="w-btn" onclick="window.location='../'" title="Close">✕</button>
+    </div>
+  </div>
+
+  <!-- MENU BAR -->
+  <div class="w-menubar">
+    <span class="w-menu-item">File</span>
+    <span class="w-menu-item">Edit</span>
+    <span class="w-menu-item">Bookmark</span>
+    <span class="w-menu-item">Options</span>
+    <span class="w-menu-item">Help</span>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="w-toolbar">
+    <button class="tbtn" onclick="window.location='../'" title="Back to portfolio">
+      <span class="ti">◀</span> Contents
+    </button>
+    <div class="tsep"></div>
+    <button class="tbtn active" id="btn-contents" onclick="switchTab('contents')">📋 Topics</button>
+    <button class="tbtn" id="btn-search" onclick="switchTab('search')">🔍 Search</button>
+    <div class="tsep"></div>
+    <button class="tbtn" onclick="window.print()">🖨 Print</button>
+  </div>
+
+  <!-- SPLIT -->
+  <div class="w-split">
+
+    <!-- TOC PANE -->
+    <div class="w-toc">
+      <div class="toc-tabs">
+        <button class="toc-tab active" id="tab-contents" onclick="switchTab('contents')">Contents</button>
+        <button class="toc-tab" id="tab-search" onclick="switchTab('search')">Search</button>
+      </div>
+
+      <div class="toc-search" id="toc-search-box">
+        <input type="text" id="searchInput" placeholder="Type keywords…">
+      </div>
+
+      <div class="toc-tree" id="toc-tree">
+        <div class="toc-div"></div>
+        <div class="toc-item" onclick="scrollTo('k8s',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#0000CD"></span>
+          Kubernetes &amp; EKS
+          <span class="toc-count">19</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('docker',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#008080"></span>
+          Docker &amp; Containers
+          <span class="toc-count">10</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('aws',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#CC6600"></span>
+          AWS Services
+          <span class="toc-count">17</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('net',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#800080"></span>
+          Networking &amp; DNS
+          <span class="toc-count">6</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('cicd',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#006400"></span>
+          CI/CD &amp; Deployments
+          <span class="toc-count">5</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('obs',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#990066"></span>
+          Monitoring &amp; SRE
+          <span class="toc-count">6</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('iac',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#005050"></span>
+          Terraform &amp; IaC
+          <span class="toc-count">3</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('security',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#804000"></span>
+          Security &amp; IAM
+          <span class="toc-count">3</span>
+        </div>
+        <div class="toc-item" onclick="scrollTo('linux',this)">
+          <span class="toc-ico">📄</span>
+          <span class="toc-dot" style="background:#404040"></span>
+          Linux &amp; Systems
+          <span class="toc-count">4</span>
+        </div>
+        <div class="toc-div"></div>
+        <a href="../" class="back-btn">🖥️ Back to Portfolio</a>
+      </div>
+    </div>
+
+    <!-- CONTENT PANE -->
+    <div class="w-content" id="content-pane">
+
 
 <header class="hero">
   <p class="eyebrow">DevOps Interview Preparation</p>
@@ -1302,13 +1550,60 @@ git push -u origin feature/new-branch # push new branch to remote and set upstre
 </section>
 
 
-</main>
+
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="w-status">
+    <div class="w-status-cell" id="status-text">Ready</div>
+    <div class="w-status-cell" style="min-width:180px">60+ topics · 9 categories</div>
+    <div class="w-status-cell" style="min-width:120px">meghashivhare.github.io</div>
+  </div>
+
 </div>
 
 <script>
+// ── TAB SWITCHER ───────────────────────────────────
+function switchTab(tab) {
+  const isSearch = tab === 'search';
+  document.getElementById('tab-contents').classList.toggle('active', !isSearch);
+  document.getElementById('tab-search').classList.toggle('active', isSearch);
+  document.getElementById('btn-contents').classList.toggle('active', !isSearch);
+  document.getElementById('btn-search').classList.toggle('active', isSearch);
+  document.getElementById('toc-search-box').classList.toggle('show', isSearch);
+  if (isSearch) document.getElementById('searchInput').focus();
+}
+
+// ── TOC SCROLL ────────────────────────────────────
+function scrollTo(id, el) {
+  document.querySelectorAll('.toc-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  const target = document.getElementById(id);
+  if (target) target.scrollIntoView({behavior:'smooth'});
+  document.getElementById('status-text').textContent = el.textContent.trim().replace(/\d+$/,'').trim();
+}
+
+// ── INTERSECTION OBSERVER for active TOC item ──────
+const sections = document.querySelectorAll('.cat');
+const tocItems = document.querySelectorAll('.toc-item');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      tocItems.forEach(i => {
+        const active = i.getAttribute('onclick') && i.getAttribute('onclick').includes("'"+id+"'");
+        i.classList.toggle('active', active);
+      });
+    }
+  });
+}, {root: document.getElementById('content-pane'), threshold: 0.2});
+sections.forEach(s => io.observe(s));
+
+// ── SEARCH ────────────────────────────────────────
 // Search
-const input = document.getElementById('searchInput');
-input.addEventListener('input', () => {
+
+document.getElementById('searchInput').addEventListener('input', () => {
   const q = input.value.toLowerCase();
   document.querySelectorAll('.qa').forEach(el => {
     const text = el.querySelector('.q-text').textContent.toLowerCase();
@@ -1333,6 +1628,7 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.2 });
 sections.forEach(s => observer.observe(s));
+
 </script>
 </body>
 </html>
