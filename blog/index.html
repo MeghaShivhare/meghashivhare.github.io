@@ -3,337 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Megha's Blog — Windows Explorer</title>
+<title>Blog — Megha Shivhare</title>
 <meta name="description" content="DevOps engineering blog by Megha Shivhare — interview prep, Kubernetes, AWS, CI/CD.">
 <style>
-:root{
-  --grey:#c0c0c0;--dark:#808080;--light:#fff;--black:#000;
-  --navy:#000080;--blue2:#1084D0;--teal:#008080;
-  --font:'Tahoma','MS Sans Serif',Arial,sans-serif;
-  --mono:'Courier New',monospace;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:var(--grey)}
+html{font-size:17px}
+body{background:#fff;color:#1a1a1a;font-family:Georgia,'Times New Roman',serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 
-#app{
-  display:flex;flex-direction:column;height:100vh;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+/* TOP BAR — win98 touch */
+.topbar{
+  position:sticky;top:0;z-index:100;background:#fff;border-bottom:2px solid #000080;
+  height:36px;display:flex;align-items:center;padding:0 24px;justify-content:space-between;
 }
+.topbar-logo{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:12px;font-weight:bold;color:#000080}
+.topbar-logo span{color:#888;font-weight:normal}
+.topbar-back{
+  font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;color:#444;
+  text-decoration:none;padding:3px 10px;border:1px solid #ccc;background:#f5f5f5;
+}
+.topbar-back:hover{background:#e8e8e8;color:#000}
 
-/* TITLE BAR */
-.titlebar{
-  height:22px;background:linear-gradient(to right,var(--navy),var(--blue2));
-  display:flex;align-items:center;padding:2px 4px;gap:4px;flex-shrink:0;
-}
-.titlebar .ico{font-size:14px}
-.titlebar .title{font-size:11px;font-weight:bold;color:#fff;font-family:var(--font);flex:1}
-.wbtns{display:flex;gap:2px}
-.wbtn{
-  width:16px;height:14px;background:var(--grey);border:none;font-size:9px;font-weight:bold;
-  font-family:var(--font);cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.wbtn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+/* PAGE */
+.page{max-width:680px;margin:0 auto;padding:3rem 24px 5rem}
 
-/* MENU BAR */
-.menubar{
-  height:20px;background:var(--grey);border-bottom:1px solid var(--dark);box-shadow:0 1px #fff;
-  display:flex;align-items:stretch;flex-shrink:0;
-}
-.mitem{font-size:11px;font-family:var(--font);padding:0 8px;display:flex;align-items:center;cursor:default}
-.mitem:hover{background:var(--navy);color:#fff}
-.mitem:first-child{text-decoration:underline}
+/* HEADER */
+.page-header{padding-bottom:2rem;border-bottom:1px solid #e8e8e8;margin-bottom:2.5rem}
+.eyebrow{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#000080;margin-bottom:.75rem}
+.page-title{font-size:1.9rem;font-weight:bold;color:#111;line-height:1.2;margin-bottom:.6rem}
+.page-desc{font-size:.95rem;color:#666;line-height:1.7;max-width:480px}
 
-/* TOOLBAR */
-.toolbar{
-  height:30px;background:var(--grey);padding:2px 4px;gap:2px;
-  display:flex;align-items:center;flex-shrink:0;
-  border-bottom:2px solid var(--dark);box-shadow:0 2px #fff;
+/* POST ITEMS */
+.post-list{display:flex;flex-direction:column;gap:0}
+.post-item{
+  display:block;text-decoration:none;color:inherit;
+  padding:1.5rem 0;border-bottom:1px solid #e8e8e8;
+  transition:opacity .15s;
 }
-.tbtn{
-  height:24px;padding:0 8px;background:var(--grey);border:none;font-size:11px;font-family:var(--font);
-  display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.tbtn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-.tsep{width:1px;height:22px;background:var(--dark);box-shadow:1px 0 #fff;margin:0 4px}
+.post-item:hover{opacity:.8;text-decoration:none}
+.post-tag{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#000080;display:block;margin-bottom:.4rem}
+.post-title{font-size:1.1rem;font-weight:bold;color:#111;line-height:1.35;margin-bottom:.4rem;display:block}
+.post-desc{font-size:.9rem;color:#555;line-height:1.65;margin-bottom:.6rem;display:block}
+.post-meta{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;color:#aaa;display:flex;gap:.5rem;flex-wrap:wrap}
+.post-meta-sep{color:#ddd}
 
-/* ADDRESS BAR */
-.addrbar{
-  height:24px;display:flex;align-items:center;gap:6px;padding:2px 6px;
-  background:var(--grey);border-bottom:1px solid var(--dark);box-shadow:0 1px #fff;flex-shrink:0;
-}
-.addr-lbl{font-size:11px;font-family:var(--font)}
-.addr-input{
-  flex:1;height:20px;background:#fff;font-size:11px;font-family:var(--mono);
-  padding:1px 4px;border:none;outline:none;
-  box-shadow:inset 1px 1px #808080,inset -1px -1px #fff;
-}
-.addr-go{
-  height:20px;padding:0 8px;font-size:11px;font-family:var(--font);background:var(--grey);border:none;cursor:pointer;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
+/* COMING SOON */
+.post-item.dim{opacity:.45;pointer-events:none}
+.post-item.dim .post-title{font-style:italic}
 
-/* SPLIT */
-.split{display:flex;flex:1;overflow:hidden;border-top:1px solid #fff}
-
-/* LEFT TREE PANE */
-.sidebar{
-  width:200px;flex-shrink:0;background:var(--grey);
-  border-right:2px solid var(--dark);box-shadow:2px 0 #fff;
-  overflow-y:auto;padding:6px 0;
-  display:flex;flex-direction:column;gap:2px;
-}
-.tree-item{
-  display:flex;align-items:center;gap:5px;padding:3px 10px;
-  font-size:11px;font-family:var(--font);cursor:default;
-  white-space:nowrap;
-}
-.tree-item:hover{background:var(--navy);color:#fff}
-.tree-item.sel{background:var(--navy);color:#fff}
-.tree-ico{font-size:16px;flex-shrink:0}
-.tree-div{height:1px;background:var(--dark);box-shadow:0 1px #fff;margin:4px 6px}
-
-/* MAIN CONTENT PANE */
-.content{
-  flex:1;overflow-y:auto;background:#fff;
-  scrollbar-width:thin;scrollbar-color:var(--dark) var(--grey);
-}
-
-/* EXPLORER HEADER BANNER */
-.exp-banner{
-  background:linear-gradient(135deg,var(--navy) 0%,var(--blue2) 60%,#2090e0 100%);
-  padding:20px 24px 18px;border-bottom:2px solid var(--dark);
-  display:flex;align-items:center;gap:16px;
-}
-.exp-banner-ico{font-size:48px;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.4))}
-.exp-banner-text{}
-.exp-banner-title{font-size:20px;font-weight:bold;color:#fff;font-family:var(--font);line-height:1}
-.exp-banner-sub{font-size:11px;color:rgba(255,255,255,.75);font-family:var(--font);margin-top:4px}
-
-/* COLUMN HEADERS */
-.col-hdr{
-  display:flex;align-items:center;background:var(--grey);
-  border-bottom:2px solid var(--dark);box-shadow:0 2px #fff;
-  position:sticky;top:0;z-index:5;
-}
-.col{
-  font-size:11px;font-family:var(--font);font-weight:bold;padding:3px 8px;cursor:default;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.col.name{flex:1}.col.type{width:140px}.col.date{width:110px}.col.size{width:80px}
-
-/* FILE ROWS */
-.file-row{
-  display:flex;align-items:center;padding:5px 8px;
-  border-bottom:1px solid #f0f0f0;cursor:default;transition:background .1s;
-}
-.file-row:hover{background:#e8e8f4}
-.file-row.sel{background:var(--navy);color:#fff}
-.file-ico{font-size:20px;flex-shrink:0;width:28px}
-.file-name{flex:1;font-size:13px;font-family:'Tahoma',Arial,sans-serif;font-weight:500;color:var(--navy)}
-.file-row.sel .file-name{color:#fff}
-.file-row.sel .file-type,.file-row.sel .file-date,.file-row.sel .file-size{color:#ccc}
-.file-type{width:140px;font-size:11px;font-family:var(--font);color:var(--dark)}
-.file-date{width:110px;font-size:11px;font-family:var(--mono);color:var(--dark)}
-.file-size{width:80px;font-size:11px;font-family:var(--mono);color:var(--dark);text-align:right}
-.file-link{text-decoration:none;display:flex;align-items:center;flex:1;gap:0}
-
-/* DETAIL PANE below file rows (when selected) */
-.detail-pane{
-  display:none;padding:12px 16px 14px;background:#f0f0f8;
-  border-bottom:2px solid var(--dark);border-top:1px solid #d8d8d8;
-}
-.detail-pane.show{display:flex;gap:16px;align-items:flex-start}
-.det-ico{font-size:36px;flex-shrink:0}
-.det-name{font-size:14px;font-weight:bold;color:var(--navy);font-family:var(--font);margin-bottom:2px}
-.det-type{font-size:10px;color:var(--dark);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.det-desc{font-size:12px;font-family:'Tahoma',Arial,sans-serif;color:#222;line-height:1.6;margin-bottom:8px}
-.det-tags{display:flex;flex-wrap:wrap;gap:3px}
-.det-tag{
-  font-size:10px;padding:1px 6px;font-family:var(--mono);
-  background:var(--navy);color:#fff;
-}
-.det-open{
-  display:inline-block;margin-top:8px;
-  padding:3px 12px;background:var(--grey);font-size:11px;font-family:var(--font);
-  text-decoration:none;color:var(--black);
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.det-open:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-
-/* coming soon row style */
-.file-row.dim .file-name{color:#808080;font-style:italic}
-.file-row.dim .file-ico{opacity:.5}
-
-/* STATUS BAR */
-.statusbar{
-  height:20px;display:flex;align-items:stretch;flex-shrink:0;
-  border-top:1px solid var(--dark);box-shadow:inset 0 1px #fff;
-}
-.sb-cell{
-  font-size:11px;font-family:var(--font);padding:1px 8px;
-  display:flex;align-items:center;
-  box-shadow:inset 1px 1px var(--dark),inset -1px -1px #fff;
-  min-width:80px;
-}
-.sb-cell:first-child{flex:1}
-
-@media(max-width:600px){
-  .sidebar{display:none}
-  .col.type,.col.date,.col.size{display:none}
-  .file-type,.file-date,.file-size{display:none}
-}
+/* FOOTER */
+.footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e8e8e8;font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;color:#aaa;text-align:center}
+.footer a{color:#000080;text-decoration:none}
 </style>
 </head>
 <body>
-<div id="app">
 
-  <!-- TITLE BAR -->
-  <div class="titlebar">
-    <span class="ico">📁</span>
-    <span class="title">Blog — Megha Shivhare's Notes — Windows Explorer</span>
-    <div class="wbtns">
-      <button class="wbtn">_</button>
-      <button class="wbtn">□</button>
-      <button class="wbtn" onclick="window.location='../'">✕</button>
-    </div>
-  </div>
-
-  <!-- MENU BAR -->
-  <div class="menubar">
-    <span class="mitem">File</span>
-    <span class="mitem">Edit</span>
-    <span class="mitem">View</span>
-    <span class="mitem">Favorites</span>
-    <span class="mitem">Tools</span>
-    <span class="mitem">Help</span>
-  </div>
-
-  <!-- TOOLBAR -->
-  <div class="toolbar">
-    <button class="tbtn" onclick="window.location='../'">◀ Back</button>
-    <button class="tbtn" style="opacity:.5" disabled>▶ Forward</button>
-    <button class="tbtn" onclick="window.location='../'">↑ Up</button>
-    <div class="tsep"></div>
-    <button class="tbtn">✂ Cut</button>
-    <button class="tbtn">📋 Copy</button>
-    <div class="tsep"></div>
-    <button class="tbtn" onclick="window.location='../'">🖥️ My Portfolio</button>
-  </div>
-
-  <!-- ADDRESS BAR -->
-  <div class="addrbar">
-    <span class="addr-lbl">Address</span>
-    <input class="addr-input" value="https://meghashivhare.github.io/blog/" readonly>
-    <button class="addr-go">Go</button>
-  </div>
-
-  <!-- SPLIT -->
-  <div class="split">
-
-    <!-- TREE -->
-    <div class="sidebar">
-      <div class="tree-item sel"><span class="tree-ico">📁</span> Blog</div>
-      <div class="tree-div"></div>
-      <div class="tree-item" onclick="window.location='../'"><span class="tree-ico">🖥️</span> My Portfolio</div>
-      <div class="tree-item"><span class="tree-ico">📁</span> Interview Prep</div>
-      <div class="tree-item" style="padding-left:22px"><span class="tree-ico">📄</span> DevOps Q&amp;A</div>
-      <div class="tree-div"></div>
-      <div class="tree-item"><span class="tree-ico">🌐</span> GitHub</div>
-      <div class="tree-item"><span class="tree-ico">✉️</span> Email</div>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="content">
-
-      <!-- BANNER -->
-      <div class="exp-banner">
-        <span class="exp-banner-ico">📁</span>
-        <div class="exp-banner-text">
-          <div class="exp-banner-title">Blog</div>
-          <div class="exp-banner-sub">DevOps notes, interview prep, and lessons from production · 1 item</div>
-        </div>
-      </div>
-
-      <!-- COLUMN HEADERS -->
-      <div class="col-hdr">
-        <span class="col name">Name</span>
-        <span class="col type">Type</span>
-        <span class="col date">Date Modified</span>
-        <span class="col size">Size</span>
-      </div>
-
-      <!-- FILE ROWS -->
-      <div class="file-row" id="row-iq" onclick="selectFile('iq',this)" ondblclick="window.location='interview-questions.html'">
-        <span class="file-ico">📄</span>
-        <a class="file-link" href="interview-questions.html" onclick="event.preventDefault()">
-          <span class="file-name">DevOps Most Asked Interview Questions</span>
-        </a>
-        <span class="file-type">Windows Help Document</span>
-        <span class="file-date">Jul 2025</span>
-        <span class="file-size">60+ Q&amp;A</span>
-      </div>
-
-      <!-- DETAIL PANE (shown when row is selected) -->
-      <div class="detail-pane" id="detail-iq">
-        <span class="det-ico">📄</span>
-        <div>
-          <div class="det-name">DevOps Most Asked Interview Questions</div>
-          <div class="det-type">Windows Help Document · 60+ Questions</div>
-          <div class="det-desc">
-            Real questions from real DevOps interviews — Kubernetes, Docker, AWS, CI/CD, Terraform, monitoring, Linux, and more. With concise, interview-ready answers and code examples.
-          </div>
-          <div class="det-tags">
-            <span class="det-tag">Kubernetes</span>
-            <span class="det-tag">Docker</span>
-            <span class="det-tag">AWS</span>
-            <span class="det-tag">CI/CD</span>
-            <span class="det-tag">Terraform</span>
-            <span class="det-tag">Linux</span>
-            <span class="det-tag">Monitoring</span>
-            <span class="det-tag">Security</span>
-          </div>
-          <a class="det-open" href="interview-questions.html">Open →</a>
-        </div>
-      </div>
-
-      <!-- COMING SOON ROWS -->
-      <div class="file-row dim">
-        <span class="file-ico">📄</span>
-        <span class="file-name">How I Cut AWS Spend by 50% (coming soon)</span>
-        <span class="file-type">Windows Help Document</span>
-        <span class="file-date">—</span>
-        <span class="file-size">—</span>
-      </div>
-
-      <div class="file-row dim">
-        <span class="file-ico">📄</span>
-        <span class="file-name">GitOps with ArgoCD + Kargo in Production (coming soon)</span>
-        <span class="file-type">Windows Help Document</span>
-        <span class="file-date">—</span>
-        <span class="file-size">—</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- STATUS BAR -->
-  <div class="statusbar">
-    <div class="sb-cell" id="sb-main">1 object(s) · Double-click to open</div>
-    <div class="sb-cell" style="min-width:200px">meghashivhare.github.io/blog/</div>
-  </div>
-
+<div class="topbar">
+  <div class="topbar-logo">meghashivhare<span>.github.io</span></div>
+  <a href="../" class="topbar-back">← Back to Portfolio</a>
 </div>
-<script>
-function selectFile(id, rowEl) {
-  document.querySelectorAll('.file-row').forEach(r => r.classList.remove('sel'));
-  document.querySelectorAll('.detail-pane').forEach(d => d.classList.remove('show'));
-  rowEl.classList.add('sel');
-  const dp = document.getElementById('detail-'+id);
-  if (dp) dp.classList.add('show');
-  document.getElementById('sb-main').textContent = '1 object(s) selected';
-}
-</script>
+
+<div class="page">
+  <div class="page-header">
+    <div class="eyebrow">Writing</div>
+    <h1 class="page-title">Blog</h1>
+    <p class="page-desc">DevOps notes, interview prep, and things I've learned operating cloud-native infrastructure.</p>
+  </div>
+
+  <div class="post-list">
+
+    <a href="interview-questions.html" class="post-item">
+      <span class="post-tag">Interview Prep</span>
+      <span class="post-title">DevOps Most Asked Interview Questions</span>
+      <span class="post-desc">60+ questions covering Kubernetes, Docker, AWS, CI/CD, Terraform, monitoring, Linux — with detailed answers and code examples.</span>
+      <div class="post-meta">
+        <span>60+ questions</span><span class="post-meta-sep">·</span>
+        <span>9 categories</span><span class="post-meta-sep">·</span>
+        <span>Kubernetes · AWS · Terraform · Docker</span>
+      </div>
+    </a>
+
+    <div class="post-item dim">
+      <span class="post-tag">Cost Optimization</span>
+      <span class="post-title">How I Cut AWS Spend by 50%</span>
+      <span class="post-desc">EKS consolidation, Karpenter, Spot instances, QuickSight dashboards — the full story from $16K to $8K/month.</span>
+      <div class="post-meta"><span>Coming soon</span></div>
+    </div>
+
+    <div class="post-item dim">
+      <span class="post-tag">GitOps</span>
+      <span class="post-title">GitOps with ArgoCD + Kargo in Production</span>
+      <span class="post-desc">Progressive delivery, environment promotion, and rollback strategies from real deployments.</span>
+      <div class="post-meta"><span>Coming soon</span></div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <a href="../">meghashivhare.github.io</a>
+  </footer>
+</div>
+
 </body>
 </html>
