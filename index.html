@@ -3,900 +3,647 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Megha's PC</title>
+<title>Megha Shivhare — DevOps Engineer</title>
+<meta name="description" content="DevOps Engineer specialising in AWS, Kubernetes, and GitOps. Cut cloud spend by 50%. Available for opportunities.">
 <style>
+/* ── TOKENS ───────────────────────────────────────── */
 :root{
-  --grey:#c0c0c0;--dark:#808080;--darker:#404040;--light:#fff;--black:#000;
-  --blue1:#000080;--blue2:#1084D0;--teal:#008080;
-  --font:'Tahoma','MS Sans Serif',Arial,sans-serif;
-  --mono:'Courier New',monospace;
+  --bg:#0d2137;
+  --line:#4fc3f7;
+  --line-dim:rgba(79,195,247,.25);
+  --line-faint:rgba(79,195,247,.07);
+  --text:#deeef8;
+  --text-dim:#7aaec7;
+  --text-dimmer:#4a7a96;
+  --card:#ffffff;
+  --card-text:#0f2232;
+  --card-muted:#4a6880;
+  --yellow:#ffd54f;
+  --green:#69f0ae;
+  --red:#ff6b6b;
+  --mono:'Courier New',Courier,monospace;
+  --sans:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;overflow:hidden;background:var(--teal);font-family:var(--font)}
-button{cursor:pointer;font-family:var(--font)}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--sans);font-size:15px;line-height:1.7;
+  min-height:100vh;
+  background-image:
+    linear-gradient(var(--line-faint) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-faint) 1px,transparent 1px),
+    linear-gradient(rgba(79,195,247,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,195,247,.03) 1px,transparent 1px);
+  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 2rem}
+a{color:inherit;text-decoration:none}
 
-/* ── RAISED / SUNKEN helpers ─────────────────────────── */
-.raised{box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf}
-.sunken{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
+/* ── NAV ──────────────────────────────────────────── */
+.nav-strip{
+  position:sticky;top:0;z-index:100;
+  background:rgba(13,33,55,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-dim);
+  height:38px;display:flex;align-items:center;
+  padding:0 2rem;justify-content:space-between;
+}
+.nav-logo{
+  font-family:var(--mono);font-size:12px;color:var(--line);
+  letter-spacing:.1em;display:flex;align-items:center;gap:8px;
+}
+.nav-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--green);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-links{display:flex;gap:1.5rem}
+.nav-link{
+  font-family:var(--mono);font-size:11px;color:var(--text-dim);
+  letter-spacing:.06em;transition:color .15s;
+}
+.nav-link:hover{color:var(--line)}
 
-/* ── BOOT SCREEN ─────────────────────────────────────── */
-#boot{
-  position:fixed;inset:0;z-index:9999;background:#000;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  transition:opacity .6s;
+/* ── HEADER ───────────────────────────────────────── */
+.header-sheet{padding:4rem 0 3rem}
+.header-inner{
+  display:grid;grid-template-columns:1fr auto;
+  gap:2rem;align-items:start;
 }
-#boot.out{opacity:0;pointer-events:none}
-.boot-logo-wrap{text-align:center;margin-bottom:2.5rem}
-.boot-win{font-size:2.8rem;font-weight:bold;color:#fff;letter-spacing:-.02em;font-family:var(--font)}
-.boot-win em{color:#c0c0c0;font-style:normal}
-.boot-ed{font-size:.9rem;color:#808080;margin-top:.25rem;font-family:var(--mono)}
-.boot-track{width:180px;height:18px;background:#000;border:2px solid #808080}
-.boot-fill{height:100%;width:0;background:#c0c0c0;transition:width 80ms linear}
-.boot-status{font-family:var(--mono);font-size:11px;color:#808080;margin-top:.6rem;height:1em}
-
-/* ── DESKTOP ─────────────────────────────────────────── */
-#desktop{
-  width:100%;height:calc(100vh - 30px);position:relative;overflow:hidden;
-  background:var(--teal);
+.bp-label{
+  font-family:var(--mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--text-dimmer);margin-bottom:.75rem;display:block;
 }
-
-/* ── DESKTOP ICONS ───────────────────────────────────── */
-.icons-col{
-  position:absolute;top:10px;left:10px;
-  display:flex;flex-direction:column;gap:4px;
-}
-.dicon{
-  width:76px;display:flex;flex-direction:column;align-items:center;
-  padding:5px 4px;cursor:default;user-select:none;border:1px solid transparent;
-}
-.dicon:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
-.dicon.sel{background:rgba(0,0,128,.6);border-color:rgba(255,255,255,.4)}
-.dicon .ico{font-size:30px;line-height:1;margin-bottom:3px;display:block}
-.dicon .lbl{
-  font-size:11px;color:#fff;text-align:center;line-height:1.25;
-  text-shadow:1px 1px 0 #000,0 0 4px #000;word-break:break-word;
-}
-.dicon.sel .lbl{background:#000080;color:#fff;text-shadow:none}
-
-/* ── WINDOW CHROME ───────────────────────────────────── */
-.wwin{
-  position:absolute;
-  background:var(--grey);
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-  display:flex;flex-direction:column;
-  min-width:280px;min-height:160px;
-}
-.wwin.inactive .wtitlebar{background:linear-gradient(to right,#808080,#b5b5b5)!important}
-.wwin.inactive .wtitle{color:#dfdfdf!important}
-
-.wtitlebar{
-  height:22px;display:flex;align-items:center;gap:3px;
-  padding:2px 3px;cursor:move;flex-shrink:0;
-  background:linear-gradient(to right,var(--blue1),var(--blue2));
-}
-.wico{font-size:14px;flex-shrink:0;line-height:1}
-.wtitle{
-  font-size:11px;font-weight:bold;color:#fff;flex:1;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.wbtns{display:flex;gap:2px;flex-shrink:0}
-.wbtn{
-  width:16px;height:14px;background:var(--grey);font-size:9px;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-  font-weight:bold;color:#000;border:none;padding:0;
-}
-.wbtn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-.wbtn.cls{font-size:10px}
-
-.wmenu{
-  height:20px;display:flex;align-items:center;
-  border-bottom:1px solid var(--dark);flex-shrink:0;
-}
-.wmenu-item{
-  font-size:11px;padding:2px 8px;cursor:default;
-}
-.wmenu-item:hover{background:#000080;color:#fff}
-.wmenu-item:first-child{text-decoration:underline}
-
-.wtoolbar{
-  height:26px;display:flex;align-items:center;gap:2px;padding:2px 4px;
-  border-bottom:1px solid var(--dark);flex-shrink:0;background:var(--grey);
-}
-.wtbtn{
-  height:22px;min-width:56px;padding:0 8px;background:var(--grey);font-size:11px;border:none;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.wtbtn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-.wsep{width:1px;height:20px;background:var(--dark);box-shadow:1px 0 #fff;margin:0 3px}
-
-.waddr{
-  display:flex;align-items:center;gap:4px;padding:2px 4px;
-  border-bottom:1px solid var(--dark);flex-shrink:0;font-size:11px;
-}
-.waddr-label{color:#000}
-.waddr-bar{
-  flex:1;height:20px;background:#fff;border:none;outline:none;
-  font-family:var(--mono);font-size:11px;padding:1px 4px;
-  box-shadow:inset 1px 1px #808080,inset -1px -1px #fff;
-}
-.waddr-go{
-  height:20px;padding:0 8px;font-size:11px;background:var(--grey);border:none;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-
-.wcontent{flex:1;overflow:auto;background:#fff;font-size:12px}
-.wcontent-grey{background:var(--grey)!important}
-
-.wstatus{
-  height:20px;display:flex;align-items:stretch;flex-shrink:0;
-  border-top:1px solid var(--dark);
-}
-.wstatus-item{
-  font-size:11px;padding:1px 8px;display:flex;align-items:center;
-  box-shadow:inset 1px 1px var(--dark),inset -1px -1px #fff;
-  min-width:80px;
-}
-
-/* ── TASKBAR ─────────────────────────────────────────── */
-#taskbar{
-  position:fixed;bottom:0;left:0;right:0;height:30px;
-  background:var(--grey);border-top:1px solid var(--dark);
-  box-shadow:inset 0 1px #fff;
-  display:flex;align-items:center;gap:2px;padding:2px 3px;
-  z-index:8000;
-}
-.startbtn{
-  height:22px;padding:0 8px 0 6px;background:var(--grey);border:none;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-  display:flex;align-items:center;gap:4px;font-size:11px;font-weight:bold;white-space:nowrap;
-}
-.startbtn.down{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-.startbtn .flag{font-size:15px}
-.tsep{width:2px;height:22px;background:var(--dark);box-shadow:1px 0 #fff;flex-shrink:0;margin:0 2px}
-.taskitems{display:flex;gap:2px;flex:1;overflow:hidden;min-width:0}
-.titem{
-  height:22px;min-width:100px;max-width:160px;padding:0 6px;background:var(--grey);border:none;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-  font-size:11px;display:flex;align-items:center;gap:4px;overflow:hidden;white-space:nowrap;text-align:left;
-}
-.titem.active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-.titem span{overflow:hidden;text-overflow:ellipsis}
-.titem .ti-ico{flex-shrink:0;font-size:13px}
-.systray{
-  display:flex;align-items:center;gap:5px;padding:0 6px;height:22px;flex-shrink:0;
-  box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;
-}
-#clock{font-size:11px;font-family:var(--font)}
-
-/* ── START MENU ──────────────────────────────────────── */
-#smenu{
-  position:fixed;bottom:30px;left:0;z-index:9000;
-  background:var(--grey);
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-  width:210px;display:none;flex-direction:row;
-}
-#smenu.show{display:flex}
-.sm-banner{
-  width:26px;flex-shrink:0;
-  background:linear-gradient(to top,var(--blue2),var(--blue1));
-  display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;
-  writing-mode:vertical-rl;transform:rotate(180deg);
-  font-size:14px;font-weight:bold;color:#fff;letter-spacing:.15em;font-family:var(--font);
-}
-.sm-banner em{color:rgba(255,255,255,.5);font-style:normal;font-weight:normal}
-.sm-list{flex:1;padding:2px 0}
-.smi{
-  display:flex;align-items:center;gap:8px;padding:5px 8px;
-  font-size:12px;cursor:default;
-}
-.smi:hover{background:#000080;color:#fff}
-.smi .si{font-size:18px;width:22px;flex-shrink:0}
-.smi.red:hover{background:#800000}
-.smdiv{height:1px;background:var(--dark);margin:3px 4px;box-shadow:0 1px #fff}
-
-/* ── CONTEXT MENU ────────────────────────────────────── */
-#ctxmenu{
-  position:fixed;z-index:9100;background:var(--grey);min-width:170px;display:none;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-#ctxmenu.show{display:block}
-.cxi{font-size:12px;padding:4px 24px;cursor:default}
-.cxi:hover{background:#000080;color:#fff}
-.cxi.dim{color:var(--dark)}
-.cxi.dim:hover{background:transparent;color:var(--dark)}
-.cxdiv{height:1px;background:var(--dark);margin:3px 6px;box-shadow:0 1px #fff}
-
-/* ── DIALOG ──────────────────────────────────────────── */
-.wdlg{
-  position:fixed;z-index:9200;background:var(--grey);
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-  min-width:300px;
-}
-.dlg-body{padding:16px;display:flex;gap:12px;font-size:12px;line-height:1.55}
-.dlg-ico{font-size:32px;flex-shrink:0}
-.dlg-btns{display:flex;justify-content:center;gap:8px;padding:8px 16px 14px}
-.dlgbtn{
-  min-width:72px;height:23px;padding:0 12px;background:var(--grey);border:none;font-size:12px;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.dlgbtn:active{box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf}
-
-/* ── BSOD ────────────────────────────────────────────── */
-#bsod{
-  position:fixed;inset:0;z-index:99999;background:#000080;color:#fff;
-  font-family:var(--mono);font-size:13px;line-height:1.8;
-  padding:4rem 6rem;display:none;cursor:pointer;
-}
-.bsod-hl{background:#aaa;color:#000080;padding:1px 6px;display:inline-block;margin-bottom:1rem}
-
-/* ── CONTENT STYLES ──────────────────────────────────── */
-/* About window */
-.about-wrap{padding:14px 16px}
-.about-top{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
-.about-ava{
-  width:64px;height:64px;flex-shrink:0;background:var(--grey);
-  box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;
-  display:flex;align-items:center;justify-content:center;font-size:34px;
-}
-.about-name{font-size:15px;font-weight:bold;color:#000080;margin-bottom:3px}
-.about-role{font-size:11px;color:var(--dark);margin-bottom:6px}
-.about-bio{font-size:12px;line-height:1.6;color:#000}
-.stats3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0}
-.sbox{
-  background:var(--grey);text-align:center;padding:8px 4px;
-  box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;
-}
-.sbox-n{font-size:19px;font-weight:bold;color:#000080;font-family:var(--font);line-height:1}
-.sbox-l{font-size:9px;color:var(--dark);margin-top:2px;line-height:1.3}
-.about-props{font-size:11px;margin-top:10px;border-top:1px solid var(--dark);padding-top:8px}
-.about-props table{border-collapse:collapse;width:100%}
-.about-props td{padding:2px 8px 2px 0;vertical-align:top}
-.about-props td:first-child{color:var(--dark);white-space:nowrap;width:100px}
-.about-props td:last-child{font-weight:500}
-
-/* Explorer window */
-.exp-hdr{
-  display:flex;align-items:center;gap:4px;padding:2px 4px;
-  background:var(--grey);border-bottom:1px solid var(--dark);position:sticky;top:0;
-}
-.exp-col{
-  font-size:11px;font-weight:bold;padding:1px 6px;cursor:default;
-  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-}
-.exp-col.name{flex:1}.exp-col.dur{width:90px}.exp-col.stat{width:90px}.exp-col.date{width:100px}
-.exp-row{
-  display:flex;align-items:center;gap:4px;padding:3px 8px;
-  font-size:12px;cursor:default;border-bottom:1px solid transparent;
-}
-.exp-row:hover{background:#000080;color:#fff}
-.exp-row.sel{background:#000080;color:#fff}
-.exp-row .ico{font-size:18px;width:24px;flex-shrink:0}
-.exp-row .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.exp-row .dur{width:90px;font-size:11px}
-.exp-row .stat{width:90px;font-size:11px}
-.exp-row .date{width:100px;font-size:11px}
-.exp-detail{
-  background:#f0f0f0;padding:10px 16px 12px;
-  border-bottom:2px solid var(--dark);display:none;font-size:12px;
-}
-.exp-detail.show{display:block}
-.exp-detail h4{font-size:11px;color:#000080;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;border-bottom:1px solid var(--dark);padding-bottom:3px}
-.exp-detail ul{margin-left:16px;line-height:1.7;color:#000}
-.exp-detail ul li{margin-bottom:2px}
-.exp-detail ul li strong{color:#000080}
-.exp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-.etag{
-  font-size:10px;padding:1px 6px;background:#000080;color:#fff;
+.header-name{
   font-family:var(--mono);
+  font-size:clamp(2rem,6vw,3.8rem);
+  font-weight:normal;color:#fff;
+  letter-spacing:.04em;line-height:1;margin-bottom:.4rem;
+}
+.header-role{
+  font-family:var(--mono);font-size:clamp(.9rem,2vw,1.1rem);
+  color:var(--line);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;
+}
+.header-tagline{
+  font-size:1rem;color:var(--text-dim);
+  line-height:1.65;max-width:480px;margin-bottom:1.75rem;
 }
 
-/* Cost window / Excel-ish */
-.cost-wrap{padding:10px 14px;font-size:12px}
-.cost-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.cost-big{
-  display:flex;align-items:center;gap:16px;padding:10px;
-  background:var(--grey);
-  box-shadow:inset 1px 1px #0a0a0a,inset -1px -1px #fff,inset 2px 2px #808080,inset -2px -2px #dfdfdf;
-  margin-bottom:12px;
+/* title block */
+.title-block{
+  border:1px solid var(--line-dim);font-family:var(--mono);font-size:10px;min-width:200px;
 }
-.cost-cell{text-align:center}
-.cost-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--dark);margin-bottom:2px}
-.cost-val{font-size:22px;font-weight:bold;font-family:var(--font);line-height:1}
-.cost-val.red{color:#800000}
-.cost-val.grn{color:#006400}
-.cost-arrow{font-size:20px;color:var(--dark)}
-.cost-badge{
-  font-size:11px;font-weight:bold;padding:4px 12px;
-  background:#006400;color:#fff;
+.tb-row{
+  display:grid;grid-template-columns:80px 1fr;
+  border-bottom:1px solid var(--line-dim);
 }
-.xl-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px}
-.xl-table th{background:#000080;color:#fff;padding:3px 8px;text-align:left;font-size:10px;letter-spacing:.06em}
-.xl-table td{padding:3px 8px;border-bottom:1px solid #dfdfdf}
-.xl-table tr:nth-child(even) td{background:#f8f8f8}
-.xl-table td.money{font-family:var(--mono);text-align:right}
-.xl-table td.grn{color:#006400;font-weight:bold}
-.methods-list{margin-top:4px}
-.methods-list li{padding:2px 0;color:#000;font-size:11px}
-.methods-list li::before{content:"✓ ";color:#006400;font-weight:bold}
+.tb-row:last-child{border-bottom:none}
+.tb-key{padding:5px 8px;color:var(--text-dimmer);border-right:1px solid var(--line-dim);text-transform:uppercase;letter-spacing:.08em}
+.tb-val{padding:5px 8px;color:var(--text)}
+.tb-val.green{color:var(--green)}
+.tb-val.yellow{color:var(--yellow)}
 
-/* Notepad (contact) */
-.np-content{
-  padding:4px 6px;font-family:var(--mono);font-size:12px;
-  white-space:pre-wrap;line-height:1.65;color:#000;min-height:100%;
+/* dimension callouts */
+.dims{display:flex;gap:2rem;flex-wrap:wrap}
+.dim{text-align:center}
+.dim-line{
+  width:1px;height:28px;background:var(--line-dim);margin:0 auto 4px;position:relative;
+}
+.dim-line::before,.dim-line::after{
+  content:'';position:absolute;left:50%;transform:translateX(-50%);
+  width:8px;height:1px;background:var(--line-dim);
+}
+.dim-line::before{top:0}.dim-line::after{bottom:0}
+.dim-num{font-family:var(--mono);font-size:1.6rem;font-weight:normal;color:#fff;line-height:1}
+.dim-lbl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-dimmer);margin-top:3px}
+
+/* ── SECTIONS ─────────────────────────────────────── */
+.section{padding:2.75rem 0;border-top:1px solid var(--line-dim)}
+.section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:1.5rem}
+.section-num{font-family:var(--mono);font-size:11px;color:var(--line);letter-spacing:.1em}
+.section-title{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:var(--line)}
+
+/* ── WHITE CARD ───────────────────────────────────── */
+.card{
+  background:var(--card);color:var(--card-text);
+  padding:1.5rem 1.75rem;border-left:3px solid var(--line);
+}
+.card p{font-size:14px;line-height:1.78;margin-bottom:.65rem}
+.card p:last-child{margin-bottom:0}
+.card-footer{
+  display:flex;flex-wrap:wrap;gap:.75rem;
+  margin-top:1rem;padding-top:1rem;border-top:1px solid #deeaf2;
+}
+.card-chip{
+  font-family:var(--mono);font-size:11px;color:var(--card-muted);
 }
 
-/* IE Browser */
-.ie-content{padding:12px 16px;font-size:13px;font-family:Arial,sans-serif}
-.ie-content h2{font-size:14px;color:#000080;border-bottom:2px solid #000080;padding-bottom:3px;margin-bottom:8px}
-.ie-link{color:#00f;text-decoration:underline;cursor:pointer;display:block;margin-bottom:6px}
-.ie-link:hover{color:#800080}
-.ie-entry{border-bottom:1px solid #dfdfdf;padding:8px 0;margin-bottom:4px}
-.ie-entry h3{font-size:13px;color:#000080;margin-bottom:3px}
-.ie-entry p{font-size:12px;color:#333;line-height:1.5}
-.ie-entry .ie-meta{font-size:11px;color:#808080;margin-top:4px}
+/* ── EXPERIENCE ───────────────────────────────────── */
+.exp-grid{display:flex;flex-direction:column;gap:1.5rem}
+.exp-comp{border:1px solid var(--line-dim);position:relative}
+.exp-comp::before{
+  content:attr(data-id);
+  position:absolute;top:-9px;left:12px;
+  font-family:var(--mono);font-size:9px;
+  background:var(--bg);padding:0 6px;
+  color:var(--text-dimmer);letter-spacing:.1em;
+}
+.exp-head{
+  display:grid;grid-template-columns:1fr auto;align-items:start;
+  gap:1rem;padding:1rem 1.25rem .75rem;border-bottom:1px solid var(--line-dim);
+}
+.exp-company{font-family:var(--mono);font-size:16px;color:#fff;letter-spacing:.04em}
+.exp-role{font-size:13px;color:var(--line);margin-top:3px}
+.exp-dates{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-top:4px}
+.exp-badge{
+  font-family:var(--mono);font-size:9px;padding:3px 8px;
+  letter-spacing:.1em;border:1px solid;white-space:nowrap;text-transform:uppercase;
+}
+.badge-active{color:var(--green);border-color:var(--green)}
+.badge-done{color:var(--text-dimmer);border-color:var(--text-dimmer)}
+.exp-body{padding:1rem 1.25rem;background:rgba(255,255,255,.03)}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:4px;margin-bottom:.75rem}
+.exp-bullets li{
+  font-size:13px;color:var(--text-dim);line-height:1.6;
+  padding-left:16px;position:relative;
+}
+.exp-bullets li::before{content:'→';position:absolute;left:0;color:var(--line);font-family:var(--mono);font-size:11px}
+.exp-bullets li strong{color:#fff;font-weight:600}
+.callout-row{
+  display:flex;flex-wrap:wrap;gap:.5rem;
+  padding-top:.75rem;border-top:1px dashed var(--line-dim);margin-bottom:.75rem;
+}
+.callout{
+  border:1px solid var(--yellow);padding:3px 8px;
+  font-family:var(--mono);font-size:10px;color:var(--yellow);
+  letter-spacing:.04em;
+}
+.callout::before{content:'△ ';font-size:8px;opacity:.7}
+.exp-tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{
+  font-family:var(--mono);font-size:10px;padding:2px 7px;
+  border:1px solid var(--line-dim);color:var(--text-dim);letter-spacing:.04em;
+}
 
-/* Skills window */
-.sk-tree{padding:8px;font-size:12px}
-.sk-group{margin-bottom:8px}
-.sk-group-title{
-  font-weight:bold;padding:3px 8px;background:#000080;color:#fff;
-  font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;
+/* ── SKILLS BOM ───────────────────────────────────── */
+.bom{border:1px solid var(--line-dim);font-family:var(--mono);font-size:12px}
+.bom-head{
+  display:grid;grid-template-columns:150px 1fr;
+  background:rgba(79,195,247,.08);border-bottom:1px solid var(--line-dim);
 }
-.sk-item{
-  display:flex;align-items:center;gap:8px;padding:2px 24px;
-  border-bottom:1px solid #f0f0f0;
+.bom-hcol{
+  padding:6px 12px;font-size:10px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--text-dimmer);
 }
-.sk-item:hover{background:#000080;color:#fff}
-.sk-ico{font-size:14px;flex-shrink:0}
-.sk-name{flex:1}
-.sk-level{font-family:var(--mono);font-size:10px;color:var(--dark)}
-.sk-item:hover .sk-level{color:#dfdfdf}
+.bom-hcol:first-child{border-right:1px solid var(--line-dim)}
+.bom-row{
+  display:grid;grid-template-columns:150px 1fr;
+  border-bottom:1px solid rgba(79,195,247,.06);
+}
+.bom-row:last-child{border-bottom:none}
+.bom-row:hover{background:rgba(79,195,247,.04)}
+.bom-cat{padding:7px 12px;border-right:1px solid rgba(79,195,247,.1);color:var(--line);font-size:11px}
+.bom-items{padding:7px 12px;color:var(--text-dim);font-size:11px;line-height:1.6}
 
-/* ── RESPONSIVE ──────────────────────────────────────── */
-@media(max-width:767px){
-  #desktop{display:flex;align-items:center;justify-content:center}
-  .icons-col,.wwin{display:none!important}
-  #mobile-notice{
-    background:var(--grey);
-    box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
-    padding:24px;max-width:280px;text-align:center;font-size:13px;
-  }
-  #mobile-notice .ico{font-size:3rem;margin-bottom:12px}
+/* ── IMPACT ───────────────────────────────────────── */
+.impact-box{
+  border:1px solid var(--line-dim);padding:2rem;position:relative;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:2rem;align-items:center;
 }
-@media(min-width:768px){#mobile-notice{display:none}}
+.impact-box::before{
+  content:'TEST RESULT — AWS COST OPTIMISATION';
+  position:absolute;top:-9px;left:16px;
+  font-family:var(--mono);font-size:9px;
+  background:var(--bg);padding:0 8px;
+  color:var(--text-dimmer);letter-spacing:.12em;
+}
+.metric{text-align:center}
+.metric-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-dimmer);margin-bottom:6px}
+.metric-val{font-family:var(--mono);font-size:2.8rem;line-height:1;letter-spacing:.02em}
+.metric-val.before{color:var(--red)}
+.metric-val.after{color:var(--green)}
+.metric-unit{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-top:4px}
+.impact-arrow{font-family:var(--mono);font-size:1.8rem;color:var(--line);text-align:center}
+.impact-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.impact-list li{
+  font-size:12px;color:var(--text-dim);
+  padding-left:14px;position:relative;line-height:1.5;
+}
+.impact-list li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+
+/* ── BLOG LINKS ───────────────────────────────────── */
+.blog-card{
+  border:1px solid var(--line-dim);
+  padding:1.25rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;transition:border-color .2s,background .2s;margin-bottom:.75rem;
+}
+.blog-card:hover{border-color:var(--line);background:rgba(79,195,247,.04)}
+.blog-card:last-child{margin-bottom:0}
+.blog-title{font-family:var(--mono);font-size:13px;color:#fff;margin-bottom:4px;letter-spacing:.04em}
+.blog-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
+.blog-arrow{font-family:var(--mono);font-size:1.1rem;color:var(--line);flex-shrink:0;transition:transform .2s}
+.blog-card:hover .blog-arrow{transform:translateX(4px)}
+
+/* ── CONTACT ──────────────────────────────────────── */
+.contact-links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}
+.contact-link{
+  border:1px solid var(--line-dim);padding:.6rem 1rem;
+  font-family:var(--mono);font-size:12px;
+  display:flex;align-items:center;gap:8px;
+  color:var(--text-dim);letter-spacing:.04em;
+  transition:border-color .15s,color .15s;
+}
+.contact-link:hover{border-color:var(--line);color:var(--line)}
+
+/* rev footer */
+.rev-footer{
+  margin-top:2rem;display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid rgba(79,195,247,.15);
+}
+.rev-cell{
+  padding:5px 12px;border-right:1px solid rgba(79,195,247,.15);
+  font-family:var(--mono);font-size:9px;color:var(--text-dimmer);letter-spacing:.08em;
+}
+.rev-cell:last-child{border-right:none}
+.rev-cell span{display:block;font-size:8px;text-transform:uppercase;opacity:.6;margin-bottom:2px}
+
+/* ── SOUND BUTTON ─────────────────────────────────── */
+.sound-btn{
+  position:fixed;bottom:1.25rem;right:1.25rem;z-index:200;
+  width:36px;height:36px;background:rgba(13,33,55,.92);
+  border:1px solid var(--line-dim);font-size:15px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s;
+}
+.sound-btn:hover{border-color:var(--line)}
+
+/* ── REVEAL ───────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.reveal.in{opacity:1;transform:none}
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media(max-width:640px){
+  .header-inner{grid-template-columns:1fr}
+  .title-block{display:none}
+  .impact-box{grid-template-columns:1fr;gap:1rem}
+  .impact-arrow{transform:rotate(90deg)}
+  .bom-head,.bom-row{grid-template-columns:110px 1fr}
+  .rev-footer{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
 
-<!-- BOOT -->
-<div id="boot">
-  <div class="boot-logo-wrap">
-    <div class="boot-win">Windows <em>98</em></div>
-    <div class="boot-ed">Megha Edition™</div>
+<nav class="nav-strip">
+  <div class="nav-logo">
+    <span class="nav-dot"></span>
+    MEGHA.SHIVHARE
   </div>
-  <div class="boot-track"><div class="boot-fill" id="bfill"></div></div>
-  <div class="boot-status" id="bstatus">Starting Windows...</div>
-</div>
+  <div class="nav-links">
+    <a href="#profile"    class="nav-link">PROFILE</a>
+    <a href="#experience" class="nav-link">EXPERIENCE</a>
+    <a href="#skills"     class="nav-link">SKILLS</a>
+    <a href="#impact"     class="nav-link">IMPACT</a>
+    <a href="#notes"      class="nav-link">NOTES</a>
+    <a href="#contact"    class="nav-link">CONTACT</a>
+  </div>
+</nav>
 
-<!-- DESKTOP -->
-<div id="desktop" oncontextmenu="showCtx(event)" onclick="hideMenus()">
-  <div class="icons-col" id="icons">
-    <div class="dicon" ondblclick="WM.open('about')"  onclick="selIcon(this)"><span class="ico">🖥️</span><span class="lbl">About Megha</span></div>
-    <div class="dicon" ondblclick="WM.open('exp')"    onclick="selIcon(this)"><span class="ico">📁</span><span class="lbl">Experience</span></div>
-    <div class="dicon" ondblclick="WM.open('cost')"   onclick="selIcon(this)"><span class="ico">💾</span><span class="lbl">AWS Cost.xls</span></div>
-    <div class="dicon" ondblclick="WM.open('skills')" onclick="selIcon(this)"><span class="ico">🔧</span><span class="lbl">Skills</span></div>
-    <div class="dicon" ondblclick="WM.open('ie')"     onclick="selIcon(this)"><span class="ico">🌐</span><span class="lbl">Runbooks</span></div>
-    <div class="dicon" ondblclick="showBsod()"        onclick="selIcon(this)"><span class="ico">🗑️</span><span class="lbl">Recycle Bin</span></div>
-  </div>
-  <div id="mobile-notice"><div class="ico">🖥️</div>This portfolio requires a desktop browser.<br><br>Please open on a laptop or desktop.</div>
-</div>
-
-<!-- TASKBAR -->
-<div id="taskbar">
-  <button class="startbtn" id="sbtn" onclick="toggleStart(event)">
-    <span class="flag">🪟</span><b>Start</b>
-  </button>
-  <div class="tsep"></div>
-  <div class="taskitems" id="titems"></div>
-  <div class="systray">
-    <span>🔊</span><span>🌐</span>
-    <span id="clock"></span>
-  </div>
-</div>
-
-<!-- START MENU -->
-<div id="smenu">
-  <div class="sm-banner">Windows<em>98</em></div>
-  <div class="sm-list">
-    <div class="smi" ondblclick="WM.open('about');hideMenus()"><span class="si">🖥️</span>About Megha</div>
-    <div class="smi" ondblclick="WM.open('exp');hideMenus()"><span class="si">📁</span>Experience</div>
-    <div class="smi" ondblclick="WM.open('cost');hideMenus()"><span class="si">💾</span>AWS Cost.xls</div>
-    <div class="smi" ondblclick="WM.open('skills');hideMenus()"><span class="si">🔧</span>Skills</div>
-    <div class="smi" ondblclick="WM.open('ie');hideMenus()"><span class="si">🌐</span>Runbooks</div>
-    <div class="smdiv"></div>
-    <div class="smi" onclick="window.open('mailto:meghashivhare8@gmail.com');hideMenus()"><span class="si">✉️</span>Email Megha</div>
-    <div class="smi" onclick="window.open('https://github.com/MeghaShivhare','_blank');hideMenus()"><span class="si">🐙</span>GitHub</div>
-    <div class="smdiv"></div>
-    <div class="smi red" onclick="showBsod();hideMenus()"><span class="si">⚡</span>Shut Down...</div>
-  </div>
-</div>
-
-<!-- CONTEXT MENU -->
-<div id="ctxmenu">
-  <div class="cxi" onclick="WM.open('about');hideMenus()">Open About Megha</div>
-  <div class="cxi dim">Arrange Icons By</div>
-  <div class="cxdiv"></div>
-  <div class="cxi" onclick="hideMenus()">Refresh</div>
-  <div class="cxdiv"></div>
-  <div class="cxi" onclick="showWelcomeDlg();hideMenus()">Properties</div>
-</div>
-
-<!-- WELCOME DIALOG (shown on boot) -->
-<div class="wdlg" id="welcome-dlg" style="top:180px;left:50%;transform:translateX(-50%);display:none">
-  <div class="wtitlebar" style="cursor:default">
-    <span class="wico">💬</span>
-    <span class="wtitle">Welcome to Megha's PC</span>
-    <div class="wbtns"><button class="wbtn cls" onclick="document.getElementById('welcome-dlg').style.display='none'">✕</button></div>
-  </div>
-  <div class="dlg-body">
-    <span class="dlg-ico">👋</span>
-    <div>
-      <b>Welcome, Recruiter!</b><br><br>
-      You have connected to <b>Megha Shivhare's PC</b>.<br>
-      She is currently <b>available for opportunities</b>.<br><br>
-      Double-click any icon to explore her work.
-    </div>
-  </div>
-  <div class="dlg-btns">
-    <button class="dlgbtn" onclick="document.getElementById('welcome-dlg').style.display='none';WM.open('about')">View Profile</button>
-    <button class="dlgbtn" onclick="document.getElementById('welcome-dlg').style.display='none'">OK</button>
-  </div>
-</div>
-
-<!-- BSOD -->
-<div id="bsod" onclick="hideBsod()">
-  A fatal exception 0E has occurred at 0028:C0011E36 in VXD<br>
-  VMM(01) + 00010E36. The current application will be terminated.<br>
-  <br>
-  * Press any key to terminate the current application.<br>
-  * Press CTRL+ALT+DEL again to restart your computer. You will<br>
-  &nbsp; lose any unsaved information in all applications.<br>
-  <br>
-  <div class="bsod-hl">terraform destroy — ACCESS DENIED</div><br>
-  No. Production resources are protected.<br>
-  <br>
-  Engineer: Megha Shivhare<br>
-  Role: DevOps Engineer<br>
-  Clearance: ADMIN / PRODUCTION<br>
-  <br>
-  <br>
-  Press any key to continue _
-</div>
-
-<script>
-/* ════════════════════════════════════════════════════════
-   WINDOW CONFIGS
-════════════════════════════════════════════════════════ */
-const WCONF = {
-  about: {
-    title:'About Megha', icon:'🖥️', x:80, y:50, w:480, h:370,
-    menu:['File','Edit','View','Help'],
-    status:[{t:'Status: Running'},{t:'Uptime: 99.98%'}],
-    content: `
-<div class="about-wrap">
-  <div class="about-top">
-    <div class="about-ava">👩‍💻</div>
-    <div>
-      <div class="about-name">Megha Shivhare</div>
-      <div class="about-role">DevOps Engineer · AWS · Kubernetes · GitOps</div>
-      <div class="about-bio">2+ years designing, automating, and operating cloud-native infrastructure on AWS. I cut costs, ship faster, and keep 3am alerts rare.</div>
-    </div>
-  </div>
-  <div class="stats3">
-    <div class="sbox"><div class="sbox-n">50%</div><div class="sbox-l">AWS Cost<br>Reduction</div></div>
-    <div class="sbox"><div class="sbox-n">40%</div><div class="sbox-l">Faster<br>Releases</div></div>
-    <div class="sbox"><div class="sbox-n">70%</div><div class="sbox-l">Fewer<br>Rollbacks</div></div>
-  </div>
-  <div class="about-props">
-    <table>
-      <tr><td>Location</td><td>India</td></tr>
-      <tr><td>Current role</td><td>DevOps Engineer @ Blinq.IO (Mar 2026–)</td></tr>
-      <tr><td>Certification</td><td>AWS Certified Solutions Architect – Associate</td></tr>
-      <tr><td>Education</td><td>B.E. Information Technology, RCOEM (8.5 CGPA)</td></tr>
-      <tr><td>Status</td><td><b style="color:#006400">● Available for opportunities</b></td></tr>
-      <tr><td>Email</td><td><a href="mailto:meghashivhare8@gmail.com" style="color:#000080">meghashivhare8@gmail.com</a></td></tr>
-    </table>
-  </div>
-</div>`
-  },
-
-  exp: {
-    title:'Experience — Windows Explorer', icon:'📁', x:200, y:80, w:620, h:400,
-    menu:['File','Edit','View','Go','Favorites','Help'],
-    toolbar: true,
-    status:[{t:'2 items'},{t:'Running: 1 · Completed: 1'}],
-    content: `
-<div class="exp-hdr">
-  <span class="exp-col name">Name</span>
-  <span class="exp-col dur">Duration</span>
-  <span class="exp-col stat">Status</span>
-  <span class="exp-col date">Started</span>
-</div>
-<div onclick="toggleExpRow('blinq')" class="exp-row" id="row-blinq">
-  <span class="ico">📁</span>
-  <span class="name">blinq-io</span>
-  <span class="dur">4 months</span>
-  <span class="stat" style="color:#006400;font-weight:bold">Running</span>
-  <span class="date">2026-03-01</span>
-</div>
-<div class="exp-detail" id="detail-blinq">
-  <h4>🏢 Blinq.IO · DevOps Engineer · Mar 2026 – Present</h4>
-  <ul>
-    <li>Reduced AWS monthly spend from <strong>~$16K → ~$8K (50%)</strong> via EKS consolidation, Spot/Reserved Instances, rightsizing</li>
-    <li>Implemented GitOps-based CD using <strong>ArgoCD + Kargo</strong> for all Kubernetes workloads</li>
-    <li>Built CI automation with <strong>GitHub Actions</strong>, improving deployment consistency</li>
-    <li>Deployed full observability: <strong>Prometheus, Grafana, Alertmanager</strong>, Slack alerting</li>
-    <li>Implemented <strong>Karpenter</strong> autoscaling and optimized node group architecture</li>
-    <li>Namespace-based isolation — dev + staging on shared compute</li>
-    <li>MongoDB recovery, backup validation, DR support — production incident response</li>
-  </ul>
-  <div class="exp-tags">
-    <span class="etag">AWS EKS</span><span class="etag">ArgoCD</span><span class="etag">Kargo</span>
-    <span class="etag">Karpenter</span><span class="etag">Terraform</span><span class="etag">GitHub Actions</span>
-    <span class="etag">Prometheus</span><span class="etag">Grafana</span><span class="etag">MongoDB</span>
-  </div>
-</div>
-<div onclick="toggleExpRow('cr')" class="exp-row" id="row-cr">
-  <span class="ico">📁</span>
-  <span class="name">cr-software</span>
-  <span class="dur">2 years</span>
-  <span class="stat" style="color:#808080">Completed</span>
-  <span class="date">2024-01-01</span>
-</div>
-<div class="exp-detail" id="detail-cr">
-  <h4>🏢 C&R Software · DevOps Engineer [AWS] · Jan 2024 – Feb 2026</h4>
-  <ul>
-    <li>Built Jenkins + Helm CI/CD pipelines on AWS EKS — <strong>40% increase in release frequency</strong></li>
-    <li><strong>70% reduction</strong> in deployment rollback incidents</li>
-    <li>Automated build + deploy workflows with Groovy and Bash</li>
-    <li>Managed AWS: EC2, RDS, IAM, VPC, Route53, CloudFront, Auto Scaling</li>
-    <li>Okta SSO integration for Kubernetes-hosted applications</li>
-    <li>Monitoring: CloudWatch + Prometheus across all environments</li>
-  </ul>
-  <div class="exp-tags">
-    <span class="etag">Jenkins</span><span class="etag">Helm</span><span class="etag">AWS EKS</span>
-    <span class="etag">Docker</span><span class="etag">Okta SSO</span><span class="etag">CloudWatch</span>
-    <span class="etag">Groovy</span><span class="etag">Bash</span>
-  </div>
-</div>`
-  },
-
-  cost: {
-    title:'AWS Cost Optimizer.xls — Microsoft Excel', icon:'💾', x:140, y:130, w:520, h:400,
-    menu:['File','Edit','View','Insert','Format','Tools','Data','Help'],
-    status:[{t:'Sheet 1 of 1'},{t:'READY'}],
-    content: `
-<div class="cost-wrap">
-  <div class="cost-big">
-    <div class="cost-cell">
-      <div class="cost-label">Before (Blinq)</div>
-      <div class="cost-val red">$16,000</div>
-      <div style="font-size:9px;color:#808080">/month</div>
-    </div>
-    <div class="cost-arrow">→</div>
-    <div class="cost-cell">
-      <div class="cost-label">After (Optimized)</div>
-      <div class="cost-val grn" id="cost-after-val">$16,000</div>
-      <div style="font-size:9px;color:#808080">/month</div>
-    </div>
-    <div style="margin-left:auto">
-      <div class="cost-badge">↓ 50% SAVINGS</div>
-      <div style="font-size:10px;color:#006400;margin-top:4px;font-weight:bold">$8,000/mo saved</div>
-    </div>
-  </div>
-  <table class="xl-table">
-    <thead><tr><th>Method</th><th>Impact</th><th class="money">Savings Est.</th></tr></thead>
-    <tbody>
-      <tr><td>EKS Cluster Consolidation</td><td>Merged 3 clusters → 1</td><td class="money grn">$3,200/mo</td></tr>
-      <tr><td>Spot + Reserved Instances</td><td>Matched workload patterns</td><td class="money grn">$2,400/mo</td></tr>
-      <tr><td>Workload Rightsizing</td><td>CPU/memory analysis</td><td class="money grn">$1,200/mo</td></tr>
-      <tr><td>Karpenter Autoscaling</td><td>Bin-packing efficiency</td><td class="money grn">$800/mo</td></tr>
-      <tr><td>Namespace Isolation</td><td>Dev+Staging shared compute</td><td class="money grn">$400/mo</td></tr>
-      <tr style="font-weight:bold;background:#f0f0f0"><td colspan="2">TOTAL MONTHLY SAVINGS</td><td class="money grn">$8,000/mo</td></tr>
-    </tbody>
-  </table>
-  <div style="font-size:11px;color:#808080;margin-bottom:6px;font-style:italic">Also built: QuickSight + Glue + Athena dashboards for ongoing cost governance</div>
-</div>`
-  },
-
-  skills: {
-    title:'Skills — Windows Explorer', icon:'🔧', x:260, y:60, w:440, h:420,
-    menu:['File','Edit','View','Help'],
-    status:[{t:'6 categories'}],
-    content: `
-<div class="sk-tree">
-  <div class="sk-group">
-    <div class="sk-group-title">☁ Cloud Platform</div>
-    <div class="sk-item"><span class="sk-ico">📦</span><span class="sk-name">AWS (EC2, EKS, RDS, IAM, VPC, Route53, S3, CloudFront)</span></div>
-  </div>
-  <div class="sk-group">
-    <div class="sk-group-title">🐳 Containers & Orchestration</div>
-    <div class="sk-item"><span class="sk-ico">⚙️</span><span class="sk-name">Kubernetes (EKS)</span><span class="sk-level">★★★★★</span></div>
-    <div class="sk-item"><span class="sk-ico">🐳</span><span class="sk-name">Docker</span><span class="sk-level">★★★★★</span></div>
-    <div class="sk-item"><span class="sk-ico">⛵</span><span class="sk-name">Helm · Karpenter</span><span class="sk-level">★★★★☆</span></div>
-  </div>
-  <div class="sk-group">
-    <div class="sk-group-title">🏗 Infrastructure as Code</div>
-    <div class="sk-item"><span class="sk-ico">🌍</span><span class="sk-name">Terraform</span><span class="sk-level">★★★★★</span></div>
-    <div class="sk-item"><span class="sk-ico">☁</span><span class="sk-name">AWS CloudFormation</span><span class="sk-level">★★★★☆</span></div>
-  </div>
-  <div class="sk-group">
-    <div class="sk-group-title">🚀 CI/CD & GitOps</div>
-    <div class="sk-item"><span class="sk-ico">🔄</span><span class="sk-name">GitHub Actions · Jenkins</span><span class="sk-level">★★★★★</span></div>
-    <div class="sk-item"><span class="sk-ico">🐙</span><span class="sk-name">ArgoCD · Kargo</span><span class="sk-level">★★★★★</span></div>
-  </div>
-  <div class="sk-group">
-    <div class="sk-group-title">📊 Monitoring & Observability</div>
-    <div class="sk-item"><span class="sk-ico">📈</span><span class="sk-name">Prometheus · Grafana · Alertmanager</span><span class="sk-level">★★★★★</span></div>
-    <div class="sk-item"><span class="sk-ico">👁</span><span class="sk-name">AWS CloudWatch</span><span class="sk-level">★★★★☆</span></div>
-  </div>
-  <div class="sk-group">
-    <div class="sk-group-title">💻 Languages</div>
-    <div class="sk-item"><span class="sk-ico">🐚</span><span class="sk-name">Bash · Python · Groovy · SQL</span></div>
-  </div>
-</div>`
-  },
-
-  ie: {
-    title:'Runbooks — Microsoft Internet Explorer', icon:'🌐', x:100, y:100, w:560, h:420,
-    menu:['File','Edit','View','Favorites','Tools','Help'],
-    addr: 'http://megha.dev/runbooks/',
-    status:[{t:'Done'},{t:'Internet zone'}],
-    content: `
-<div class="ie-content">
-  <h2>📚 Runbooks — Engineering Notes</h2>
-  <p style="font-size:12px;color:#333;margin-bottom:12px">Lessons from production. Things worth writing down.</p>
-  <div class="ie-entry">
-    <h3><a class="ie-link" href="blog/interview-questions.html">📄 RB-001 — DevOps Most Asked Interview Questions</a></h3>
-    <p>60+ real questions from real interviews — Kubernetes, Docker, AWS, CI/CD, Terraform, monitoring, Linux. With detailed answers.</p>
-    <div class="ie-meta">📅 2025 &nbsp;·&nbsp; 🏷️ Kubernetes · AWS · Terraform · CI/CD · Docker &nbsp;·&nbsp; 60+ questions</div>
-  </div>
-  <div class="ie-entry" style="opacity:.6">
-    <h3>📄 RB-002 — How I Cut AWS Spend by 50% (coming soon)</h3>
-    <p>EKS consolidation, Karpenter, Spot instances, QuickSight dashboards. The full story.</p>
-    <div class="ie-meta">🏷️ AWS · Cost Optimization · EKS</div>
-  </div>
-  <div class="ie-entry" style="opacity:.6">
-    <h3>📄 RB-003 — GitOps with ArgoCD + Kargo in Production (coming soon)</h3>
-    <p>Progressive delivery, environment promotion, rollback strategies.</p>
-    <div class="ie-meta">🏷️ ArgoCD · Kargo · GitOps · Kubernetes</div>
-  </div>
-  <hr style="margin:12px 0">
-  <p style="font-size:11px;color:#808080">© 2026 Megha Shivhare · meghashivhare.github.io</p>
-</div>`
-  }
-};
-
-/* ════════════════════════════════════════════════════════
-   WINDOW MANAGER
-════════════════════════════════════════════════════════ */
-const WM = {
-  wins: {},
-  z: 200,
-  drag: null,
-  dx: 0, dy: 0,
-
-  open(id) {
-    if (this.wins[id]) {
-      const w = this.wins[id];
-      if (w.hidden) { w.el.style.display='flex'; w.hidden=false; }
-      this.focus(id); this.renderTaskbar(); return;
-    }
-    const c = WCONF[id]; if (!c) return;
-    const el = document.createElement('div');
-    el.className = 'wwin';
-    el.id = 'ww-'+id;
-    el.style.cssText = `left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;z-index:${++this.z}`;
-    el.innerHTML = this._chrome(id, c);
-    document.getElementById('desktop').appendChild(el);
-    el.querySelector('.wtitlebar').addEventListener('mousedown', e => this._dragStart(id, e));
-    el.addEventListener('mousedown', () => this.focus(id));
-    this.wins[id] = { el, hidden:false, c };
-    this.focus(id); this.renderTaskbar();
-    if (id==='cost') setTimeout(()=>this._animCost(),400);
-  },
-
-  _chrome(id, c) {
-    const menu = c.menu ? `<div class="wmenu">${c.menu.map(m=>`<span class="wmenu-item">${m}</span>`).join('')}</div>` : '';
-    const toolbar = c.toolbar ? `<div class="wtoolbar"><button class="wtbtn">← Back</button><button class="wtbtn">→ Fwd</button><div class="wsep"></div><button class="wtbtn">↑ Up</button></div>` : '';
-    const addr = c.addr ? `<div class="waddr"><span class="waddr-label">Address</span><input class="waddr-bar" value="${c.addr}" readonly><button class="waddr-go">Go</button></div>` : '';
-    const status = c.status ? `<div class="wstatus">${c.status.map(s=>`<div class="wstatus-item">${s.t}</div>`).join('')}</div>` : '';
-    return `
-      <div class="wtitlebar">
-        <span class="wico">${c.icon}</span>
-        <span class="wtitle">${c.title}</span>
-        <div class="wbtns">
-          <button class="wbtn" onclick="WM.minimize('${id}')">_</button>
-          <button class="wbtn" onclick="WM.maximize('${id}')">□</button>
-          <button class="wbtn cls" onclick="WM.close('${id}')">✕</button>
+<header class="header-sheet">
+  <div class="wrap">
+    <div class="header-inner">
+      <div>
+        <span class="bp-label">SHEET 1 OF 1 · DEVOPS INFRASTRUCTURE · REV.03</span>
+        <h1 class="header-name">MEGHA<br>SHIVHARE</h1>
+        <div class="header-role">DevOps Engineer</div>
+        <p class="header-tagline">
+          I design, automate, and operate cloud-native infrastructure on AWS.
+          Cut monthly cloud spend by 50%. Ship faster, stay up longer, sleep better.
+        </p>
+        <div class="dims">
+          <div class="dim">
+            <div class="dim-line"></div>
+            <div class="dim-num">50%</div>
+            <div class="dim-lbl">Cost Cut</div>
+          </div>
+          <div class="dim">
+            <div class="dim-line"></div>
+            <div class="dim-num">40%</div>
+            <div class="dim-lbl">Faster Deploys</div>
+          </div>
+          <div class="dim">
+            <div class="dim-line"></div>
+            <div class="dim-num">70%</div>
+            <div class="dim-lbl">Fewer Rollbacks</div>
+          </div>
+          <div class="dim">
+            <div class="dim-line"></div>
+            <div class="dim-num">2+</div>
+            <div class="dim-lbl">Yrs Production</div>
+          </div>
         </div>
       </div>
-      ${menu}${toolbar}${addr}
-      <div class="wcontent" id="wc-${id}">${c.content}</div>
-      ${status}`;
-  },
 
-  focus(id) {
-    Object.values(this.wins).forEach(({el})=>el.classList.add('inactive'));
-    const w = this.wins[id]; if (!w) return;
-    w.el.classList.remove('inactive');
-    w.el.style.zIndex = ++this.z;
-    this.renderTaskbar(id);
-  },
+      <div class="title-block">
+        <div class="tb-row"><div class="tb-key">Designed by</div><div class="tb-val">Megha Shivhare</div></div>
+        <div class="tb-row"><div class="tb-key">Role</div><div class="tb-val">DevOps Engineer</div></div>
+        <div class="tb-row"><div class="tb-key">Current</div><div class="tb-val">Blinq.IO · Mar 2026</div></div>
+        <div class="tb-row"><div class="tb-key">Cert</div><div class="tb-val">AWS SAA</div></div>
+        <div class="tb-row"><div class="tb-key">Location</div><div class="tb-val">India</div></div>
+        <div class="tb-row"><div class="tb-key">Status</div><div class="tb-val green">● AVAILABLE</div></div>
+        <div class="tb-row"><div class="tb-key">Rev / Date</div><div class="tb-val yellow">03 · 2026</div></div>
+      </div>
+    </div>
+  </div>
+</header>
 
-  close(id) {
-    const w = this.wins[id]; if (!w) return;
-    w.el.remove(); delete this.wins[id]; this.renderTaskbar();
-  },
+<main>
+  <div class="wrap">
 
-  minimize(id) {
-    const w = this.wins[id]; if (!w) return;
-    w.el.style.display='none'; w.hidden=true; this.renderTaskbar();
-  },
+    <!-- 01 PROFILE -->
+    <section class="section reveal" id="profile">
+      <div class="section-header">
+        <span class="section-num">01 //</span>
+        <span class="section-title">Profile</span>
+      </div>
+      <div class="card">
+        <p>
+          Two years designing and operating cloud-native systems on AWS — from zero-downtime deployments
+          to infrastructure-as-code and full observability stacks. My work at Blinq.IO involved taking
+          a $16K/month AWS bill and halving it while improving reliability and delivery speed.
+        </p>
+        <p>
+          Before that at C&amp;R Software, I built the CI/CD pipelines that increased release frequency
+          by 40% and cut rollback incidents by 70%. I work in Kubernetes, Terraform, ArgoCD, and GitHub
+          Actions every day — and I write about what I learn.
+        </p>
+        <div class="card-footer">
+          <span class="card-chip">✓ AWS Certified Solutions Architect – Associate</span>
+          <span class="card-chip">✓ B.E. Information Technology · RCOEM · 8.5 CGPA</span>
+        </div>
+      </div>
+    </section>
 
-  maximize(id) {
-    const w = this.wins[id]; if (!w) return;
-    if (w.maxed) {
-      w.el.style.cssText = w.prev; w.maxed=false;
-    } else {
-      w.prev = w.el.style.cssText;
-      w.el.style.cssText = `left:0;top:0;width:100%;height:100%;z-index:${++this.z}`;
-      w.maxed = true;
-    }
-  },
+    <!-- 02 EXPERIENCE -->
+    <section class="section reveal" id="experience">
+      <div class="section-header">
+        <span class="section-num">02 //</span>
+        <span class="section-title">Experience</span>
+      </div>
+      <div class="exp-grid">
 
-  _dragStart(id, e) {
-    if (e.target.closest('.wbtns')) return;
-    const r = this.wins[id].el.getBoundingClientRect();
-    this.drag=id; this.dx=e.clientX-r.left; this.dy=e.clientY-r.top;
-    this.focus(id); e.preventDefault();
-  },
+        <div class="exp-comp" data-id="COMPONENT A — CURRENT">
+          <div class="exp-head">
+            <div>
+              <div class="exp-company">Blinq.IO</div>
+              <div class="exp-role">DevOps Engineer</div>
+              <div class="exp-dates">Mar 2026 — Present</div>
+            </div>
+            <span class="exp-badge badge-active">● Active</span>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Reduced AWS spend from <strong>$16K → $8K/month (50%)</strong> via EKS consolidation, Spot/Reserved instances, Karpenter bin-packing, and rightsizing</li>
+              <li>Built GitOps-based delivery with <strong>ArgoCD + Kargo</strong> across all Kubernetes workloads</li>
+              <li>Deployed full observability stack: <strong>Prometheus, Grafana, Alertmanager</strong> with Slack routing</li>
+              <li>Namespace-level isolation — dev + staging on shared compute, production isolated</li>
+              <li>MongoDB production support: backup validation, DR testing, incident response</li>
+            </ul>
+            <div class="callout-row">
+              <span class="callout">↓ $8,000/mo saved</span>
+              <span class="callout">GitOps adopted</span>
+              <span class="callout">Karpenter autoscaling</span>
+            </div>
+            <div class="exp-tags">
+              <span class="tag">AWS EKS</span><span class="tag">ArgoCD</span><span class="tag">Kargo</span>
+              <span class="tag">Karpenter</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span>
+              <span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">MongoDB</span>
+            </div>
+          </div>
+        </div>
 
-  _animCost() {
-    const el = document.getElementById('cost-after-val'); if (!el) return;
-    const dur=1200, t0=performance.now();
+        <div class="exp-comp" data-id="COMPONENT B — PREVIOUS">
+          <div class="exp-head">
+            <div>
+              <div class="exp-company">C&amp;R Software</div>
+              <div class="exp-role">DevOps Engineer [AWS]</div>
+              <div class="exp-dates">Jan 2024 — Feb 2026 · 2 years</div>
+            </div>
+            <span class="exp-badge badge-done">Completed</span>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Built Jenkins + Helm CI/CD pipelines on EKS — <strong>40% increase in release frequency</strong></li>
+              <li><strong>70% reduction</strong> in rollback incidents through staged delivery and smoke tests</li>
+              <li>Managed core AWS services: EC2, RDS, IAM, VPC, Route53, CloudFront, Auto Scaling</li>
+              <li>Okta SSO integration for all Kubernetes-hosted applications</li>
+              <li>CloudWatch + Prometheus monitoring across all environments</li>
+            </ul>
+            <div class="callout-row">
+              <span class="callout">+40% release frequency</span>
+              <span class="callout">−70% rollbacks</span>
+              <span class="callout">Okta SSO</span>
+            </div>
+            <div class="exp-tags">
+              <span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">AWS EKS</span>
+              <span class="tag">Docker</span><span class="tag">Groovy</span><span class="tag">Okta</span>
+              <span class="tag">CloudWatch</span><span class="tag">Bash</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 03 SKILLS -->
+    <section class="section reveal" id="skills">
+      <div class="section-header">
+        <span class="section-num">03 //</span>
+        <span class="section-title">Materials &amp; Components</span>
+      </div>
+      <div class="bom">
+        <div class="bom-head">
+          <div class="bom-hcol">Category</div>
+          <div class="bom-hcol">Components</div>
+        </div>
+        <div class="bom-row"><div class="bom-cat">Cloud Platform</div><div class="bom-items">AWS — EC2, EKS, RDS, S3, IAM, VPC, Route53, CloudFront, Auto Scaling, CloudWatch</div></div>
+        <div class="bom-row"><div class="bom-cat">Containers</div><div class="bom-items">Kubernetes (EKS) · Docker · Helm · Karpenter</div></div>
+        <div class="bom-row"><div class="bom-cat">CI/CD &amp; GitOps</div><div class="bom-items">GitHub Actions · Jenkins · ArgoCD · Kargo</div></div>
+        <div class="bom-row"><div class="bom-cat">IaC</div><div class="bom-items">Terraform · AWS CloudFormation</div></div>
+        <div class="bom-row"><div class="bom-cat">Observability</div><div class="bom-items">Prometheus · Grafana · Alertmanager · CloudWatch · QuickSight + Athena</div></div>
+        <div class="bom-row"><div class="bom-cat">Databases</div><div class="bom-items">MongoDB · PostgreSQL (RDS) · MySQL</div></div>
+        <div class="bom-row"><div class="bom-cat">Languages</div><div class="bom-items">Bash · Python · Groovy · SQL · YAML</div></div>
+      </div>
+    </section>
+
+    <!-- 04 IMPACT -->
+    <section class="section reveal" id="impact">
+      <div class="section-header">
+        <span class="section-num">04 //</span>
+        <span class="section-title">Test Results</span>
+      </div>
+      <div class="impact-box">
+        <div class="metric">
+          <div class="metric-label">Before optimisation</div>
+          <div class="metric-val before">$16K</div>
+          <div class="metric-unit">/ month · AWS spend</div>
+        </div>
+        <div class="impact-arrow">——→</div>
+        <div>
+          <div class="metric" style="text-align:left;margin-bottom:1rem">
+            <div class="metric-label">After optimisation</div>
+            <div class="metric-val after" id="cost-counter">$16K</div>
+            <div class="metric-unit">/ month · <strong style="color:var(--green)">↓ 50% · $8K/mo saved</strong></div>
+          </div>
+          <ul class="impact-list">
+            <li>EKS cluster consolidation (3 → 1)</li>
+            <li>Spot + Reserved Instance matching</li>
+            <li>Karpenter bin-packing</li>
+            <li>Workload rightsizing</li>
+            <li>Namespace-level shared compute</li>
+            <li>QuickSight + Athena cost governance</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 NOTES -->
+    <section class="section reveal" id="notes">
+      <div class="section-header">
+        <span class="section-num">05 //</span>
+        <span class="section-title">Notes &amp; Runbooks</span>
+      </div>
+      <a href="blog/interview-questions.html" class="blog-card">
+        <div>
+          <div class="blog-title">DevOps Most Asked Interview Questions</div>
+          <div class="blog-desc">60+ real interview questions — Kubernetes, Docker, AWS, CI/CD, Terraform, Linux — with concise answers.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="blog/" class="blog-card">
+        <div>
+          <div class="blog-title">All Notes</div>
+          <div class="blog-desc">Cost optimisation, GitOps, and lessons from production.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+    </section>
+
+    <!-- 06 CONTACT -->
+    <section class="section reveal" id="contact">
+      <div class="section-header">
+        <span class="section-num">06 //</span>
+        <span class="section-title">Contact</span>
+      </div>
+      <p style="font-size:14px;color:var(--text-dim);max-width:440px">
+        Open to DevOps, platform engineering, and SRE roles. Feel free to reach out.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:meghashivhare8@gmail.com" class="contact-link">✉ meghashivhare8@gmail.com</a>
+        <a href="https://github.com/MeghaShivhare" target="_blank" class="contact-link">⌥ github.com/MeghaShivhare</a>
+        <a href="https://linkedin.com/in/meghashivhare" target="_blank" class="contact-link">◈ linkedin.com/in/meghashivhare</a>
+      </div>
+      <div class="rev-footer">
+        <div class="rev-cell"><span>Title</span>DevOps Engineer Portfolio</div>
+        <div class="rev-cell"><span>Engineer</span>Megha Shivhare</div>
+        <div class="rev-cell"><span>Scale</span>1:1 · Production Grade</div>
+        <div class="rev-cell"><span>Rev / Date</span>03 · 2026</div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<button class="sound-btn" id="snd-btn" title="Toggle sound effects">🔊</button>
+
+<script>
+/* ── SOUND (Web Audio API — no external files) ─────── */
+let audioCtx = null;
+let soundOn = true;
+
+function getCtx(){
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playClick(){
+  if(!soundOn) return;
+  try{
+    const ctx = getCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime+.06);
+    gain.gain.setValueAtTime(.07, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime+.07);
+    osc.start(); osc.stop(ctx.currentTime+.08);
+  }catch(e){}
+}
+
+function playRustle(){
+  if(!soundOn) return;
+  try{
+    const ctx = getCtx();
+    const len = ctx.sampleRate*.15;
+    const buf = ctx.createBuffer(1,len,ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*.12;
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const f = ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=1400; f.Q.value=.5;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(.0001,ctx.currentTime);
+    g.gain.linearRampToValueAtTime(.35,ctx.currentTime+.04);
+    g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.15);
+    src.connect(f); f.connect(g); g.connect(ctx.destination);
+    src.start();
+  }catch(e){}
+}
+
+document.getElementById('snd-btn').addEventListener('click',()=>{
+  soundOn=!soundOn;
+  document.getElementById('snd-btn').textContent=soundOn?'🔊':'🔇';
+  if(soundOn) playClick();
+});
+
+document.querySelectorAll('a,button.sound-btn').forEach(el=>{
+  el.addEventListener('click',()=>{ if(el.id!=='snd-btn') playClick(); });
+});
+
+/* ── SCROLL REVEAL ─────────────────────────────────── */
+const reveals = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); playRustle(); ro.unobserve(e.target); }
+  });
+},{threshold:.08});
+reveals.forEach(el=>ro.observe(el));
+
+/* ── COST COUNTER ──────────────────────────────────── */
+const counter = document.getElementById('cost-counter');
+let started = false;
+const co = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting && !started){
+    started=true;
+    const dur=1400, t0=performance.now();
     (function tick(now){
       const p=Math.min((now-t0)/dur,1), e=1-Math.pow(1-p,3);
-      el.textContent='$'+Math.round(16000-e*8000).toLocaleString();
+      const v=Math.round(16000-e*8000);
+      counter.textContent='$'+(v>=1000?Math.round(v/1000)+'K':v);
       if(p<1) requestAnimationFrame(tick);
     })(performance.now());
-  },
-
-  renderTaskbar(activeId) {
-    const c = document.getElementById('titems'); c.innerHTML='';
-    Object.entries(this.wins).forEach(([id,w])=>{
-      const b=document.createElement('button');
-      b.className='titem'+(id===activeId?' active':'');
-      b.innerHTML=`<span class="ti-ico">${w.c.icon}</span><span>${w.c.title.split('—')[0].split('-')[0].trim()}</span>`;
-      b.onclick=()=>{
-        if(w.hidden){w.el.style.display='flex';w.hidden=false;WM.focus(id);}
-        else if(!w.el.classList.contains('inactive')) WM.minimize(id);
-        else WM.focus(id);
-      };
-      c.appendChild(b);
-    });
   }
-};
-
-/* drag move/up */
-document.addEventListener('mousemove', e=>{
-  if(!WM.drag) return;
-  const w=WM.wins[WM.drag]; if(!w||w.maxed) return;
-  w.el.style.left=Math.max(0,e.clientX-WM.dx)+'px';
-  w.el.style.top=Math.max(0,e.clientY-WM.dy)+'px';
-});
-document.addEventListener('mouseup',()=>{WM.drag=null});
-
-/* click desktop deactivates windows */
-document.getElementById('desktop').addEventListener('mousedown',e=>{
-  if(!e.target.closest('.wwin')){
-    Object.values(WM.wins).forEach(({el})=>el.classList.add('inactive'));
-    WM.renderTaskbar();
-  }
-});
-
-/* ════════════════════════════════════════════════════════
-   EXPLORER EXPAND
-════════════════════════════════════════════════════════ */
-function toggleExpRow(id){
-  const detail=document.getElementById('detail-'+id);
-  const row=document.getElementById('row-'+id);
-  if(!detail) return;
-  const open=detail.classList.contains('show');
-  document.querySelectorAll('.exp-detail').forEach(d=>d.classList.remove('show'));
-  document.querySelectorAll('.exp-row').forEach(r=>r.classList.remove('sel'));
-  if(!open){detail.classList.add('show');row.classList.add('sel');}
-}
-
-/* ════════════════════════════════════════════════════════
-   MENUS
-════════════════════════════════════════════════════════ */
-function toggleStart(e){
-  e.stopPropagation();
-  const m=document.getElementById('smenu');
-  const b=document.getElementById('sbtn');
-  const show=!m.classList.contains('show');
-  hideMenus();
-  if(show){m.classList.add('show');b.classList.add('down');}
-}
-function hideMenus(){
-  document.getElementById('smenu').classList.remove('show');
-  document.getElementById('sbtn').classList.remove('down');
-  document.getElementById('ctxmenu').classList.remove('show');
-}
-function showCtx(e){
-  e.preventDefault(); e.stopPropagation();
-  const m=document.getElementById('ctxmenu');
-  m.style.left=e.clientX+'px'; m.style.top=e.clientY+'px';
-  m.classList.add('show');
-}
-function selIcon(el){
-  document.querySelectorAll('.dicon').forEach(d=>d.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
-/* ════════════════════════════════════════════════════════
-   BSOD
-════════════════════════════════════════════════════════ */
-function showBsod(){document.getElementById('bsod').style.display='block'}
-function hideBsod(){document.getElementById('bsod').style.display='none'}
-
-/* ════════════════════════════════════════════════════════
-   CLOCK
-════════════════════════════════════════════════════════ */
-function tickClock(){
-  const now=new Date();
-  let h=now.getHours(),m=now.getMinutes(),a='AM';
-  if(h>=12){a='PM';if(h>12)h-=12;}else if(h===0)h=12;
-  document.getElementById('clock').textContent=h+':'+(m<10?'0':'')+m+' '+a;
-}
-tickClock(); setInterval(tickClock,10000);
-
-/* ════════════════════════════════════════════════════════
-   BOOT SEQUENCE
-════════════════════════════════════════════════════════ */
-async function boot(){
-  const fill=document.getElementById('bfill');
-  const msg=document.getElementById('bstatus');
-  const steps=[
-    [200,'Initializing hardware...'],
-    [320,'Loading Windows 98 Megha Edition...'],
-    [500,'Checking system resources...'],
-    [660,'Starting AWS credentials...'],
-    [800,'Mounting Kubernetes clusters...'],
-    [920,'Loading Terraform state...'],
-    [1000,'Launching desktop...'],
-  ];
-  for(const [pct,text] of steps){
-    fill.style.width=pct/10+'%';
-    msg.textContent=text;
-    await new Promise(r=>setTimeout(r,340));
-  }
-  await new Promise(r=>setTimeout(r,400));
-  document.getElementById('boot').classList.add('out');
-  setTimeout(()=>{
-    document.getElementById('boot').style.display='none';
-    showWelcomeDlg();
-    setTimeout(()=>WM.open('about'),800);
-  },650);
-}
-
-function showWelcomeDlg(){
-  document.getElementById('welcome-dlg').style.display='block';
-}
-
-window.addEventListener('load', boot);
+},{threshold:.5});
+co.observe(counter);
 </script>
 </body>
 </html>
