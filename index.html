@@ -10,11 +10,10 @@
   --bg:#0d2137;--line:#4fc3f7;
   --line-dim:rgba(79,195,247,.22);--line-faint:rgba(79,195,247,.06);
   --text:#deeef8;--text-dim:#7aaec7;--text-dimmer:#4a7a96;
-  --card:#fff;--card-text:#0f2232;--card-muted:#4a6880;
   --yellow:#ffd54f;--green:#69f0ae;--red:#ff6b6b;
   --mono:'Courier New',Courier,monospace;
   --sans:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
-  --nav:38px;
+  --nav:44px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -30,547 +29,364 @@ body{
 }
 a{color:inherit;text-decoration:none}
 
-/* ── NAV ──────────────────────────────────────────── */
+/* NAV */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:9000;
-  height:var(--nav);background:rgba(10,24,42,.95);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line-dim);
-  display:flex;align-items:center;padding:0 2rem;
+  height:var(--nav);background:rgba(10,24,42,.96);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line-dim);
+  display:flex;align-items:center;padding:0 2.5rem;
   justify-content:space-between;
 }
-.nav-logo{
-  font-family:var(--mono);font-size:12px;color:var(--line);
-  letter-spacing:.1em;display:flex;align-items:center;gap:8px;
-}
-.nav-dot{
-  width:7px;height:7px;border-radius:50%;background:var(--green);
-  animation:pulse 2.2s ease-in-out infinite;
-}
+.nav-logo{font-family:var(--mono);font-size:13px;color:var(--line);letter-spacing:.1em;display:flex;align-items:center;gap:9px}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.nav-links{display:flex;gap:1.4rem}
-.nav-link{
-  font-family:var(--mono);font-size:11px;color:var(--text-dimmer);
-  letter-spacing:.06em;transition:color .15s;cursor:pointer;
-}
+.nav-links{display:flex;gap:1.8rem}
+.nav-link{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);letter-spacing:.07em;transition:color .15s}
 .nav-link:hover,.nav-link.active{color:var(--line)}
 
-/* ── SIDE NAV ─────────────────────────────────────── */
-.sidenav{
-  position:fixed;right:1.25rem;top:50%;transform:translateY(-50%);
-  z-index:8000;display:flex;flex-direction:column;gap:8px;
+/* PAGE */
+.wrap{max-width:940px;margin:0 auto;padding:0 2.5rem}
+
+section{
+  padding:4.5rem 0;
+  border-bottom:1px solid var(--line-dim);
+  scroll-margin-top:var(--nav);
 }
-.sn{
-  width:28px;height:28px;border:1px solid var(--line-dim);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:9px;color:var(--text-dimmer);
-  cursor:pointer;transition:border-color .15s,color .15s,background .15s;
-  letter-spacing:.06em;
-}
-.sn:hover{border-color:var(--line);color:var(--line)}
-.sn.active{border-color:var(--line);color:var(--bg);background:var(--line)}
+section:last-child{border-bottom:none;padding-bottom:6rem}
 
-/* ── SHEET STACK ──────────────────────────────────── */
-/* Each .sheet-outer creates scrolling space so the next sheet slides over */
-.sheet-outer{height:200vh;position:relative}
-.sheet-outer:last-child{height:100vh}
+/* SECTION LABEL */
+.s-eyebrow{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--text-dimmer);margin-bottom:.4rem}
+.s-title{font-family:var(--mono);font-size:1rem;color:var(--line);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem}
 
-.sheet{
-  position:sticky;
-  top:var(--nav);
-  height:calc(100vh - var(--nav));
-  display:flex;align-items:center;justify-content:center;
-  padding:1.5rem 2rem;
-  box-shadow:0 -16px 60px rgba(0,0,0,.6);
-}
+/* HERO */
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:start}
+.hero-name{font-family:var(--mono);font-size:clamp(2.6rem,6vw,4.2rem);font-weight:normal;color:#fff;letter-spacing:.03em;line-height:1;margin-bottom:.5rem}
+.hero-role{font-family:var(--mono);font-size:1rem;color:var(--line);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.4rem}
+.hero-tag{font-size:16px;color:var(--text-dim);line-height:1.75;max-width:500px;margin-bottom:2rem}
 
-/* blueprint grid background per sheet */
-.sheet{background:var(--bg);background-image:
-  linear-gradient(var(--line-faint) 1px,transparent 1px),
-  linear-gradient(90deg,var(--line-faint) 1px,transparent 1px),
-  linear-gradient(rgba(79,195,247,.025) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(79,195,247,.025) 1px,transparent 1px);
-  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
-}
+.metrics{display:flex;gap:2.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.met{text-align:center}
+.met::before{content:'';display:block;width:1px;height:18px;background:var(--line-dim);margin:0 auto 6px}
+.met-val{font-family:var(--mono);font-size:1.9rem;color:#fff;line-height:1}
+.met-lbl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dimmer);margin-top:3px}
 
-/* frame inside each sheet */
-.sf{
-  width:100%;max-width:920px;height:100%;
-  border:1px solid var(--line-dim);
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-}
+.hero-links{display:flex;flex-wrap:wrap;gap:.6rem}
+.hlink{border:1px solid var(--line-dim);padding:.45rem 1.1rem;font-family:var(--mono);font-size:11.5px;color:var(--text-dim);display:inline-flex;align-items:center;gap:6px;transition:border-color .15s,color .15s}
+.hlink:hover,.hlink.primary{border-color:var(--line);color:var(--line)}
 
-/* corner brackets */
-.sf::before,.sf::after{
-  content:'';position:absolute;width:14px;height:14px;
-  border-color:var(--line);border-style:solid;
-  z-index:2;
-}
-.sf::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
-.sf::after{top:-1px;right:-1px;border-width:2px 2px 0 0}
-.sf-bl,.sf-br{
-  position:absolute;width:14px;height:14px;
-  border-color:var(--line);border-style:solid;z-index:2;
-}
-.sf-bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px}
-.sf-br{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
-
-/* sheet label bar */
-.sf-label{
-  border-top:1px solid var(--line-dim);
-  padding:4px 12px;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0;
-}
-.sf-label-l{font-family:var(--mono);font-size:9px;color:var(--text-dimmer);letter-spacing:.14em;text-transform:uppercase}
-.sf-label-r{font-family:var(--mono);font-size:9px;color:var(--text-dimmer);letter-spacing:.1em;display:flex;gap:16px}
-.sf-label-r span{cursor:pointer;transition:color .15s}
-.sf-label-r span:hover{color:var(--line)}
-
-/* scrollable sheet body */
-.sf-body{
-  flex:1;overflow-y:auto;padding:1.5rem 1.75rem;
-  scrollbar-width:thin;scrollbar-color:var(--line-dim) transparent;
-}
-
-/* ── COMMON ELEMENTS ──────────────────────────────── */
-.bp-meta{font-family:var(--mono);font-size:10px;color:var(--text-dimmer);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;display:block}
-.section-hdr{display:flex;align-items:baseline;gap:10px;margin-bottom:1.25rem}
-.s-num{font-family:var(--mono);font-size:11px;color:var(--line);letter-spacing:.1em}
-.s-title{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:var(--line)}
-
-/* profile card */
-.card{
-  background:rgba(5,18,34,.88);
-  backdrop-filter:blur(6px);
-  border:1px solid var(--line-dim);
-  border-left:3px solid var(--line);
-  padding:1.6rem 1.8rem;
-}
-.card p{font-size:17px;line-height:1.9;margin-bottom:.85rem;color:#deeef8}
-.card p:last-child{margin-bottom:0}
-.card-foot{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(79,195,247,.15)}
-.cchip{font-family:var(--mono);font-size:11px;color:var(--line);letter-spacing:.04em;display:flex;align-items:center;gap:5px}
-.cchip::before{content:'';display:inline-block;width:5px;height:5px;border:1px solid var(--green)}
-
-/* dims row */
-.dims{display:flex;gap:1.75rem;flex-wrap:wrap}
-.dim{text-align:center}
-.dim-line{width:1px;height:24px;background:var(--line-dim);margin:0 auto 3px;position:relative}
-.dim-line::before,.dim-line::after{content:'';position:absolute;left:50%;transform:translateX(-50%);width:7px;height:1px;background:var(--line-dim)}
-.dim-line::before{top:0}.dim-line::after{bottom:0}
-.dim-n{font-family:var(--mono);font-size:1.5rem;color:#fff;line-height:1}
-.dim-l{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-dimmer);margin-top:2px}
-
-/* title block */
-.title-block{border:1px solid var(--line-dim);font-family:var(--mono);font-size:10px;min-width:190px}
+/* TITLE BLOCK */
+.title-block{border:1px solid var(--line-dim);font-family:var(--mono);font-size:10px;min-width:200px;flex-shrink:0;align-self:start}
 .tb-r{display:grid;grid-template-columns:72px 1fr;border-bottom:1px solid var(--line-dim)}
 .tb-r:last-child{border-bottom:none}
-.tb-k{padding:4px 7px;color:var(--text-dimmer);border-right:1px solid var(--line-dim);text-transform:uppercase;letter-spacing:.07em;font-size:9px}
-.tb-v{padding:4px 7px;color:var(--text)}
+.tb-k{padding:5px 8px;color:var(--text-dimmer);border-right:1px solid var(--line-dim);text-transform:uppercase;letter-spacing:.07em;font-size:9px}
+.tb-v{padding:5px 8px;color:var(--text)}
 .tb-v.grn{color:var(--green)}.tb-v.yel{color:var(--yellow)}
 
-/* experience */
-.exp-grid{display:flex;flex-direction:column;gap:1.25rem}
+/* PROFILE */
+.profile-text p{font-size:16px;line-height:1.85;color:var(--text);margin-bottom:.9rem;max-width:680px}
+.profile-text p:last-child{margin-bottom:0}
+.certs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.cert-chip{font-family:var(--mono);font-size:11.5px;color:var(--line);border:1px solid var(--line-dim);padding:5px 11px;letter-spacing:.04em}
+
+/* EXPERIENCE */
+.exp-grid{display:flex;flex-direction:column;gap:1.5rem}
 .exp-c{border:1px solid var(--line-dim);position:relative}
-.exp-c::before{content:attr(data-id);position:absolute;top:-8px;left:10px;font-family:var(--mono);font-size:9px;background:var(--bg);padding:0 5px;color:var(--text-dimmer);letter-spacing:.09em}
-.exp-h{display:grid;grid-template-columns:1fr auto;align-items:start;gap:.75rem;padding:.9rem 1.1rem .7rem;border-bottom:1px solid var(--line-dim)}
-.exp-co{font-family:var(--mono);font-size:17px;color:#fff;letter-spacing:.04em}
-.exp-ro{font-size:15px;color:var(--line);margin-top:2px}
-.exp-dt{font-family:var(--mono);font-size:13px;color:var(--text-dimmer);margin-top:3px}
-.exp-badge{font-family:var(--mono);font-size:9px;padding:2px 7px;letter-spacing:.1em;border:1px solid;white-space:nowrap;text-transform:uppercase}
+.exp-c::before{content:attr(data-id);position:absolute;top:-8px;left:12px;font-family:var(--mono);font-size:9px;background:var(--bg);padding:0 6px;color:var(--text-dimmer);letter-spacing:.09em}
+.exp-h{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1rem;padding:1.1rem 1.3rem .9rem;border-bottom:1px solid var(--line-dim)}
+.exp-co{font-family:var(--mono);font-size:18px;color:#fff;letter-spacing:.03em}
+.exp-ro{font-size:15px;color:var(--line);margin-top:4px}
+.exp-dt{font-family:var(--mono);font-size:12px;color:var(--text-dimmer);margin-top:4px}
+.exp-badge{font-family:var(--mono);font-size:9px;padding:3px 8px;letter-spacing:.1em;border:1px solid;white-space:nowrap;text-transform:uppercase}
 .b-on{color:var(--green);border-color:var(--green)}
 .b-off{color:var(--text-dimmer);border-color:var(--text-dimmer)}
-.exp-b{padding:.9rem 1.1rem;background:rgba(255,255,255,.03)}
-.exp-ul{list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:.7rem}
-.exp-ul li{font-size:14.5px;color:var(--text-dim);line-height:1.65;padding-left:15px;position:relative}
-.exp-ul li::before{content:'→';position:absolute;left:0;color:var(--line);font-family:var(--mono);font-size:10px}
+.exp-b{padding:1.1rem 1.3rem;background:rgba(255,255,255,.02)}
+.exp-ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:1rem}
+.exp-ul li{font-size:14.5px;color:var(--text-dim);line-height:1.65;padding-left:18px;position:relative}
+.exp-ul li::before{content:'→';position:absolute;left:0;color:var(--line);font-family:var(--mono);font-size:10px;top:3px}
 .exp-ul li strong{color:#fff;font-weight:600}
-.callout-row{display:flex;flex-wrap:wrap;gap:.4rem;padding-top:.6rem;border-top:1px dashed var(--line-dim);margin-bottom:.6rem}
-.callout{border:1px solid var(--yellow);padding:2px 7px;font-family:var(--mono);font-size:10px;color:var(--yellow);letter-spacing:.04em}
-.callout::before{content:'△ ';font-size:8px;opacity:.7}
-.exp-tags{display:flex;flex-wrap:wrap;gap:3px}
-.tag{font-family:var(--mono);font-size:10px;padding:2px 6px;border:1px solid var(--line-dim);color:var(--text-dim)}
+.callout-row{display:flex;flex-wrap:wrap;gap:.4rem;padding-top:.75rem;border-top:1px dashed var(--line-dim);margin-bottom:.75rem}
+.callout{border:1px solid var(--yellow);padding:3px 8px;font-family:var(--mono);font-size:10px;color:var(--yellow);letter-spacing:.04em}
+.exp-tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-family:var(--mono);font-size:10px;padding:2px 7px;border:1px solid var(--line-dim);color:var(--text-dim)}
 
-/* BOM */
-.bom{border:1px solid var(--line-dim);font-family:var(--mono);font-size:11.5px}
-.bom-hd{display:grid;grid-template-columns:150px 1fr;background:rgba(79,195,247,.07);border-bottom:1px solid var(--line-dim)}
-.bom-hc{padding:5px 11px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dimmer)}
+/* SKILLS */
+.bom{border:1px solid var(--line-dim);font-family:var(--mono)}
+.bom-hd{display:grid;grid-template-columns:160px 1fr;background:rgba(79,195,247,.07);border-bottom:1px solid var(--line-dim)}
+.bom-hc{padding:7px 14px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dimmer)}
 .bom-hc:first-child{border-right:1px solid var(--line-dim)}
-.bom-rw{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid rgba(79,195,247,.05)}
+.bom-rw{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(79,195,247,.06)}
 .bom-rw:last-child{border-bottom:none}
 .bom-rw:hover{background:rgba(79,195,247,.04)}
-.bom-cat{padding:7px 12px;border-right:1px solid rgba(79,195,247,.09);color:var(--line);font-size:13px}
-.bom-val{padding:7px 12px;color:var(--text-dim);font-size:13px;line-height:1.6}
+.bom-cat{padding:9px 14px;border-right:1px solid rgba(79,195,247,.1);color:var(--line);font-size:13px}
+.bom-val{padding:9px 14px;color:var(--text-dim);font-size:13.5px;line-height:1.6}
 
-/* impact */
-.impact-box{border:1px solid var(--line-dim);padding:1.75rem;position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:1.75rem;align-items:center}
-.impact-box::before{content:'TEST RESULT — AWS COST OPTIMISATION';position:absolute;top:-8px;left:14px;font-family:var(--mono);font-size:9px;background:var(--bg);padding:0 7px;color:var(--text-dimmer);letter-spacing:.12em}
-.metric{text-align:center}
-.m-lbl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--text-dimmer);margin-bottom:5px}
-.m-val{font-family:var(--mono);font-size:2.6rem;line-height:1;letter-spacing:.02em}
+/* IMPACT */
+.impact-box{border:1px solid var(--line-dim);padding:2.25rem;position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:2.25rem;align-items:center}
+.impact-box::before{content:'TEST RESULT — AWS COST OPTIMISATION';position:absolute;top:-8px;left:16px;font-family:var(--mono);font-size:9px;background:var(--bg);padding:0 8px;color:var(--text-dimmer);letter-spacing:.12em}
+.impact-metric{text-align:center}
+.m-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--text-dimmer);margin-bottom:6px}
+.m-val{font-family:var(--mono);font-size:3.2rem;line-height:1;letter-spacing:.02em}
 .m-val.before{color:var(--red)}.m-val.after{color:var(--green)}
-.m-unit{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-top:3px}
-.impact-arrow{font-family:var(--mono);font-size:1.6rem;color:var(--line);text-align:center}
-.impact-list{list-style:none;display:flex;flex-direction:column;gap:3px}
-.impact-list li{font-size:14px;color:var(--text-dim);padding-left:13px;position:relative;line-height:1.6}
-.impact-list li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+.m-unit{font-family:var(--mono);font-size:12px;color:var(--text-dimmer);margin-top:5px}
+.impact-arrow{font-family:var(--mono);font-size:2rem;color:var(--line);text-align:center}
+.impact-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.impact-list li{font-size:14px;color:var(--text-dim);padding-left:16px;position:relative;line-height:1.65}
+.impact-list li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:12px;top:1px}
 
-/* blog / contact cards */
-.blog-card{border:1px solid var(--line-dim);padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:border-color .2s,background .2s;margin-bottom:.7rem}
-.blog-card:last-child{margin-bottom:0}
-.blog-card:hover{border-color:var(--line);background:rgba(79,195,247,.04)}
-.bc-title{font-family:var(--mono);font-size:12.5px;color:#fff;margin-bottom:3px;letter-spacing:.03em}
-.bc-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
-.bc-arr{font-family:var(--mono);font-size:1rem;color:var(--line);flex-shrink:0;transition:transform .2s}
-.blog-card:hover .bc-arr{transform:translateX(4px)}
-
-.contact-links{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.25rem}
-.clink{border:1px solid var(--line-dim);padding:.5rem .9rem;font-family:var(--mono);font-size:11.5px;display:flex;align-items:center;gap:7px;color:var(--text-dim);transition:border-color .15s,color .15s}
+/* CONTACT */
+.contact-links{display:flex;flex-wrap:wrap;gap:.65rem;margin-bottom:2rem}
+.clink{border:1px solid var(--line-dim);padding:.55rem 1.2rem;font-family:var(--mono);font-size:12px;display:flex;align-items:center;gap:7px;color:var(--text-dim);transition:border-color .15s,color .15s}
 .clink:hover{border-color:var(--line);color:var(--line)}
 
-.rev-bar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(79,195,247,.14)}
-.rev-cell{padding:4px 10px;border-right:1px solid rgba(79,195,247,.14);font-family:var(--mono);font-size:9px;color:var(--text-dimmer);letter-spacing:.07em}
+.blog-card{border:1px solid var(--line-dim);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:border-color .2s,background .2s;margin-bottom:.75rem}
+.blog-card:last-child{margin-bottom:0}
+.blog-card:hover{border-color:var(--line);background:rgba(79,195,247,.04)}
+.bc-title{font-family:var(--mono);font-size:13px;color:#fff;margin-bottom:4px;letter-spacing:.03em}
+.bc-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+.bc-arr{font-family:var(--mono);font-size:1.1rem;color:var(--line);flex-shrink:0;transition:transform .2s}
+.blog-card:hover .bc-arr{transform:translateX(4px)}
+
+/* FOOTER */
+.rev-bar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(79,195,247,.14);margin-top:3rem}
+.rev-cell{padding:5px 11px;border-right:1px solid rgba(79,195,247,.14);font-family:var(--mono);font-size:9px;color:var(--text-dimmer);letter-spacing:.07em}
 .rev-cell:last-child{border-right:none}
 .rev-cell span{display:block;font-size:8px;text-transform:uppercase;opacity:.55;margin-bottom:1px}
 
-/* sound btn */
-.snd-btn{position:fixed;bottom:1.2rem;left:1.2rem;z-index:9000;width:34px;height:34px;background:rgba(10,24,42,.92);border:1px solid var(--line-dim);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+/* SOUND BTN */
+.snd-btn{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9000;width:34px;height:34px;background:rgba(10,24,42,.92);border:1px solid var(--line-dim);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
 .snd-btn:hover{border-color:var(--line)}
 
-/* MOBILE: disable sticky stack, normal scroll */
 @media(max-width:700px){
-  .sheet-outer{height:auto}
-  .sheet{position:relative;top:0;height:auto;min-height:0;box-shadow:none;padding-top:calc(var(--nav) + 1.5rem)}
-  .sidenav{display:none}
+  .hero-grid{grid-template-columns:1fr}
   .title-block{display:none}
-  .impact-box{grid-template-columns:1fr;gap:1rem}
+  .impact-box{grid-template-columns:1fr;gap:1.5rem}
   .impact-arrow{transform:rotate(90deg)}
   .bom-hd,.bom-rw{grid-template-columns:110px 1fr}
   .nav-links{display:none}
+  .wrap{padding:0 1.25rem}
+  section{padding:3rem 0}
 }
-@media(prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-logo"><span class="nav-dot"></span>MEGHA.SHIVHARE</div>
   <div class="nav-links">
-    <span class="nav-link" onclick="goSheet(0)">IDENTITY</span>
-    <span class="nav-link" onclick="goSheet(1)">PROFILE</span>
-    <span class="nav-link" onclick="goSheet(2)">EXPERIENCE</span>
-    <span class="nav-link" onclick="goSheet(3)">SKILLS</span>
-    <span class="nav-link" onclick="goSheet(4)">IMPACT</span>
-    <span class="nav-link" onclick="goSheet(5)">CONTACT</span>
+    <a href="#profile" class="nav-link">PROFILE</a>
+    <a href="#experience" class="nav-link">EXPERIENCE</a>
+    <a href="#skills" class="nav-link">SKILLS</a>
+    <a href="#impact" class="nav-link">IMPACT</a>
+    <a href="#contact" class="nav-link">CONTACT</a>
   </div>
 </nav>
 
-<!-- SIDE NAV -->
-<nav class="sidenav" id="sidenav">
-  <div class="sn active" onclick="goSheet(0)">01</div>
-  <div class="sn" onclick="goSheet(1)">02</div>
-  <div class="sn" onclick="goSheet(2)">03</div>
-  <div class="sn" onclick="goSheet(3)">04</div>
-  <div class="sn" onclick="goSheet(4)">05</div>
-  <div class="sn" onclick="goSheet(5)">06</div>
-</nav>
+<div class="wrap" style="padding-top:calc(var(--nav) + 3.5rem)">
 
-<!-- ─────────────────────────────────────────────────────
-     SHEET 01 — IDENTITY
-────────────────────────────────────────────────────── -->
-<div class="sheet-outer" style="z-index:10">
-<section class="sheet" style="z-index:10">
-  <div class="sf">
-    <div class="sf-bl"></div><div class="sf-br"></div>
-    <div class="sf-body">
-      <span class="bp-meta">Sheet 01 of 06 · DevOps Infrastructure Blueprint</span>
-      <div style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start">
+<!-- HERO ──────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <h1 class="hero-name">MEGHA<br>SHIVHARE</h1>
+      <div class="hero-role">DevOps Engineer</div>
+      <p class="hero-tag">I design, automate, and operate cloud-native infrastructure on AWS — from zero-downtime deployments to full observability stacks. Cut $16K/month cloud spend in half.</p>
+      <div class="metrics">
+        <div class="met"><div class="met-val">50%</div><div class="met-lbl">Cost Cut</div></div>
+        <div class="met"><div class="met-val">40%</div><div class="met-lbl">Faster Deploys</div></div>
+        <div class="met"><div class="met-val">70%</div><div class="met-lbl">Fewer Rollbacks</div></div>
+        <div class="met"><div class="met-val">2+</div><div class="met-lbl">Yrs Production</div></div>
+      </div>
+      <div class="hero-links">
+        <a href="mailto:meghashivhare8@gmail.com" class="hlink primary">✉ Email me</a>
+        <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="hlink">◈ LinkedIn</a>
+        <a href="https://github.com/MeghaShivhare" target="_blank" class="hlink">⌥ GitHub</a>
+      </div>
+    </div>
+    <div class="title-block">
+      <div class="tb-r"><div class="tb-k">Engineer</div><div class="tb-v">Megha Shivhare</div></div>
+      <div class="tb-r"><div class="tb-k">Role</div><div class="tb-v">DevOps Engineer</div></div>
+      <div class="tb-r"><div class="tb-k">Current</div><div class="tb-v">Blinq.IO · 2026</div></div>
+      <div class="tb-r"><div class="tb-k">Cert</div><div class="tb-v">AWS SAA</div></div>
+      <div class="tb-r"><div class="tb-k">Location</div><div class="tb-v">Bangalore, India</div></div>
+      <div class="tb-r"><div class="tb-k">Status</div><div class="tb-v grn">● AVAILABLE</div></div>
+      <div class="tb-r"><div class="tb-k">Rev / Date</div><div class="tb-v yel">03 · 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE ───────────────────────────────────── -->
+<section id="profile">
+  <div class="s-eyebrow">01 // Profile</div>
+  <div class="s-title">About Me</div>
+  <div class="profile-text">
+    <p>Two years designing and operating cloud-native systems on AWS — from zero-downtime deployments to infrastructure-as-code and full observability stacks. My work at Blinq.IO involved taking a $16K/month AWS bill and halving it while improving reliability and delivery speed.</p>
+    <p>Before that at C&amp;R Software, I built CI/CD pipelines that increased release frequency by 40% and cut rollback incidents by 70%. I work in Kubernetes, Terraform, ArgoCD, and GitHub Actions every day — and I write about what I learn.</p>
+  </div>
+  <div class="certs">
+    <span class="cert-chip">✓ AWS Certified Solutions Architect – Associate</span>
+    <span class="cert-chip">✓ B.E. Information Technology · RCOEM · 8.5 CGPA</span>
+  </div>
+</section>
+
+<!-- EXPERIENCE ────────────────────────────────── -->
+<section id="experience">
+  <div class="s-eyebrow">02 // Experience</div>
+  <div class="s-title">Work History</div>
+  <div class="exp-grid">
+
+    <div class="exp-c" data-id="CURRENT">
+      <div class="exp-h">
         <div>
-          <h1 style="font-family:var(--mono);font-size:clamp(2rem,5.5vw,3.6rem);font-weight:normal;color:#fff;letter-spacing:.04em;line-height:1;margin-bottom:.35rem">MEGHA<br>SHIVHARE</h1>
-          <div style="font-family:var(--mono);font-size:clamp(.9rem,1.8vw,1.05rem);color:var(--line);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.1rem">DevOps Engineer</div>
-          <p style="font-size:.95rem;color:var(--text-dim);line-height:1.65;max-width:460px;margin-bottom:1.6rem">I design, automate, and operate cloud-native infrastructure on AWS. Cut monthly cloud spend by 50%. Ship faster, stay up longer, sleep better.</p>
-          <div class="dims">
-            <div class="dim"><div class="dim-line"></div><div class="dim-n">50%</div><div class="dim-l">Cost Cut</div></div>
-            <div class="dim"><div class="dim-line"></div><div class="dim-n">40%</div><div class="dim-l">Faster Deploys</div></div>
-            <div class="dim"><div class="dim-line"></div><div class="dim-n">70%</div><div class="dim-l">Fewer Rollbacks</div></div>
-            <div class="dim"><div class="dim-line"></div><div class="dim-n">2+</div><div class="dim-l">Yrs Production</div></div>
-          </div>
+          <div class="exp-co">Blinq.IO</div>
+          <div class="exp-ro">DevOps Engineer</div>
+          <div class="exp-dt">Mar 2026 — Present</div>
         </div>
-        <div class="title-block">
-          <div class="tb-r"><div class="tb-k">Designed by</div><div class="tb-v">Megha Shivhare</div></div>
-          <div class="tb-r"><div class="tb-k">Role</div><div class="tb-v">DevOps Engineer</div></div>
-          <div class="tb-r"><div class="tb-k">Current</div><div class="tb-v">Blinq.IO · 2026</div></div>
-          <div class="tb-r"><div class="tb-k">Cert</div><div class="tb-v">AWS SAA</div></div>
-          <div class="tb-r"><div class="tb-k">Location</div><div class="tb-v">Bangalore, India</div></div>
-          <div class="tb-r"><div class="tb-k">Status</div><div class="tb-v grn">● AVAILABLE</div></div>
-          <div class="tb-r"><div class="tb-k">Rev / Date</div><div class="tb-v yel">03 · 2026</div></div>
+        <span class="exp-badge b-on">● Active</span>
+      </div>
+      <div class="exp-b">
+        <ul class="exp-ul">
+          <li>Reduced AWS spend from <strong>$16K → $8K/month (50%)</strong> via EKS consolidation, Spot/Reserved instances, Karpenter, and rightsizing</li>
+          <li>Built GitOps-based delivery with <strong>ArgoCD + Kargo</strong> across all Kubernetes workloads</li>
+          <li>Deployed <strong>Prometheus, Grafana, Alertmanager</strong> with Slack routing and SLO dashboards</li>
+          <li>Namespace-level isolation — dev + staging on shared compute, production isolated</li>
+          <li>MongoDB production support: backups, DR testing, incident response</li>
+        </ul>
+        <div class="callout-row">
+          <span class="callout">↓ $8,000/mo saved</span>
+          <span class="callout">GitOps adopted</span>
+          <span class="callout">Karpenter autoscaling</span>
+        </div>
+        <div class="exp-tags">
+          <span class="tag">AWS EKS</span><span class="tag">ArgoCD</span><span class="tag">Kargo</span><span class="tag">Karpenter</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">MongoDB</span>
         </div>
       </div>
     </div>
-    <div class="sf-label">
-      <span class="sf-label-l">Sheet 01 / 06 — Identity</span>
-      <span class="sf-label-r"><span onclick="goSheet(1)">Next →</span></span>
-    </div>
-  </div>
-</section>
-</div>
 
-<!-- ─────────────────────────────────────────────────────
-     SHEET 02 — PROFILE
-────────────────────────────────────────────────────── -->
-<div class="sheet-outer" style="z-index:20">
-<section class="sheet" style="z-index:20">
-  <div class="sf">
-    <div class="sf-bl"></div><div class="sf-br"></div>
-    <div class="sf-body">
-      <div class="section-hdr"><span class="s-num">02 //</span><span class="s-title">Profile</span></div>
-      <div class="card">
-        <p>Two years designing and operating cloud-native systems on AWS — from zero-downtime deployments to infrastructure-as-code and full observability stacks. My work at Blinq.IO involved taking a $16K/month AWS bill and halving it while improving reliability and delivery speed.</p>
-        <p>Before that at C&amp;R Software, I built CI/CD pipelines that increased release frequency by 40% and cut rollback incidents by 70%. I work in Kubernetes, Terraform, ArgoCD, and GitHub Actions every day — and I write about what I learn.</p>
-        <div class="card-foot">
-          <span class="cchip">✓ AWS Certified Solutions Architect – Associate</span>
-          <span class="cchip">✓ B.E. Information Technology · RCOEM · 8.5 CGPA</span>
-        </div>
-      </div>
-    </div>
-    <div class="sf-label">
-      <span class="sf-label-l">Sheet 02 / 06 — Profile</span>
-      <span class="sf-label-r"><span onclick="goSheet(0)">← Prev</span><span onclick="goSheet(2)">Next →</span></span>
-    </div>
-  </div>
-</section>
-</div>
-
-<!-- ─────────────────────────────────────────────────────
-     SHEET 03 — EXPERIENCE
-────────────────────────────────────────────────────── -->
-<div class="sheet-outer" style="z-index:30">
-<section class="sheet" style="z-index:30">
-  <div class="sf">
-    <div class="sf-bl"></div><div class="sf-br"></div>
-    <div class="sf-body">
-      <div class="section-hdr"><span class="s-num">03 //</span><span class="s-title">Experience</span></div>
-      <div class="exp-grid">
-
-        <div class="exp-c" data-id="COMPONENT A — CURRENT">
-          <div class="exp-h">
-            <div>
-              <div class="exp-co">Blinq.IO</div>
-              <div class="exp-ro">DevOps Engineer</div>
-              <div class="exp-dt">Mar 2026 — Present</div>
-            </div>
-            <span class="exp-badge b-on">● Active</span>
-          </div>
-          <div class="exp-b">
-            <ul class="exp-ul">
-              <li>Reduced AWS spend from <strong>$16K → $8K/month (50%)</strong> via EKS consolidation, Spot/Reserved instances, Karpenter, and rightsizing</li>
-              <li>Built GitOps-based delivery with <strong>ArgoCD + Kargo</strong> across all Kubernetes workloads</li>
-              <li>Deployed <strong>Prometheus, Grafana, Alertmanager</strong> with Slack routing and SLO dashboards</li>
-              <li>Namespace-level isolation — dev + staging on shared compute, production isolated</li>
-              <li>MongoDB production support: backups, DR testing, incident response</li>
-            </ul>
-            <div class="callout-row">
-              <span class="callout">↓ $8,000/mo saved</span>
-              <span class="callout">GitOps adopted</span>
-              <span class="callout">Karpenter autoscaling</span>
-            </div>
-            <div class="exp-tags">
-              <span class="tag">AWS EKS</span><span class="tag">ArgoCD</span><span class="tag">Kargo</span><span class="tag">Karpenter</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">MongoDB</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-c" data-id="COMPONENT B — PREVIOUS">
-          <div class="exp-h">
-            <div>
-              <div class="exp-co">C&amp;R Software</div>
-              <div class="exp-ro">DevOps Engineer [AWS]</div>
-              <div class="exp-dt">Jan 2024 — Feb 2026 · 2 years</div>
-            </div>
-            <span class="exp-badge b-off">Completed</span>
-          </div>
-          <div class="exp-b">
-            <ul class="exp-ul">
-              <li>Jenkins + Helm CI/CD pipelines on EKS — <strong>40% increase in release frequency</strong></li>
-              <li><strong>70% reduction</strong> in rollback incidents through staged delivery and smoke tests</li>
-              <li>Managed AWS: EC2, RDS, IAM, VPC, Route53, CloudFront, Auto Scaling</li>
-              <li>Okta SSO integration for all Kubernetes-hosted applications</li>
-              <li>CloudWatch + Prometheus monitoring across all environments</li>
-            </ul>
-            <div class="callout-row">
-              <span class="callout">+40% release frequency</span>
-              <span class="callout">−70% rollbacks</span>
-              <span class="callout">Okta SSO</span>
-            </div>
-            <div class="exp-tags">
-              <span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">AWS EKS</span><span class="tag">Docker</span><span class="tag">Groovy</span><span class="tag">Okta</span><span class="tag">CloudWatch</span><span class="tag">Bash</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="sf-label">
-      <span class="sf-label-l">Sheet 03 / 06 — Experience</span>
-      <span class="sf-label-r"><span onclick="goSheet(1)">← Prev</span><span onclick="goSheet(3)">Next →</span></span>
-    </div>
-  </div>
-</section>
-</div>
-
-<!-- ─────────────────────────────────────────────────────
-     SHEET 04 — SKILLS
-────────────────────────────────────────────────────── -->
-<div class="sheet-outer" style="z-index:40">
-<section class="sheet" style="z-index:40">
-  <div class="sf">
-    <div class="sf-bl"></div><div class="sf-br"></div>
-    <div class="sf-body">
-      <div class="section-hdr"><span class="s-num">04 //</span><span class="s-title">Materials &amp; Components</span></div>
-      <div class="bom">
-        <div class="bom-hd"><div class="bom-hc">Category</div><div class="bom-hc">Components</div></div>
-        <div class="bom-rw"><div class="bom-cat">Cloud Platform</div><div class="bom-val">AWS — EC2, EKS, RDS, S3, IAM, VPC, Route53, CloudFront, Auto Scaling, CloudWatch</div></div>
-        <div class="bom-rw"><div class="bom-cat">Containers</div><div class="bom-val">Kubernetes (EKS) · Docker · Helm · Karpenter</div></div>
-        <div class="bom-rw"><div class="bom-cat">CI/CD &amp; GitOps</div><div class="bom-val">GitHub Actions · Jenkins · ArgoCD · Kargo</div></div>
-        <div class="bom-rw"><div class="bom-cat">IaC</div><div class="bom-val">Terraform · AWS CloudFormation</div></div>
-        <div class="bom-rw"><div class="bom-cat">Observability</div><div class="bom-val">Prometheus · Grafana · Alertmanager · CloudWatch · QuickSight + Athena</div></div>
-        <div class="bom-rw"><div class="bom-cat">Databases</div><div class="bom-val">MongoDB · PostgreSQL (RDS) · MySQL</div></div>
-        <div class="bom-rw"><div class="bom-cat">Languages</div><div class="bom-val">Bash · Python · Groovy · SQL · YAML</div></div>
-      </div>
-    </div>
-    <div class="sf-label">
-      <span class="sf-label-l">Sheet 04 / 06 — Materials &amp; Components</span>
-      <span class="sf-label-r"><span onclick="goSheet(2)">← Prev</span><span onclick="goSheet(4)">Next →</span></span>
-    </div>
-  </div>
-</section>
-</div>
-
-<!-- ─────────────────────────────────────────────────────
-     SHEET 05 — IMPACT
-────────────────────────────────────────────────────── -->
-<div class="sheet-outer" style="z-index:50">
-<section class="sheet" style="z-index:50">
-  <div class="sf">
-    <div class="sf-bl"></div><div class="sf-br"></div>
-    <div class="sf-body">
-      <div class="section-hdr"><span class="s-num">05 //</span><span class="s-title">Test Results</span></div>
-      <div class="impact-box">
-        <div class="metric">
-          <div class="m-lbl">Before optimisation</div>
-          <div class="m-val before">$16K</div>
-          <div class="m-unit">/ month · AWS spend</div>
-        </div>
-        <div class="impact-arrow">——→</div>
+    <div class="exp-c" data-id="PREVIOUS">
+      <div class="exp-h">
         <div>
-          <div class="metric" style="text-align:left;margin-bottom:1rem">
-            <div class="m-lbl">After optimisation</div>
-            <div class="m-val after" id="cost-counter">$16K</div>
-            <div class="m-unit">/ month · <strong style="color:var(--green)">↓ 50% · $8K/mo saved</strong></div>
-          </div>
-          <ul class="impact-list">
-            <li>EKS cluster consolidation (3 → 1)</li>
-            <li>Spot + Reserved Instance matching</li>
-            <li>Karpenter bin-packing efficiency</li>
-            <li>Workload rightsizing</li>
-            <li>Namespace-level shared compute</li>
-            <li>QuickSight + Athena cost governance</li>
-          </ul>
+          <div class="exp-co">C&amp;R Software</div>
+          <div class="exp-ro">DevOps Engineer [AWS]</div>
+          <div class="exp-dt">Jan 2024 — Feb 2026 · 2 years</div>
+        </div>
+        <span class="exp-badge b-off">Completed</span>
+      </div>
+      <div class="exp-b">
+        <ul class="exp-ul">
+          <li>Jenkins + Helm CI/CD pipelines on EKS — <strong>40% increase in release frequency</strong></li>
+          <li><strong>70% reduction</strong> in rollback incidents through staged delivery and smoke tests</li>
+          <li>Managed AWS: EC2, RDS, IAM, VPC, Route53, CloudFront, Auto Scaling</li>
+          <li>Okta SSO integration for all Kubernetes-hosted applications</li>
+          <li>CloudWatch + Prometheus monitoring across all environments</li>
+        </ul>
+        <div class="callout-row">
+          <span class="callout">+40% release frequency</span>
+          <span class="callout">−70% rollbacks</span>
+          <span class="callout">Okta SSO</span>
+        </div>
+        <div class="exp-tags">
+          <span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">AWS EKS</span><span class="tag">Docker</span><span class="tag">Groovy</span><span class="tag">Okta</span><span class="tag">CloudWatch</span><span class="tag">Bash</span>
         </div>
       </div>
     </div>
-    <div class="sf-label">
-      <span class="sf-label-l">Sheet 05 / 06 — Test Results</span>
-      <span class="sf-label-r"><span onclick="goSheet(3)">← Prev</span><span onclick="goSheet(5)">Next →</span></span>
+
+  </div>
+</section>
+
+<!-- SKILLS ────────────────────────────────────── -->
+<section id="skills">
+  <div class="s-eyebrow">03 // Skills</div>
+  <div class="s-title">Tech Stack</div>
+  <div class="bom">
+    <div class="bom-hd"><div class="bom-hc">Category</div><div class="bom-hc">Components</div></div>
+    <div class="bom-rw"><div class="bom-cat">Cloud</div><div class="bom-val">AWS — EC2, EKS, RDS, S3, IAM, VPC, Route53, CloudFront, Auto Scaling, CloudWatch</div></div>
+    <div class="bom-rw"><div class="bom-cat">Containers</div><div class="bom-val">Kubernetes (EKS) · Docker · Helm · Karpenter</div></div>
+    <div class="bom-rw"><div class="bom-cat">CI/CD &amp; GitOps</div><div class="bom-val">GitHub Actions · Jenkins · ArgoCD · Kargo</div></div>
+    <div class="bom-rw"><div class="bom-cat">IaC</div><div class="bom-val">Terraform · AWS CloudFormation</div></div>
+    <div class="bom-rw"><div class="bom-cat">Observability</div><div class="bom-val">Prometheus · Grafana · Alertmanager · CloudWatch · QuickSight + Athena</div></div>
+    <div class="bom-rw"><div class="bom-cat">Databases</div><div class="bom-val">MongoDB · PostgreSQL (RDS) · MySQL</div></div>
+    <div class="bom-rw"><div class="bom-cat">Languages</div><div class="bom-val">Bash · Python · Groovy · SQL · YAML</div></div>
+  </div>
+</section>
+
+<!-- IMPACT ────────────────────────────────────── -->
+<section id="impact">
+  <div class="s-eyebrow">04 // Impact</div>
+  <div class="s-title">Key Results</div>
+  <div class="impact-box">
+    <div class="impact-metric">
+      <div class="m-lbl">Before optimisation</div>
+      <div class="m-val before">$16K</div>
+      <div class="m-unit">/ month · AWS spend</div>
+    </div>
+    <div class="impact-arrow">——→</div>
+    <div>
+      <div class="impact-metric" style="text-align:left;margin-bottom:1.25rem">
+        <div class="m-lbl">After optimisation</div>
+        <div class="m-val after" id="cost-counter">$16K</div>
+        <div class="m-unit">/ month · <strong style="color:var(--green)">↓ 50% · $8K/mo saved</strong></div>
+      </div>
+      <ul class="impact-list">
+        <li>EKS cluster consolidation (3 → 1)</li>
+        <li>Spot + Reserved Instance matching</li>
+        <li>Karpenter bin-packing efficiency</li>
+        <li>Workload rightsizing</li>
+        <li>Namespace-level shared compute</li>
+        <li>QuickSight + Athena cost governance</li>
+      </ul>
     </div>
   </div>
 </section>
-</div>
 
-<!-- ─────────────────────────────────────────────────────
-     SHEET 06 — CONTACT
-────────────────────────────────────────────────────── -->
-<div class="sheet-outer" style="z-index:60">
-<section class="sheet" style="z-index:60">
-  <div class="sf">
-    <div class="sf-bl"></div><div class="sf-br"></div>
-    <div class="sf-body">
-      <div class="section-hdr"><span class="s-num">06 //</span><span class="s-title">Notes &amp; Contact</span></div>
-
-      <div style="margin-bottom:1.5rem">
-        <a href="blog/interview-questions.html" class="blog-card">
-          <div><div class="bc-title">DevOps Most Asked Interview Questions</div><div class="bc-desc">60+ real interview questions — Kubernetes, Docker, AWS, CI/CD, Terraform, Linux.</div></div>
-          <span class="bc-arr">→</span>
-        </a>
-        <a href="blog/" class="blog-card">
-          <div><div class="bc-title">All Notes</div><div class="bc-desc">Cost optimisation, GitOps, and lessons from production.</div></div>
-          <span class="bc-arr">→</span>
-        </a>
-      </div>
-
-      <p style="font-size:13.5px;color:var(--text-dim);max-width:420px;margin-bottom:1rem">Open to DevOps, platform engineering, and SRE roles.</p>
-      <div class="contact-links">
-        <a href="mailto:meghashivhare8@gmail.com" class="clink">✉ meghashivhare8@gmail.com</a>
-        <a href="https://github.com/MeghaShivhare" target="_blank" class="clink">⌥ github.com/MeghaShivhare</a>
-        <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="clink">◈ linkedin.com/in/megha-shivhare</a>
-      </div>
-
-      <div class="rev-bar">
-        <div class="rev-cell"><span>Title</span>DevOps Engineer Portfolio</div>
-        <div class="rev-cell"><span>Engineer</span>Megha Shivhare</div>
-        <div class="rev-cell"><span>Scale</span>1:1 · Production Grade</div>
-        <div class="rev-cell"><span>Rev / Date</span>03 · 2026</div>
-      </div>
-    </div>
-    <div class="sf-label">
-      <span class="sf-label-l">Sheet 06 / 06 — Contact</span>
-      <span class="sf-label-r"><span onclick="goSheet(4)">← Prev</span><span onclick="goSheet(0)">↑ Top</span></span>
-    </div>
+<!-- CONTACT ───────────────────────────────────── -->
+<section id="contact">
+  <div class="s-eyebrow">05 // Contact</div>
+  <div class="s-title">Get in Touch</div>
+  <p style="font-size:15px;color:var(--text-dim);max-width:480px;line-height:1.75;margin-bottom:1.5rem">Open to DevOps, platform engineering, and SRE roles. Based in Bangalore — open to remote.</p>
+  <div class="contact-links">
+    <a href="mailto:meghashivhare8@gmail.com" class="clink">✉ meghashivhare8@gmail.com</a>
+    <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="clink">◈ linkedin.com/in/megha-shivhare</a>
+    <a href="https://github.com/MeghaShivhare" target="_blank" class="clink">⌥ github.com/MeghaShivhare</a>
+  </div>
+  <a href="blog/interview-questions.html" class="blog-card">
+    <div><div class="bc-title">DevOps Most Asked Interview Questions</div><div class="bc-desc">60+ real questions — Kubernetes, Docker, AWS, CI/CD, Terraform, Linux.</div></div>
+    <span class="bc-arr">→</span>
+  </a>
+  <a href="blog/" class="blog-card">
+    <div><div class="bc-title">All Notes</div><div class="bc-desc">Cost optimisation, GitOps, and lessons from production.</div></div>
+    <span class="bc-arr">→</span>
+  </a>
+  <div class="rev-bar">
+    <div class="rev-cell"><span>Title</span>DevOps Engineer Portfolio</div>
+    <div class="rev-cell"><span>Engineer</span>Megha Shivhare</div>
+    <div class="rev-cell"><span>Scale</span>1:1 · Production Grade</div>
+    <div class="rev-cell"><span>Rev / Date</span>03 · 2026</div>
   </div>
 </section>
+
 </div>
 
 <button class="snd-btn" id="snd-btn" title="Toggle sound">🔊</button>
 
 <script>
-const VH = () => window.innerHeight;
-const SHEETS = 6;
-const snItems = document.querySelectorAll('.sn');
+// Nav active state
 const navLinks = document.querySelectorAll('.nav-link');
-
-function goSheet(idx){
-  const target = idx * 2 * VH(); // each sheet-outer is 200vh
-  window.scrollTo({top: target, behavior: 'smooth'});
-}
-
-function getActive(){
-  return Math.min(Math.floor(window.scrollY / (2 * VH())), SHEETS - 1);
-}
-
-function updateNav(){
-  const i = getActive();
-  snItems.forEach((el,j) => el.classList.toggle('active', j === i));
-  navLinks.forEach((el,j) => el.classList.toggle('active', j === i));
-}
-
-window.addEventListener('scroll', updateNav, {passive: true});
-updateNav();
-
-// Arrow key navigation
-document.addEventListener('keydown', e => {
-  const cur = getActive();
-  if(e.key === 'ArrowDown' && cur < SHEETS-1){ goSheet(cur+1); e.preventDefault(); }
-  if(e.key === 'ArrowUp'   && cur > 0)       { goSheet(cur-1); e.preventDefault(); }
-});
+const sections = document.querySelectorAll('section[id]');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const id = e.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#'+id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(s => io.observe(s));
 
 // Cost counter
 const counter = document.getElementById('cost-counter');
 let started = false;
-const co = new IntersectionObserver(entries => {
+new IntersectionObserver(entries => {
   if(entries[0].isIntersecting && !started){
     started = true;
     const dur = 1400, t0 = performance.now();
@@ -581,24 +397,17 @@ const co = new IntersectionObserver(entries => {
       if(p < 1) requestAnimationFrame(tick);
     })(performance.now());
   }
-},{threshold:0.5});
-co.observe(counter);
+},{threshold:0.5}).observe(counter);
 
 // Sound
 let audioCtx = null, soundOn = true;
 const sndBtn = document.getElementById('snd-btn');
-
-function getCtx(){
-  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-  return audioCtx;
-}
+function getCtx(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
 function playClick(){
   if(!soundOn) return;
   try{
-    const ctx = getCtx();
-    const o = ctx.createOscillator(), g = ctx.createGain();
+    const ctx = getCtx(), o = ctx.createOscillator(), g = ctx.createGain();
     o.connect(g); g.connect(ctx.destination);
-    o.type = 'sine';
     o.frequency.setValueAtTime(600, ctx.currentTime);
     o.frequency.exponentialRampToValueAtTime(200, ctx.currentTime+.06);
     g.gain.setValueAtTime(.07, ctx.currentTime);
@@ -606,40 +415,8 @@ function playClick(){
     o.start(); o.stop(ctx.currentTime+.08);
   }catch(e){}
 }
-function playRustle(){
-  if(!soundOn) return;
-  try{
-    const ctx = getCtx();
-    const len = Math.floor(ctx.sampleRate * .18);
-    const buf = ctx.createBuffer(1,len,ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*.1;
-    const src = ctx.createBufferSource(); src.buffer = buf;
-    const f = ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=1200; f.Q.value=.5;
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(.0001, ctx.currentTime);
-    g.gain.linearRampToValueAtTime(.4, ctx.currentTime+.05);
-    g.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime+.18);
-    src.connect(f); f.connect(g); g.connect(ctx.destination);
-    src.start();
-  }catch(e){}
-}
-
-sndBtn.addEventListener('click',()=>{
-  soundOn=!soundOn; sndBtn.textContent=soundOn?'🔊':'🔇';
-  if(soundOn) playClick();
-});
-
-// Play rustle on sheet change
-let lastSheet = 0;
-window.addEventListener('scroll', () => {
-  const cur = getActive();
-  if(cur !== lastSheet){ playRustle(); lastSheet = cur; }
-}, {passive: true});
-
-document.querySelectorAll('a,button:not(#snd-btn)').forEach(el => {
-  el.addEventListener('click', () => playClick());
-});
+sndBtn.addEventListener('click',()=>{ soundOn=!soundOn; sndBtn.textContent=soundOn?'🔊':'🔇'; if(soundOn) playClick(); });
+document.querySelectorAll('a').forEach(el => el.addEventListener('click', playClick));
 </script>
 </body>
 </html>
