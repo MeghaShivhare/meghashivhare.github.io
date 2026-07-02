@@ -140,12 +140,18 @@ a{color:inherit;text-decoration:none}
 .s-title{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:var(--line)}
 
 /* profile card */
-.card{padding:1.5rem 0;border-top:1px solid var(--line-dim)}
-.card p{font-size:14px;line-height:1.82;margin-bottom:.9rem;color:var(--text)}
+.card{
+  background:rgba(5,18,34,.88);
+  backdrop-filter:blur(6px);
+  border:1px solid var(--line-dim);
+  border-left:3px solid var(--line);
+  padding:1.6rem 1.8rem;
+}
+.card p{font-size:15px;line-height:1.85;margin-bottom:.85rem;color:#deeef8}
 .card p:last-child{margin-bottom:0}
-.card-foot{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--line-dim)}
-.cchip{font-family:var(--mono);font-size:11px;color:var(--line);letter-spacing:.04em}
-.cchip::before{content:'';display:inline-block;width:6px;height:6px;border:1px solid var(--green);margin-right:6px;vertical-align:middle;position:relative;top:-1px}
+.card-foot{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(79,195,247,.15)}
+.cchip{font-family:var(--mono);font-size:11px;color:var(--line);letter-spacing:.04em;display:flex;align-items:center;gap:5px}
+.cchip::before{content:'';display:inline-block;width:5px;height:5px;border:1px solid var(--green)}
 
 /* dims row */
 .dims{display:flex;gap:1.75rem;flex-wrap:wrap}
