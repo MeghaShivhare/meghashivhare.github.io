@@ -40,6 +40,8 @@ a{color:inherit;text-decoration:none}
 .nav-logo{font-family:var(--mono);font-size:13px;color:var(--line);letter-spacing:.1em;display:flex;align-items:center;gap:9px}
 .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav-logo-svg{display:block;flex-shrink:0}
+#logo-pulse{animation:pulse 2.2s ease-in-out infinite}
 .nav-links{display:flex;gap:1.8rem}
 .nav-link{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);letter-spacing:.07em;transition:color .15s}
 .nav-link:hover,.nav-link.active{color:var(--line)}
@@ -172,7 +174,20 @@ section:last-child{border-bottom:none;padding-bottom:6rem}
 <body>
 
 <nav class="nav">
-  <div class="nav-logo"><span class="nav-dot"></span>MEGHA.SHIVHARE</div>
+  <div class="nav-logo">
+    <svg class="nav-logo-svg" viewBox="0 0 36 30" width="36" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="M">
+      <!-- corner brackets -->
+      <polyline points="1,6 1,1 6,1"   stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+      <polyline points="30,1 35,1 35,6" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+      <polyline points="1,24 1,29 6,29"  stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+      <polyline points="30,29 35,29 35,24" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+      <!-- M letterform -->
+      <polyline points="7,22 7,8 18,17 29,8 29,22" stroke="#4fc3f7" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square" fill="none"/>
+      <!-- green pulse at valley -->
+      <circle id="logo-pulse" cx="18" cy="17" r="2.2" fill="#69f0ae"/>
+    </svg>
+    <span>MEGHA.SHIVHARE</span>
+  </div>
   <div class="nav-links">
     <a href="#profile" class="nav-link">PROFILE</a>
     <a href="#experience" class="nav-link">EXPERIENCE</a>
