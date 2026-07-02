@@ -3,104 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Megha Shivhare</title>
-<meta name="description" content="DevOps engineering blog by Megha Shivhare — interview prep, Kubernetes, AWS, CI/CD.">
+<title>Notes — Megha Shivhare</title>
+<meta name="description" content="DevOps engineering notes and interview prep by Megha Shivhare.">
 <style>
+:root{
+  --bg:#0d2137;--line:#4fc3f7;
+  --line-dim:rgba(79,195,247,.22);--line-faint:rgba(79,195,247,.06);
+  --text:#deeef8;--text-dim:#7aaec7;--text-dimmer:#4a7a96;
+  --green:#69f0ae;--yellow:#ffd54f;
+  --mono:'Courier New',Courier,monospace;
+  --sans:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:17px}
-body{background:#fff;color:#1a1a1a;font-family:Georgia,'Times New Roman',serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:
+    linear-gradient(var(--line-faint) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-faint) 1px,transparent 1px),
+    linear-gradient(rgba(79,195,247,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,195,247,.025) 1px,transparent 1px);
+  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:820px;margin:0 auto;padding:0 2rem}
 
-/* TOP BAR — win98 touch */
-.topbar{
-  position:sticky;top:0;z-index:100;background:#fff;border-bottom:2px solid #000080;
-  height:36px;display:flex;align-items:center;padding:0 24px;justify-content:space-between;
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,24,42,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-dim);
+  height:38px;display:flex;align-items:center;padding:0 2rem;
+  justify-content:space-between;
 }
-.topbar-logo{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:12px;font-weight:bold;color:#000080}
-.topbar-logo span{color:#888;font-weight:normal}
-.topbar-back{
-  font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;color:#444;
-  text-decoration:none;padding:3px 10px;border:1px solid #ccc;background:#f5f5f5;
-}
-.topbar-back:hover{background:#e8e8e8;color:#000}
+.nav-logo{font-family:var(--mono);font-size:12px;color:var(--line);letter-spacing:.1em;display:flex;align-items:center;gap:8px}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav-back{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);letter-spacing:.06em;transition:color .15s;border:1px solid var(--line-dim);padding:3px 9px}
+.nav-back:hover{color:var(--line);border-color:var(--line)}
 
 /* PAGE */
-.page{max-width:680px;margin:0 auto;padding:3rem 24px 5rem}
+.page{padding:3rem 0 5rem}
 
-/* HEADER */
-.page-header{padding-bottom:2rem;border-bottom:1px solid #e8e8e8;margin-bottom:2.5rem}
-.eyebrow{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#000080;margin-bottom:.75rem}
-.page-title{font-size:1.9rem;font-weight:bold;color:#111;line-height:1.2;margin-bottom:.6rem}
-.page-desc{font-size:.95rem;color:#666;line-height:1.7;max-width:480px}
+/* header */
+.page-hdr{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line-dim)}
+.bp-meta{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--text-dimmer);display:block;margin-bottom:.75rem}
+.page-title{font-family:var(--mono);font-size:clamp(1.4rem,4vw,2rem);color:#fff;letter-spacing:.04em;font-weight:normal;margin-bottom:.4rem}
+.page-sub{font-size:13.5px;color:var(--text-dim);max-width:440px;line-height:1.6}
 
-/* POST ITEMS */
-.post-list{display:flex;flex-direction:column;gap:0}
-.post-item{
-  display:block;text-decoration:none;color:inherit;
-  padding:1.5rem 0;border-bottom:1px solid #e8e8e8;
-  transition:opacity .15s;
+/* drawing list table */
+.drawing-list{border:1px solid var(--line-dim)}
+.dl-head{
+  display:grid;grid-template-columns:50px 1fr 160px 80px;
+  background:rgba(79,195,247,.07);
+  border-bottom:1px solid var(--line-dim);
 }
-.post-item:hover{opacity:.8;text-decoration:none}
-.post-tag{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#000080;display:block;margin-bottom:.4rem}
-.post-title{font-size:1.1rem;font-weight:bold;color:#111;line-height:1.35;margin-bottom:.4rem;display:block}
-.post-desc{font-size:.9rem;color:#555;line-height:1.65;margin-bottom:.6rem;display:block}
-.post-meta{font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;color:#aaa;display:flex;gap:.5rem;flex-wrap:wrap}
-.post-meta-sep{color:#ddd}
+.dl-hc{padding:6px 12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dimmer)}
+.dl-hc:not(:last-child){border-right:1px solid var(--line-dim)}
 
-/* COMING SOON */
-.post-item.dim{opacity:.45;pointer-events:none}
-.post-item.dim .post-title{font-style:italic}
+.dl-row{
+  display:grid;grid-template-columns:50px 1fr 160px 80px;
+  border-bottom:1px solid rgba(79,195,247,.06);
+  transition:background .15s;
+  cursor:default;
+}
+.dl-row:last-child{border-bottom:none}
+.dl-row.live:hover{background:rgba(79,195,247,.05);cursor:pointer}
+.dl-row.dim{opacity:.45}
 
-/* FOOTER */
-.footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e8e8e8;font-family:'Tahoma','MS Sans Serif',Arial,sans-serif;font-size:11px;color:#aaa;text-align:center}
-.footer a{color:#000080;text-decoration:none}
+.dl-num{padding:14px 12px;font-family:var(--mono);font-size:11px;color:var(--text-dimmer);border-right:1px solid rgba(79,195,247,.08);display:flex;align-items:flex-start}
+.dl-body{padding:14px 16px;border-right:1px solid rgba(79,195,247,.06)}
+.dl-title{font-family:var(--mono);font-size:13px;color:#fff;margin-bottom:4px;letter-spacing:.02em}
+.dl-row.live .dl-title{color:var(--line)}
+.dl-row.live:hover .dl-title{text-decoration:underline}
+.dl-desc{font-size:12px;color:var(--text-dim);line-height:1.55}
+.dl-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
+.dl-tag{font-family:var(--mono);font-size:10px;padding:1px 5px;border:1px solid var(--line-dim);color:var(--text-dimmer)}
+.dl-date{padding:14px 12px;font-family:var(--mono);font-size:11px;color:var(--text-dimmer);border-right:1px solid rgba(79,195,247,.06);display:flex;align-items:flex-start}
+.dl-status{padding:14px 12px;font-family:var(--mono);font-size:10px;display:flex;align-items:flex-start}
+.status-live{color:var(--green)}
+.status-soon{color:var(--text-dimmer)}
+
+/* footer */
+.footer{margin-top:3rem;border-top:1px solid var(--line-dim);padding-top:1rem;font-family:var(--mono);font-size:10px;color:var(--text-dimmer);text-align:center;letter-spacing:.08em}
+.footer a{color:var(--line);transition:opacity .15s}
+.footer a:hover{opacity:.7}
+
+@media(max-width:600px){
+  .dl-head{grid-template-columns:40px 1fr 70px}
+  .dl-row{grid-template-columns:40px 1fr 70px}
+  .dl-date{display:none}
+  .dl-head .dl-hc:nth-child(3){display:none}
+  .nav-logo span{display:none}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-logo">meghashivhare<span>.github.io</span></div>
-  <a href="../" class="topbar-back">← Back to Portfolio</a>
-</div>
+<nav class="nav">
+  <div class="nav-logo"><span class="nav-dot"></span>MEGHA.SHIVHARE<span style="color:var(--text-dimmer)">&nbsp;/&nbsp;NOTES</span></div>
+  <a href="../" class="nav-back">← Portfolio</a>
+</nav>
 
+<div class="wrap">
 <div class="page">
-  <div class="page-header">
-    <div class="eyebrow">Writing</div>
-    <h1 class="page-title">Blog</h1>
-    <p class="page-desc">DevOps notes, interview prep, and things I've learned operating cloud-native infrastructure.</p>
+
+  <div class="page-hdr">
+    <span class="bp-meta">Drawing List · Notes &amp; Runbooks · Rev.01</span>
+    <h1 class="page-title">Notes</h1>
+    <p class="page-sub">DevOps notes, interview prep, and lessons from operating cloud-native infrastructure.</p>
   </div>
 
-  <div class="post-list">
+  <div class="drawing-list">
+    <div class="dl-head">
+      <div class="dl-hc">No.</div>
+      <div class="dl-hc">Title &amp; Description</div>
+      <div class="dl-hc">Category</div>
+      <div class="dl-hc">Status</div>
+    </div>
 
-    <a href="interview-questions.html" class="post-item">
-      <span class="post-tag">Interview Prep</span>
-      <span class="post-title">DevOps Most Asked Interview Questions</span>
-      <span class="post-desc">60+ questions covering Kubernetes, Docker, AWS, CI/CD, Terraform, monitoring, Linux — with detailed answers and code examples.</span>
-      <div class="post-meta">
-        <span>60+ questions</span><span class="post-meta-sep">·</span>
-        <span>9 categories</span><span class="post-meta-sep">·</span>
-        <span>Kubernetes · AWS · Terraform · Docker</span>
+    <div class="dl-row live" onclick="window.location='interview-questions.html'">
+      <div class="dl-num">DWG<br>001</div>
+      <div class="dl-body">
+        <div class="dl-title">DevOps Most Asked Interview Questions</div>
+        <div class="dl-desc">60+ real questions from real interviews — Kubernetes, Docker, AWS, CI/CD, Terraform, monitoring, Linux. With detailed, interview-ready answers and code examples.</div>
+        <div class="dl-tags">
+          <span class="dl-tag">Kubernetes</span><span class="dl-tag">Docker</span><span class="dl-tag">AWS</span>
+          <span class="dl-tag">CI/CD</span><span class="dl-tag">Terraform</span><span class="dl-tag">Linux</span>
+        </div>
       </div>
-    </a>
-
-    <div class="post-item dim">
-      <span class="post-tag">Cost Optimization</span>
-      <span class="post-title">How I Cut AWS Spend by 50%</span>
-      <span class="post-desc">EKS consolidation, Karpenter, Spot instances, QuickSight dashboards — the full story from $16K to $8K/month.</span>
-      <div class="post-meta"><span>Coming soon</span></div>
+      <div class="dl-date">Interview<br>Prep</div>
+      <div class="dl-status"><span class="status-live">● Live</span></div>
     </div>
 
-    <div class="post-item dim">
-      <span class="post-tag">GitOps</span>
-      <span class="post-title">GitOps with ArgoCD + Kargo in Production</span>
-      <span class="post-desc">Progressive delivery, environment promotion, and rollback strategies from real deployments.</span>
-      <div class="post-meta"><span>Coming soon</span></div>
+    <div class="dl-row dim">
+      <div class="dl-num">DWG<br>002</div>
+      <div class="dl-body">
+        <div class="dl-title">How I Cut AWS Spend by 50%</div>
+        <div class="dl-desc">EKS consolidation, Karpenter, Spot instances, QuickSight dashboards — the full story from $16K to $8K/month.</div>
+        <div class="dl-tags"><span class="dl-tag">AWS</span><span class="dl-tag">Cost Optimisation</span><span class="dl-tag">EKS</span></div>
+      </div>
+      <div class="dl-date">Cost Ops</div>
+      <div class="dl-status"><span class="status-soon">○ Soon</span></div>
     </div>
 
+    <div class="dl-row dim">
+      <div class="dl-num">DWG<br>003</div>
+      <div class="dl-body">
+        <div class="dl-title">GitOps with ArgoCD + Kargo in Production</div>
+        <div class="dl-desc">Progressive delivery, environment promotion, and rollback strategies from real deployments.</div>
+        <div class="dl-tags"><span class="dl-tag">ArgoCD</span><span class="dl-tag">Kargo</span><span class="dl-tag">GitOps</span></div>
+      </div>
+      <div class="dl-date">GitOps</div>
+      <div class="dl-status"><span class="status-soon">○ Soon</span></div>
+    </div>
   </div>
 
-  <footer class="footer">
-    <a href="../">meghashivhare.github.io</a>
-  </footer>
+  <div class="footer"><a href="../">meghashivhare.github.io</a>&nbsp;/&nbsp;notes</div>
+
+</div>
 </div>
 
 </body>
