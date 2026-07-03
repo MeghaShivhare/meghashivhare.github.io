@@ -1,102 +1,102 @@
 # Design System — meghashivhare.github.io
 
-## Concept: "Ops Dashboard"
+## Concept: "Editorial Maximalist"
 
-The aesthetic is borrowed from the tools a DevOps engineer lives in daily:
-dark monitoring dashboards (Grafana), terminals, and status pages.
-Clean, dark, data-forward — the design serves the metrics.
+Warm paper background, oversized black type, one loud accent color reserved
+strictly for numbers and key facts. The aesthetic reads like a design studio's
+self-promo site, not a résumé — the goal is a page recruiters remember after
+they close the tab, while every metric that matters is still impossible to miss.
 
-Deliberately different from blueprint/drafting aesthetics (light ground, graphite lines).
-This site is the **dark counterpart**: deep navy, terminal green, amber metrics.
+No profile photo. The hero leads with kinetic typography and a scrolling
+tech-stack ticker instead — bigger impact, zero cropping/sizing problems.
 
 ---
 
 ## Color Tokens
 
 ```css
---bg:        #080D1A;   /* deep navy — not pure black, feels like dark-mode dashboard */
---surface:   #0F1729;   /* card / panel background */
---surface2:  #162035;   /* hover state surface, nested panels */
---border:    #1E2D4A;   /* hairline dividers */
---border2:   #263654;   /* stronger borders on hover */
-
---text:      #D4E5FF;   /* cool-white body text */
---muted:     #6B8CB8;   /* secondary text, labels */
---dim:       #3A5070;   /* tertiary — timestamps, decorative elements */
-
---green:     #00D97E;   /* PRIMARY accent — "operational" green, like Grafana uptime */
---green-dim: rgba(0, 217, 126, 0.12);   /* green tint for backgrounds */
---amber:     #F5A623;   /* metrics highlight — the big numbers */
---blue:      #4C9EFF;   /* links, tech tags */
---blue-dim:  rgba(76, 158, 255, 0.10);  /* tag backgrounds */
+--bg:        #ede8e2;  /* warm paper background */
+--ink:       #111;     /* primary text / headline black */
+--muted:     #555;     /* body copy */
+--dim:       #888;     /* labels, meta, timestamps */
+--border:    #c8c4be;  /* hairline dividers on beige */
+--accent:    #f97316;  /* THE signature color — every metric/number, nothing else */
 ```
 
 **Color discipline:**
-- `--green` is the signature color. Use it for: status indicators, CTAs, section labels, accents.
-- `--amber` is for numbers/metrics only. Never use it for UI chrome.
-- `--blue` is for links and technology tags only.
-- ~90% of the palette is monochrome navy/slate. Restraint is the point.
+- `--accent` (orange) is reserved for numbers and quantified facts: hero stats,
+  manifesto dollar figures, blog stat callouts. If it's not a metric, it's not orange.
+- Dark cards (experience, thoughts, footer) use near-black gradients with their
+  own differentiated number colors (green/blue) — fine to vary there since
+  each card tells a distinct story, but the *first-impression* numbers in the
+  hero must always be `--accent`.
+- The sparkle emoji accents use a small rainbow gradient purely as a decorative
+  flourish — don't pull from that gradient anywhere else.
 
 ---
 
 ## Typography
 
-**Inter** (body + headings): Clean grotesque, excellent screen rendering at all weights.
-- Hero title: 700, `clamp(2rem, 5vw, 3.2rem)`, letter-spacing `-0.02em`
-- Section titles: 600, `1.2rem`
-- Body: 400–500, `15px`, line-height `1.7`
-
-**JetBrains Mono** (annotations + code):
-- All labels, tags, section numbers, status indicators, contact values, config-style skill rows
-- Always uppercase with `letter-spacing: 0.08–0.15em` when used as labels
-- Never used for body prose
-
-**Scale rules:**
-- Use `clamp()` for anything that appears in the hero
-- Body line-length: 65–75ch max (enforced by `max-width` on `.wrap`)
-- `text-wrap: balance` on headings
+**System sans** (body + headings), **Courier New** (labels, meta, mono accents).
+- Hero title: 900 weight, `clamp(3.5rem, 10vw, 9rem)`, one line rendered as
+  hollow/outline text (`-webkit-text-stroke`) for contrast drama against the
+  solid-fill line beneath it.
+- Section titles: 800, `clamp(2.5rem, 5.5vw, 5rem)`.
+- Body: 400–500, 15–16px, line-height 1.7–1.8.
+- Mono labels: uppercase, `letter-spacing: 0.06–0.18em`.
 
 ---
 
 ## Layout
 
-- `max-width: 860px` centered with fluid gutters via padding
-- Single-column throughout (no sidebar on portfolio pages)
-- Sections separated by `1px solid var(--border)` hairlines
-- Section header pattern: mono number tag + title + `flex: 1` line rule
+- No fixed `max-width` wrapper on the homepage — sections use `vw`-based
+  padding so type can go edge-to-edge and feel large.
+- Single accent color threaded through every page (home + blog) so the two
+  don't feel like different sites.
+- Sections separated by `1px solid var(--border)` hairlines.
 
 ---
 
 ## Components
 
-### Stat Cards (hero metrics)
-3-column grid. Amber number, small muted label. Subtle green glow on hover.
-Numbers should always be the most important thing on the page.
+### Hero
+Full-width, no split panel, no photo. Structure: meta row (role/location +
+copyright) → outline+solid two-line headline → one-sentence thesis statement
+→ stat row (accent-colored numbers) → infinite-scroll tech marquee.
 
-### Timeline (experience)
-Two-column grid: `140px` date column (right-aligned, mono) + content column.
-Vertical hairline connector between items. Amber bold for key metrics in bullets.
+### Stat Row (hero + blog)
+Numbers always `--accent`, bold, larger than surrounding text. Labels small,
+muted, uppercase mono.
 
-### Skills Grid (config aesthetic)
-Dark surface, mono font throughout. Groups styled as code comments (`# category`).
-Keys in green, values in text color. Looks like a YAML/config file.
+### Manifesto
+Scroll-driven grey→black text reveal (`clip-path`). Dollar figures/key facts
+bolded in `--accent` inside the reveal text.
 
-### Blog Cards
-Dark surface cards with dashed-border placeholder for unpublished posts.
-Tag → title → description → meta row hierarchy.
+### Experience Cards
+Dark gradient cards, differentiated number colors per role (green/blue) — kept
+distinct since they're deep-dives, not first-impression numbers.
 
-### Contact Items
-Icon + label/value pairs in dark surface cards. Grid layout.
+### Marquee Ticker
+CSS-only infinite horizontal scroll of the tech stack, sits at the bottom of
+the hero. Duplicate the content list once so `translateX(-50%)` loops seamlessly.
+
+### Blog ("Notes")
+Same beige/black/accent system as the homepage — nav is a black bar/pill,
+category and stat colors use `--accent`, not a different theme. The listing
+page keeps the "drawing list" spreadsheet metaphor; individual posts can keep
+self-contained content chrome (e.g. dark code blocks) since those read as
+"embedded terminal" rather than page theme.
 
 ---
 
 ## Motion
 
-- **Cursor blink** on hero title: `step-end` animation, 1.1s period
-- **Status dot pulse** in nav: opacity oscillation, 2s ease-in-out
-- **Hover transitions**: `0.15–0.2s` for `border-color`, `background`, `color`
-- **No transform animations** except nav arrow on blog post items (`translateX(3px)`)
-- **`prefers-reduced-motion`**: All animations should resolve to end-state instantly
+- **Marquee scroll**: `26s linear infinite`, pauses visually fine under
+  `prefers-reduced-motion` via the global animation-duration override below.
+- **Manifesto reveal**: scroll-position-driven `clip-path`, no JS animation library.
+- **Fade-up on scroll**: `IntersectionObserver`, `0.7s` opacity/transform.
+- **Hover transitions**: `0.15–0.25s` for color/background/transform.
+- **`prefers-reduced-motion`**: all animations resolve to end-state instantly.
 
 ```css
 @media (prefers-reduced-motion: reduce) {
@@ -111,23 +111,10 @@ Icon + label/value pairs in dark surface cards. Grid layout.
 
 ## Voice & Content Principles
 
-- Metrics first: every experience bullet with a number gets the number upfront
-- Amber bold for quantified impact (`<strong>50%</strong>`, `<strong>40%</strong>`)
-- Skills are formatted as config, not a tag cloud — reflects how DevOps thinks
-- Blog posts are referenced as "notes" or "writing", not articles
-
----
-
-## Using impeccable
-
-After major content changes, run a polish pass:
-
-```bash
-npx impeccable polish the portfolio homepage
-npx impeccable audit the blog listing page
-```
-
-Reference this file as DESIGN.md context when initializing:
-```bash
-npx impeccable init   # will pick up DESIGN.md automatically
-```
+- Metrics first, always `--accent`-colored, always bold.
+- One punchy thesis sentence in the hero — this is the "memorable" line, not
+  a job title restatement.
+- Skills read as a spreadsheet/config list, not a tag cloud.
+- Blog posts are "Notes", not "articles".
+- No filler sections — an empty/half-built Projects section is worse than no
+  section at all. Add one only when there's a real project to show.

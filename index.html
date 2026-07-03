@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Megha Shivhare — DevOps Engineer</title>
 <meta name="description" content="DevOps Engineer. AWS, Kubernetes, GitOps. Cut cloud spend by 50%.">
+<meta property="og:title" content="Megha Shivhare — DevOps Engineer">
+<meta property="og:description" content="I take expensive, fragile infrastructure and make it cheap and boring. AWS, Kubernetes, GitOps — cut cloud spend 50%.">
+<meta property="og:image" content="https://meghashivhare.github.io/profile-photo.jpeg">
+<meta property="og:url" content="https://meghashivhare.github.io/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -31,35 +37,32 @@ a{color:inherit;text-decoration:none}
 }
 @keyframes spfloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(20deg)}}
 
-/* HERO — split panel */
-.s-hero{height:100vh;min-height:600px;display:grid;grid-template-columns:58% 42%;overflow:hidden}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:0 4vw 0 5vw;position:relative}
-.sp-1{position:absolute;top:17%;right:3vw;font-size:2rem;animation-delay:.6s}
+/* HERO — full-width dramatic type, no photo */
+.s-hero{min-height:100vh;display:flex;flex-direction:column;padding:2rem 5vw 0;position:relative;overflow:hidden}
+.hero-meta{display:flex;justify-content:space-between;align-items:center;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.08em;color:#888;text-transform:uppercase}
+.hero-top{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1000px;position:relative}
+.sp-1{position:absolute;top:-8%;right:6%;font-size:2.2rem}
 .hero-title{line-height:.9;user-select:none}
-.ht-line{display:block;font-size:clamp(3.5rem,8.8vw,8.5rem);font-weight:900;letter-spacing:-.025em;color:#111}
+.ht-line{display:block;font-size:clamp(3.5rem,10vw,9rem);font-weight:900;letter-spacing:-.03em;color:#111}
+.ht-outline{-webkit-text-stroke:2px #111;-webkit-text-fill-color:transparent;color:#111}
+.ht-dot{color:#f97316}
+.hero-thesis{font-size:clamp(1.05rem,1.7vw,1.3rem);font-weight:500;color:#444;max-width:560px;line-height:1.6;margin-top:1.75rem}
+.hero-thesis strong{color:#111;font-weight:700}
 .hero-stats{
-  display:flex;align-items:center;margin-top:2.5rem;padding-top:2rem;
-  border-top:1px solid #c0bcb5;max-width:460px;
+  display:flex;align-items:center;margin-top:2.5rem;padding-top:1.75rem;
+  border-top:1px solid #c0bcb5;max-width:640px;
 }
 .hs-item{flex:1}
-.hs-num{display:block;font-size:1.45rem;font-weight:800;letter-spacing:-.02em;color:#111}
+.hs-num{display:block;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;color:#f97316}
 .hs-label{display:block;font-size:11px;color:#888;margin-top:3px}
 .hs-div{width:1px;height:40px;background:#c0bcb5;margin:0 1.2rem;flex-shrink:0}
-.hero-foot{
-  position:absolute;bottom:1.5rem;left:5vw;right:4vw;
-  display:flex;justify-content:space-between;align-items:flex-end;
-}
-.hero-foot span{font-family:'Courier New',monospace;font-size:11px;color:#999;letter-spacing:.05em}
 
-/* hero photo panel */
-.hero-right{position:relative;overflow:hidden}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:38% top;display:block}
-.hero-right::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:130px;
-  background:linear-gradient(to right,#ede8e2 15%,transparent);
-  z-index:1;pointer-events:none;
-}
-.sp-2{position:absolute;z-index:2;bottom:20%;right:8%;font-size:1.8rem;animation-delay:2s}
+/* marquee ticker — replaces the photo panel with kinetic motion */
+.hero-marquee{overflow:hidden;border-top:1px solid #c0bcb5;margin-top:2.5rem;padding:14px 0}
+.marquee-track{display:flex;width:max-content;gap:2.5rem;animation:marquee 26s linear infinite}
+.marquee-track span{font-family:'Courier New',monospace;font-size:12.5px;letter-spacing:.1em;color:#888;text-transform:uppercase;white-space:nowrap}
+.marquee-track span.mq-dot{color:#c0bcb5}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ABOUT */
 .s-about{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;padding:9rem 6vw}
@@ -83,6 +86,7 @@ a{color:inherit;text-decoration:none}
   font-size:clamp(1.4rem,2.6vw,2.3rem);font-weight:700;line-height:1.55;color:#111;
   clip-path:inset(0 100% 0 0);will-change:clip-path;
 }
+.manifesto-base strong,.manifesto-reveal strong{color:#f97316}
 
 /* STACK */
 .s-stack{padding:6rem 6vw 8rem;border-top:1px solid #c8c4be}
@@ -149,8 +153,6 @@ a{color:inherit;text-decoration:none}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .s-hero{grid-template-columns:1fr}
-  .hero-right{display:none}
   .ht-line{font-size:clamp(3.5rem,14vw,7rem)}
   .hero-stats{max-width:100%}
   .s-about{grid-template-columns:1fr;gap:3rem;padding:6rem 5vw}
@@ -182,13 +184,18 @@ a{color:inherit;text-decoration:none}
 </nav>
 
 <!-- HERO -->
-<section class="s-hero">
-  <div class="hero-left">
+<section class="s-hero" id="top">
+  <div class="hero-meta">
+    <span>✦ DevOps Engineer · Bangalore, IN</span>
+    <span>©2026 / Building cloud since 2024</span>
+  </div>
+  <div class="hero-top">
     <div class="sparkle sp-1">✦</div>
     <div class="hero-title">
-      <span class="ht-line">DEVOPS</span>
-      <span class="ht-line">ENGINEER</span>
+      <span class="ht-line ht-outline">DEVOPS</span>
+      <span class="ht-line">ENGINEER<span class="ht-dot">.</span></span>
     </div>
+    <p class="hero-thesis">I take <strong>expensive, fragile</strong> infrastructure and make it <strong>cheap and boring</strong> — the highest compliment you can pay a production system.</p>
     <div class="hero-stats">
       <div class="hs-item">
         <span class="hs-num">50%</span>
@@ -205,14 +212,12 @@ a{color:inherit;text-decoration:none}
         <span class="hs-label">rollback incidents</span>
       </div>
     </div>
-    <div class="hero-foot">
-      <span>©2026</span>
-      <span>/BUILDING CLOUD SINCE 2024</span>
-    </div>
   </div>
-  <div class="hero-right">
-    <div class="sparkle sp-2">✦</div>
-    <img src="profile-photo.jpeg" alt="Megha Shivhare">
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>AWS</span><span class="mq-dot">·</span><span>Kubernetes</span><span class="mq-dot">·</span><span>Terraform</span><span class="mq-dot">·</span><span>ArgoCD</span><span class="mq-dot">·</span><span>Kargo</span><span class="mq-dot">·</span><span>GitHub Actions</span><span class="mq-dot">·</span><span>Prometheus</span><span class="mq-dot">·</span><span>Grafana</span><span class="mq-dot">·</span><span>Karpenter</span><span class="mq-dot">·</span><span>Docker</span><span class="mq-dot">·</span><span>GitOps</span><span class="mq-dot">·</span>
+      <span>AWS</span><span class="mq-dot">·</span><span>Kubernetes</span><span class="mq-dot">·</span><span>Terraform</span><span class="mq-dot">·</span><span>ArgoCD</span><span class="mq-dot">·</span><span>Kargo</span><span class="mq-dot">·</span><span>GitHub Actions</span><span class="mq-dot">·</span><span>Prometheus</span><span class="mq-dot">·</span><span>Grafana</span><span class="mq-dot">·</span><span>Karpenter</span><span class="mq-dot">·</span><span>Docker</span><span class="mq-dot">·</span><span>GitOps</span><span class="mq-dot">·</span>
+    </div>
   </div>
 </section>
 
@@ -237,8 +242,8 @@ a{color:inherit;text-decoration:none}
 <!-- MANIFESTO -->
 <section class="s-manifesto">
   <div class="manifesto-wrap">
-    <p class="manifesto-base">Two years ago I joined a startup running $16,000 in monthly AWS costs. Today that same infrastructure runs at $8,000. Not by cutting corners — by understanding the system deeply enough to know what to cut.</p>
-    <p class="manifesto-reveal" id="m-reveal">Two years ago I joined a startup running $16,000 in monthly AWS costs. Today that same infrastructure runs at $8,000. Not by cutting corners — by understanding the system deeply enough to know what to cut.</p>
+    <p class="manifesto-base">Two years ago I joined a startup running <strong>$16,000</strong> in monthly AWS costs. Today that same infrastructure runs at <strong>$8,000</strong>. Not by cutting corners — by understanding the system deeply enough to know what to cut.</p>
+    <p class="manifesto-reveal" id="m-reveal">Two years ago I joined a startup running <strong>$16,000</strong> in monthly AWS costs. Today that same infrastructure runs at <strong>$8,000</strong>. Not by cutting corners — by understanding the system deeply enough to know what to cut.</p>
   </div>
 </section>
 
