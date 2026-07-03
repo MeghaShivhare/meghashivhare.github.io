@@ -43,15 +43,11 @@ a{color:inherit;text-decoration:none}
 /* NAV */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:9000;
-  height:var(--nav);
-  background:rgba(7,17,30,.95);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line-dim);
-  display:flex;align-items:center;padding:0 2rem;
-  justify-content:space-between;
+  height:var(--nav);background:rgba(7,17,30,.95);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line-dim);
+  display:flex;align-items:center;padding:0 2rem;justify-content:space-between;
 }
 .nav-logo{font-family:var(--mono);font-size:13px;color:var(--line);letter-spacing:.1em;display:flex;align-items:center;gap:10px}
-.nav-logo-svg{display:block;flex-shrink:0}
 #logo-pulse{animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .nav-links{display:flex;gap:1.8rem}
@@ -59,27 +55,23 @@ a{color:inherit;text-decoration:none}
 .nav-link:hover{color:var(--line)}
 
 /* BENTO */
-.wrap{max-width:1140px;margin:0 auto;padding:calc(var(--nav) + 1.5rem) 1.5rem 3rem}
+.wrap{max-width:1160px;margin:0 auto;padding:calc(var(--nav) + 1.5rem) 1.5rem 3rem}
 .bento{
   display:grid;
-  grid-template-columns:2fr 2fr 1fr;
+  grid-template-columns:2fr 2fr 2fr 1.5fr;
   grid-template-areas:
-    "hero   role1   links"
-    "metrics impact links"
-    "skills  skills  cert"
-    "cr      blog    contact";
+    "hero   role1   role1  links"
+    "photo  metrics impact links"
+    "skills skills  skills cert"
+    "cr     cr      blog   contact";
   gap:var(--gap);
 }
 
 /* CARD BASE */
 .card{
-  background:var(--card);
-  border:1px solid var(--line-dim);
-  border-radius:var(--r);
-  padding:1.4rem 1.5rem;
-  position:relative;
-  overflow:hidden;
-  transition:border-color .2s;
+  background:var(--card);border:1px solid var(--line-dim);
+  border-radius:var(--r);padding:1.4rem 1.5rem;
+  position:relative;overflow:hidden;transition:border-color .2s;
 }
 .card:hover{border-color:rgba(79,195,247,.32)}
 .clabel{
@@ -89,7 +81,7 @@ a{color:inherit;text-decoration:none}
 
 /* HERO */
 .c-hero{
-  grid-area:hero;min-height:260px;
+  grid-area:hero;min-height:240px;
   display:flex;flex-direction:column;justify-content:space-between;
 }
 .c-hero::before,.c-hero::after{
@@ -99,23 +91,27 @@ a{color:inherit;text-decoration:none}
 .c-hero::before{top:10px;left:10px;border-width:2px 0 0 2px;border-radius:2px 0 0 0}
 .c-hero::after{top:10px;right:10px;border-width:2px 2px 0 0;border-radius:0 2px 0 0}
 .hero-name{
-  font-family:var(--mono);font-size:clamp(2.2rem,4vw,3.4rem);
-  font-weight:normal;color:#fff;letter-spacing:.03em;line-height:1;margin-bottom:.5rem;
+  font-family:var(--mono);font-size:clamp(1.9rem,3.5vw,2.9rem);
+  font-weight:normal;color:#fff;letter-spacing:.03em;line-height:1;margin-bottom:.45rem;
 }
-.hero-role{font-family:var(--mono);font-size:.9rem;color:var(--line);letter-spacing:.16em;text-transform:uppercase;margin-bottom:1rem}
-.hero-tag{font-size:14px;color:var(--text-dim);line-height:1.72;margin-bottom:1.25rem}
-.hero-foot{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.hero-role{font-family:var(--mono);font-size:.82rem;color:var(--line);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem}
+.hero-tag{font-size:13px;color:var(--text-dim);line-height:1.72;margin-bottom:1.1rem}
+.hero-foot{display:flex;flex-wrap:wrap;gap:.5rem}
 .badge{font-family:var(--mono);font-size:10px;padding:3px 9px;border:1px solid;border-radius:3px;letter-spacing:.08em;white-space:nowrap}
 .badge-on{color:var(--green);border-color:var(--green)}
 .badge-dim{color:var(--text-dimmer);border-color:var(--line-dim)}
 
-/* BLINQ */
-.c-role1{grid-area:role1;min-height:260px}
+/* PHOTO */
+.c-photo{grid-area:photo;padding:0;min-height:220px}
+.c-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:var(--r);display:block}
+
+/* ROLE 1 */
+.c-role1{grid-area:role1}
 .role-co{font-family:var(--mono);font-size:1.2rem;color:#fff;letter-spacing:.04em;margin-bottom:2px}
 .role-title{font-size:13px;color:var(--line);display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
 .active-pill{font-family:var(--mono);font-size:9px;padding:1px 6px;border:1px solid var(--green);color:var(--green);letter-spacing:.08em;border-radius:3px}
 .done-pill{font-family:var(--mono);font-size:9px;padding:1px 6px;border:1px solid var(--text-dimmer);color:var(--text-dimmer);letter-spacing:.08em;border-radius:3px}
-.role-dt{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-bottom:1rem}
+.role-dt{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-bottom:.9rem}
 .role-ul{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:.85rem}
 .role-ul li{font-size:13px;color:var(--text-dim);padding-left:14px;position:relative;line-height:1.55}
 .role-ul li::before{content:'→';position:absolute;left:0;color:var(--line);font-family:var(--mono);font-size:9px;top:3px}
@@ -129,8 +125,7 @@ a{color:inherit;text-decoration:none}
 .c-links{grid-area:links;display:flex;flex-direction:column;gap:9px}
 .link-btn{
   display:flex;align-items:center;gap:10px;
-  padding:.65rem .9rem;
-  border:1px solid var(--line-dim);border-radius:10px;
+  padding:.65rem .9rem;border:1px solid var(--line-dim);border-radius:10px;
   font-family:var(--mono);font-size:11px;color:var(--text-dim);
   transition:border-color .15s,color .15s,background .15s;
 }
@@ -141,21 +136,18 @@ a{color:inherit;text-decoration:none}
 /* METRICS */
 .c-metrics{grid-area:metrics}
 .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.met{
-  background:var(--card-hi);border:1px solid var(--line-dim);
-  border-radius:10px;padding:.9rem;text-align:center;
-}
+.met{background:var(--card-hi);border:1px solid var(--line-dim);border-radius:10px;padding:.9rem;text-align:center}
 .met-val{font-family:var(--mono);font-size:1.9rem;color:#fff;line-height:1}
 .met-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-dimmer);margin-top:4px}
 
 /* IMPACT */
 .c-impact{grid-area:impact}
-.impact-nums{display:flex;align-items:center;gap:1rem;margin:.75rem 0}
+.impact-nums{display:flex;align-items:center;gap:.75rem;margin:.7rem 0}
 .imp-num{text-align:center;flex:1}
-.imp-val{font-family:var(--mono);font-size:2.2rem;line-height:1}
+.imp-val{font-family:var(--mono);font-size:2.1rem;line-height:1}
 .imp-val.before{color:var(--red)}.imp-val.after{color:var(--green)}
 .imp-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dimmer);margin-top:3px}
-.imp-arrow{font-family:var(--mono);font-size:1.3rem;color:var(--line);flex-shrink:0}
+.imp-arrow{font-family:var(--mono);font-size:1.2rem;color:var(--line);flex-shrink:0}
 .impact-pills{display:flex;flex-wrap:wrap;gap:4px}
 .impact-pills li{list-style:none;font-size:11px;color:var(--text-dim);background:rgba(79,195,247,.06);border:1px solid var(--line-dim);padding:2px 9px;border-radius:20px}
 
@@ -199,9 +191,8 @@ a{color:inherit;text-decoration:none}
 .contact-btn{
   display:inline-flex;align-items:center;gap:6px;
   border:1px solid var(--line);color:var(--line);
-  font-family:var(--mono);font-size:11px;
-  padding:.6rem 1rem;border-radius:8px;
-  transition:background .15s;
+  font-family:var(--mono);font-size:11px;padding:.6rem 1rem;
+  border-radius:8px;transition:background .15s;
 }
 .contact-btn:hover{background:rgba(79,195,247,.1)}
 .rev-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
@@ -211,29 +202,29 @@ a{color:inherit;text-decoration:none}
 .snd-btn{
   position:fixed;bottom:1.2rem;right:1.2rem;z-index:9000;
   width:36px;height:36px;background:rgba(7,17,30,.92);
-  border:1px solid var(--line-dim);border-radius:50%;
-  font-size:15px;cursor:pointer;display:flex;
-  align-items:center;justify-content:center;transition:border-color .15s;
+  border:1px solid var(--line-dim);border-radius:50%;font-size:15px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s;
 }
 .snd-btn:hover{border-color:var(--line)}
 
 /* RESPONSIVE */
-@media(max-width:860px){
+@media(max-width:900px){
   .bento{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr 1.2fr;
     grid-template-areas:
-      "hero    hero"
-      "role1   links"
-      "metrics impact"
-      "skills  skills"
-      "cr      cert"
-      "blog    contact";
+      "hero   hero   links"
+      "photo  role1  links"
+      "metrics impact cert"
+      "skills  skills skills"
+      "cr      cr     cr"
+      "blog    blog   contact";
   }
 }
-@media(max-width:540px){
+@media(max-width:580px){
   .bento{
     grid-template-columns:1fr;
-    grid-template-areas:"hero""role1""metrics""impact""skills""cr""cert""blog""contact""links";
+    grid-template-areas:"hero""photo""role1""metrics""impact""skills""cr""cert""blog""contact""links";
   }
   .nav-links{display:none}
   .wrap{padding-left:1rem;padding-right:1rem}
@@ -245,10 +236,10 @@ a{color:inherit;text-decoration:none}
 
 <nav class="nav">
   <div class="nav-logo">
-    <svg class="nav-logo-svg" viewBox="0 0 36 30" width="36" height="30" fill="none" aria-label="M">
-      <polyline points="1,6 1,1 6,1"    stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
-      <polyline points="30,1 35,1 35,6"  stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
-      <polyline points="1,24 1,29 6,29"  stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+    <svg viewBox="0 0 36 30" width="36" height="30" fill="none" aria-label="M">
+      <polyline points="1,6 1,1 6,1"      stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+      <polyline points="30,1 35,1 35,6"    stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
+      <polyline points="1,24 1,29 6,29"    stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
       <polyline points="30,29 35,29 35,24" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="square"/>
       <polyline points="7,22 7,8 18,17 29,8 29,22" stroke="#4fc3f7" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square" fill="none"/>
       <circle id="logo-pulse" cx="18" cy="17" r="2.2" fill="#69f0ae"/>
@@ -264,13 +255,13 @@ a{color:inherit;text-decoration:none}
 <div class="wrap">
 <div class="bento">
 
-<!-- HERO ─────────────────────────────── -->
+<!-- HERO -->
 <div class="card c-hero">
   <div>
     <span class="clabel">DevOps Infrastructure Blueprint · Rev.03 · 2026</span>
     <h1 class="hero-name">MEGHA<br>SHIVHARE</h1>
     <div class="hero-role">DevOps Engineer</div>
-    <p class="hero-tag">I design, automate, and operate cloud-native infrastructure on AWS — from zero-downtime deployments to full observability stacks. Cut $16K/month cloud spend in half.</p>
+    <p class="hero-tag">Cloud-native infrastructure on AWS. Cut $16K/month spend in half while improving reliability and delivery speed.</p>
   </div>
   <div class="hero-foot">
     <span class="badge badge-on">● AVAILABLE</span>
@@ -279,8 +270,13 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<!-- BLINQ ────────────────────────────── -->
-<div class="card c-role1">
+<!-- PHOTO -->
+<div class="card c-photo">
+  <img src="profile-photo.jpeg" alt="Megha Shivhare">
+</div>
+
+<!-- BLINQ -->
+<div class="card c-role1" style="grid-column:span 2">
   <span class="clabel">Current Position</span>
   <div class="role-co">Blinq.IO</div>
   <div class="role-title">DevOps Engineer <span class="active-pill">● ACTIVE</span></div>
@@ -294,14 +290,14 @@ a{color:inherit;text-decoration:none}
   <div class="callout-row">
     <span class="callout">↓ $8K/mo saved</span>
     <span class="callout">GitOps</span>
-    <span class="callout">Karpenter</span>
+    <span class="callout">Karpenter autoscaling</span>
   </div>
   <div class="tags">
     <span class="tag">AWS EKS</span><span class="tag">ArgoCD</span><span class="tag">Kargo</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">MongoDB</span>
   </div>
 </div>
 
-<!-- LINKS ────────────────────────────── -->
+<!-- LINKS -->
 <div class="card c-links">
   <span class="clabel">Find me</span>
   <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="link-btn">
@@ -318,11 +314,11 @@ a{color:inherit;text-decoration:none}
   </a>
   <a href="blog/" class="link-btn">
     <span class="link-icon">◎</span>
-    <div><div>Notes & Blog</div><span class="link-meta">Interview prep · Runbooks</span></div>
+    <div><div>Notes &amp; Blog</div><span class="link-meta">Interview prep · Runbooks</span></div>
   </a>
 </div>
 
-<!-- METRICS ──────────────────────────── -->
+<!-- METRICS -->
 <div class="card c-metrics">
   <span class="clabel">Key metrics</span>
   <div class="metrics-grid">
@@ -333,7 +329,7 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<!-- IMPACT ───────────────────────────── -->
+<!-- IMPACT -->
 <div class="card c-impact">
   <span class="clabel">Test Result — AWS Cost Optimisation</span>
   <div class="impact-nums">
@@ -357,7 +353,7 @@ a{color:inherit;text-decoration:none}
   </ul>
 </div>
 
-<!-- SKILLS ───────────────────────────── -->
+<!-- SKILLS -->
 <div class="card c-skills">
   <span class="clabel">Tech Stack</span>
   <table class="bom">
@@ -373,7 +369,7 @@ a{color:inherit;text-decoration:none}
   </table>
 </div>
 
-<!-- CERT ─────────────────────────────── -->
+<!-- CERT -->
 <div class="card c-cert">
   <span class="clabel">Credentials</span>
   <div class="cert-item">
@@ -386,7 +382,7 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<!-- C&R ──────────────────────────────── -->
+<!-- C&R -->
 <div class="card c-cr">
   <span class="clabel">Previous Position</span>
   <div class="role-co">C&amp;R Software</div>
@@ -409,31 +405,25 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<!-- BLOG ─────────────────────────────── -->
+<!-- BLOG -->
 <div class="card c-blog">
   <span class="clabel">Notes &amp; Runbooks</span>
   <a href="blog/interview-questions.html" class="blog-item">
-    <div>
-      <div class="blog-title">DevOps Interview Questions</div>
-      <div class="blog-sub">60+ real questions — K8s, AWS, CI/CD, Terraform</div>
-    </div>
+    <div><div class="blog-title">DevOps Interview Questions</div><div class="blog-sub">60+ real questions — K8s, AWS, CI/CD, Terraform</div></div>
     <span class="blog-arr">→</span>
   </a>
   <a href="blog/" class="blog-item">
-    <div>
-      <div class="blog-title">All Notes</div>
-      <div class="blog-sub">Cost ops, GitOps, lessons from production</div>
-    </div>
+    <div><div class="blog-title">All Notes</div><div class="blog-sub">Cost ops, GitOps, lessons from production</div></div>
     <span class="blog-arr">→</span>
   </a>
 </div>
 
-<!-- CONTACT ──────────────────────────── -->
+<!-- CONTACT -->
 <div class="card c-contact">
   <div>
     <span class="clabel">Say hello</span>
     <div class="contact-title">Let's Work<br>Together.</div>
-    <p class="contact-sub">Open to DevOps, platform engineering, and SRE roles. Based in Bangalore — open to remote.</p>
+    <p class="contact-sub">Open to DevOps, platform engineering, and SRE roles. Bangalore — open to remote.</p>
   </div>
   <div>
     <a href="mailto:meghashivhare8@gmail.com" class="contact-btn">✉ Get in touch</a>
@@ -444,28 +434,28 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-</div><!-- /bento -->
-</div><!-- /wrap -->
+</div>
+</div>
 
 <button class="snd-btn" id="snd-btn" title="Toggle sound">🔊</button>
 
 <script>
-new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting&&!started){
-    started=true;
-    const dur=1400,t0=performance.now();
+const counter = document.getElementById('cost-counter');
+let started = false;
+new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting && !started){
+    started = true;
+    const dur = 1400, t0 = performance.now();
     (function tick(now){
-      const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);
-      const v=Math.round(16000-e*8000);
-      counter.textContent='$'+(v>=1000?Math.round(v/1000)+'K':v);
-      if(p<1)requestAnimationFrame(tick);
+      const p = Math.min((now-t0)/dur,1), e = 1-Math.pow(1-p,3);
+      const v = Math.round(16000 - e*8000);
+      counter.textContent = '$'+(v>=1000?Math.round(v/1000)+'K':v);
+      if(p<1) requestAnimationFrame(tick);
     })(performance.now());
   }
 },{threshold:0.5}).observe(counter);
-const counter=document.getElementById('cost-counter');
-let started=false;
 
-let audioCtx=null,soundOn=true;
+let audioCtx=null, soundOn=true;
 const sndBtn=document.getElementById('snd-btn');
 function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
 function playClick(){
