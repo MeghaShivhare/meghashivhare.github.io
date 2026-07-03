@@ -4,474 +4,527 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Megha Shivhare — DevOps Engineer</title>
-<meta name="description" content="DevOps Engineer specialising in AWS, Kubernetes, and GitOps. Cut cloud spend by 50%.">
+<meta name="description" content="DevOps Engineer open to new opportunities. AWS, Kubernetes, GitOps. Cut cloud spend by 50%.">
 <style>
-:root{
-  --bg:#141414;
-  --card:#1e1e1e;
-  --card-hi:#272727;
-  --line:#e8e4dc;
-  --line-dim:rgba(232,228,220,.14);
-  --line-faint:rgba(232,228,220,.04);
-  --text:#f2ede4;
-  --text-dim:#9a9590;
-  --text-dimmer:#585450;
-  --green:#6fcf82;
-  --yellow:#d4a537;
-  --red:#e07060;
-  --mono:'Courier New',Courier,monospace;
-  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
-  --r:14px;
-  --nav:48px;
-  --gap:12px;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  background:var(--bg);
-  background-image:
-    linear-gradient(var(--line-faint) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line-faint) 1px,transparent 1px),
-    linear-gradient(rgba(232,228,220,.02) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(232,228,220,.02) 1px,transparent 1px);
-  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
-  color:var(--text);font-family:var(--sans);
-  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background:#ede8e2;color:#111;
+  font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
 
-/* NAV */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:9000;
-  height:var(--nav);background:rgba(14,14,14,.96);
-  backdrop-filter:blur(14px);border-bottom:1px solid var(--line-dim);
-  display:flex;align-items:center;padding:0 2rem;justify-content:space-between;
+/* PILL NAV */
+.pill-nav{
+  position:fixed;top:1.25rem;left:50%;transform:translateX(-50%);
+  z-index:9000;
 }
-.nav-logo{font-family:var(--mono);font-size:13px;color:var(--line);letter-spacing:.1em;display:flex;align-items:center;gap:10px}
-#logo-pulse{animation:pulse 2.2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.nav-links{display:flex;gap:1.8rem}
-.nav-link{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);letter-spacing:.07em;transition:color .15s}
-.nav-link:hover{color:var(--line)}
-
-/* BENTO */
-.wrap{max-width:1160px;margin:0 auto;padding:calc(var(--nav) + 1.5rem) 1.5rem 3rem}
-.bento{
-  display:grid;
-  grid-template-columns:2fr 2fr 2fr 1.5fr;
-  grid-template-areas:
-    "hero   role1   role1  links"
-    "photo  metrics impact links"
-    "skills skills  skills cert"
-    "cr     cr      blog   contact";
-  gap:var(--gap);
+.pill{
+  display:flex;align-items:center;gap:2.2rem;
+  background:#111;color:#fff;
+  padding:.55rem 1rem .55rem 1.6rem;
+  border-radius:100px;font-size:14px;
+  box-shadow:0 4px 24px rgba(0,0,0,.25);
 }
-
-/* CARD BASE */
-.card{
-  background:var(--card);border:1px solid var(--line-dim);
-  border-radius:var(--r);padding:1.4rem 1.5rem;
-  position:relative;overflow:hidden;transition:border-color .2s;
+.pill-name{font-weight:700;letter-spacing:.01em}
+.pill-links{display:flex;gap:1.4rem}
+.pill-link{font-size:13px;color:rgba(255,255,255,.55);transition:color .15s}
+.pill-link:hover{color:#fff}
+.pill-cta{
+  background:#fff;color:#111;padding:.38rem 1rem;
+  border-radius:100px;font-size:13px;font-weight:600;
+  transition:background .15s;white-space:nowrap;
 }
-.card:hover{border-color:rgba(232,228,220,.28)}
-.clabel{
-  font-family:var(--mono);font-size:9px;text-transform:uppercase;
-  letter-spacing:.18em;color:var(--text-dimmer);margin-bottom:.65rem;display:block;
-}
+.pill-cta:hover{background:#e8e8e8}
 
 /* HERO */
-.c-hero{
-  grid-area:hero;min-height:240px;
-  display:flex;flex-direction:column;justify-content:space-between;
+.s-hero{
+  height:100vh;min-height:600px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 4vw;
 }
-.c-hero::before,.c-hero::after{
-  content:'';position:absolute;width:16px;height:16px;
-  border-color:rgba(232,228,220,.4);border-style:solid;
+.hero-title{line-height:.9;user-select:none;pointer-events:none}
+.ht-line{
+  display:block;
+  font-size:clamp(4.5rem,13.5vw,13rem);
+  font-weight:900;letter-spacing:-.025em;color:#111;
 }
-.c-hero::before{top:10px;left:10px;border-width:2px 0 0 2px;border-radius:2px 0 0 0}
-.c-hero::after{top:10px;right:10px;border-width:2px 2px 0 0;border-radius:0 2px 0 0}
-.hero-name{
-  font-family:var(--mono);font-size:clamp(1.9rem,3.5vw,2.9rem);
-  font-weight:normal;color:#fff;letter-spacing:.03em;line-height:1;margin-bottom:.45rem;
-}
-.hero-role{font-family:var(--mono);font-size:.82rem;color:var(--line);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem}
-.hero-tag{font-size:13px;color:var(--text-dim);line-height:1.72;margin-bottom:1.1rem}
-.hero-foot{display:flex;flex-wrap:wrap;gap:.5rem}
-.badge{font-family:var(--mono);font-size:10px;padding:3px 9px;border:1px solid;border-radius:3px;letter-spacing:.08em;white-space:nowrap}
-.badge-on{color:var(--green);border-color:var(--green)}
-.badge-dim{color:var(--text-dimmer);border-color:var(--line-dim)}
 
-/* PHOTO */
-.c-photo{grid-area:photo;padding:0;min-height:220px}
-.c-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:var(--r);display:block}
-
-/* ROLE 1 */
-.c-role1{grid-area:role1}
-.role-co{font-family:var(--mono);font-size:1.2rem;color:#fff;letter-spacing:.04em;margin-bottom:2px}
-.role-title{font-size:13px;color:var(--line);display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
-.active-pill{font-family:var(--mono);font-size:9px;padding:1px 6px;border:1px solid var(--green);color:var(--green);letter-spacing:.08em;border-radius:3px}
-.done-pill{font-family:var(--mono);font-size:9px;padding:1px 6px;border:1px solid var(--text-dimmer);color:var(--text-dimmer);letter-spacing:.08em;border-radius:3px}
-.role-dt{font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-bottom:.9rem}
-.role-ul{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:.85rem}
-.role-ul li{font-size:13px;color:var(--text-dim);padding-left:14px;position:relative;line-height:1.55}
-.role-ul li::before{content:'→';position:absolute;left:0;color:var(--line);font-family:var(--mono);font-size:9px;top:3px}
-.role-ul li strong{color:#e8f4fd;font-weight:600}
-.callout-row{display:flex;flex-wrap:wrap;gap:4px;padding-top:.6rem;border-top:1px dashed rgba(232,228,220,.1);margin-bottom:.6rem}
-.callout{border:1px solid var(--yellow);padding:2px 7px;font-family:var(--mono);font-size:9px;color:var(--yellow);letter-spacing:.04em;border-radius:3px}
-.tags{display:flex;flex-wrap:wrap;gap:3px}
-.tag{font-family:var(--mono);font-size:9px;padding:2px 6px;border:1px solid var(--line-dim);color:var(--text-dimmer);border-radius:3px}
-
-/* LINKS */
-.c-links{grid-area:links;display:flex;flex-direction:column;gap:9px}
-.link-btn{
-  display:flex;align-items:center;gap:10px;
-  padding:.65rem .9rem;border:1px solid var(--line-dim);border-radius:10px;
-  font-family:var(--mono);font-size:11px;color:var(--text-dim);
-  transition:border-color .15s,color .15s,background .15s;
+/* sparkles */
+.sparkle{
+  position:absolute;font-size:3.4rem;line-height:1;
+  background:linear-gradient(135deg,#a855f7,#ec4899,#f97316,#eab308,#22c55e,#06b6d4,#6366f1);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 14px rgba(168,85,247,.55));
+  animation:spfloat 4s ease-in-out infinite;
+  pointer-events:none;
 }
-.link-btn:hover{border-color:var(--line);color:var(--line);background:rgba(232,228,220,.04)}
-.link-icon{font-size:14px;flex-shrink:0}
-.link-meta{display:block;font-size:9px;color:var(--text-dimmer);margin-top:1px}
+.sp-1{top:24%;left:9%;animation-delay:0s}
+.sp-2{top:58%;right:9%;font-size:2.6rem;animation-delay:1.9s}
+@keyframes spfloat{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-14px) rotate(18deg)}
+}
+
+/* photo card flip */
+.hero-card-wrap{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:188px;height:264px;perspective:1200px;
+}
+.hero-card-inner{
+  width:100%;height:100%;position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1.1s cubic-bezier(.4,0,.2,1);
+}
+.hero-card-wrap.flipped .hero-card-inner{transform:rotateY(180deg)}
+.card-face{
+  position:absolute;width:100%;height:100%;
+  backface-visibility:hidden;border-radius:16px 16px 0 0;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+.card-face img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.card-front{filter:grayscale(100%) contrast(1.1) brightness(.95)}
+.card-back{transform:rotateY(180deg)}
+
+.hero-bottom{
+  position:absolute;bottom:1.5rem;left:4vw;right:4vw;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  pointer-events:none;
+}
+.hero-bottom span{
+  font-family:'Courier New',monospace;font-size:12px;
+  color:#9a9590;letter-spacing:.05em;
+}
+
+/* ABOUT */
+.s-about{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1.15fr 1fr;
+  gap:4.5rem;align-items:center;
+  padding:9rem 5vw;
+}
+.about-hey{
+  font-size:clamp(3.5rem,7.5vw,6.5rem);
+  font-weight:800;line-height:1;margin-bottom:2rem;
+}
+.about-l-bio{font-size:16px;line-height:1.78;color:#555;max-width:300px}
+.about-photo{border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.15)}
+.about-photo img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;object-position:center top}
+.about-r-text{font-size:16px;line-height:1.78;color:#555;margin-bottom:1.25rem}
+.about-cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:15px;font-weight:700;color:#111;
+  border-bottom:2px solid #111;padding-bottom:3px;
+  transition:gap .2s;margin-top:.5rem;
+}
+.about-cta:hover{gap:1rem}
+
+/* MANIFESTO */
+.s-manifesto{
+  padding:10rem 8vw;
+  display:flex;align-items:center;justify-content:center;
+}
+.manifesto-wrap{position:relative;max-width:900px}
+.manifesto-base{
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  font-weight:700;line-height:1.5;color:#d0ccc7;
+}
+.manifesto-reveal{
+  position:absolute;top:0;left:0;width:100%;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  font-weight:700;line-height:1.5;color:#111;
+  clip-path:inset(0 100% 0 0);
+  will-change:clip-path;
+}
+
+/* STACK */
+.s-stack{padding:6rem 5vw 8rem}
+.section-title{
+  font-size:clamp(3rem,7vw,6rem);font-weight:800;
+  line-height:1;color:#111;margin-bottom:3.5rem;
+}
+.stack-list{border-top:1px solid #c8c4be}
+.stack-row{
+  display:flex;align-items:baseline;
+  justify-content:space-between;gap:2rem;
+  padding:1.5rem 0;border-bottom:1px solid #c8c4be;
+  cursor:default;transition:padding .15s;
+}
+.stack-row:hover{padding-left:.5rem;padding-right:.5rem}
+.sr-name{font-size:1.05rem;font-weight:700;color:#111;flex-shrink:0;min-width:200px}
+.sr-tags{font-size:14px;color:#888;text-align:right;line-height:1.6}
+
+/* EXPERIENCE */
+.s-experience{padding:2rem 5vw 8rem}
+.exp-header{
+  display:flex;align-items:flex-end;
+  justify-content:space-between;margin-bottom:2rem;
+}
+.exp-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.exp-card{
+  border-radius:20px;padding:2.5rem;color:#fff;
+  min-height:440px;display:flex;flex-direction:column;
+  justify-content:space-between;position:relative;overflow:hidden;
+}
+.ec-1{background:linear-gradient(148deg,#0c1f0e 0%,#111 100%)}
+.ec-2{background:linear-gradient(148deg,#0d1422 0%,#111 100%)}
+.ec-period{
+  font-family:'Courier New',monospace;font-size:10px;
+  letter-spacing:.12em;color:rgba(255,255,255,.35);
+  text-transform:uppercase;margin-bottom:1.5rem;
+}
+.ec-company{font-size:2.1rem;font-weight:800;letter-spacing:-.01em;margin-bottom:.3rem}
+.ec-role{font-size:13.5px;color:rgba(255,255,255,.55);margin-bottom:2.5rem}
+.ec-num{font-size:2.9rem;font-weight:900;display:block;line-height:1;letter-spacing:-.02em}
+.ec-1 .ec-num{color:#6fcf82}
+.ec-2 .ec-num{color:#82b4ff}
+.ec-statlbl{font-size:12px;color:rgba(255,255,255,.4);margin-top:5px;display:block;margin-bottom:1.5rem}
+.ec-ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem}
+.ec-ul li{
+  font-size:13px;color:rgba(255,255,255,.6);
+  padding-left:16px;position:relative;line-height:1.55;
+}
+.ec-ul li::before{
+  content:'→';position:absolute;left:0;
+  font-size:9px;top:3px;color:rgba(255,255,255,.3);
+}
+.ec-tags{display:flex;flex-wrap:wrap;gap:5px}
+.ec-tag{
+  font-size:10px;padding:3px 9px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:20px;color:rgba(255,255,255,.45);
+}
 
 /* METRICS */
-.c-metrics{grid-area:metrics}
-.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.met{background:var(--card-hi);border:1px solid var(--line-dim);border-radius:10px;padding:.9rem;text-align:center}
-.met-val{font-family:var(--mono);font-size:1.9rem;color:#fff;line-height:1}
-.met-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-dimmer);margin-top:4px}
-
-/* IMPACT */
-.c-impact{grid-area:impact}
-.impact-nums{display:flex;align-items:center;gap:.75rem;margin:.7rem 0}
-.imp-num{text-align:center;flex:1}
-.imp-val{font-family:var(--mono);font-size:2.1rem;line-height:1}
-.imp-val.before{color:var(--red)}.imp-val.after{color:var(--green)}
-.imp-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dimmer);margin-top:3px}
-.imp-arrow{font-family:var(--mono);font-size:1.2rem;color:var(--line);flex-shrink:0}
-.impact-pills{display:flex;flex-wrap:wrap;gap:4px}
-.impact-pills li{list-style:none;font-size:11px;color:var(--text-dim);background:rgba(232,228,220,.05);border:1px solid var(--line-dim);padding:2px 9px;border-radius:20px}
-
-/* SKILLS */
-.c-skills{grid-area:skills}
-.bom{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
-.bom th{text-align:left;padding:6px 12px;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-dimmer);border-bottom:1px solid var(--line-dim);font-weight:normal}
-.bom td{padding:7px 12px;border-bottom:1px solid rgba(232,228,220,.05)}
-.bom tr:last-child td{border-bottom:none}
-.bom tr:hover td{background:rgba(232,228,220,.03)}
-.bom .cat{color:var(--line);white-space:nowrap;width:130px}
-.bom .val{color:var(--text-dim);line-height:1.5}
-
-/* CERT */
-.c-cert{grid-area:cert;display:flex;flex-direction:column;gap:.6rem;justify-content:center}
-.cert-item{border:1px solid var(--line-dim);border-radius:8px;padding:.8rem 1rem}
-.cert-name{font-family:var(--mono);font-size:11px;color:var(--line);line-height:1.4}
-.cert-sub{font-family:var(--mono);font-size:9px;color:var(--text-dimmer);margin-top:3px}
-
-/* C&R */
-.c-cr{grid-area:cr}
-
-/* BLOG */
-.c-blog{grid-area:blog;display:flex;flex-direction:column;gap:8px}
-.blog-item{
-  flex:1;border:1px solid var(--line-dim);border-radius:10px;
-  padding:.95rem 1.1rem;display:flex;align-items:center;
-  justify-content:space-between;gap:.75rem;
-  transition:border-color .15s,background .15s;
+.s-metrics{
+  padding:6rem 5vw;
+  border-top:1px solid #c8c4be;
+  border-bottom:1px solid #c8c4be;
 }
-.blog-item:hover{border-color:var(--line);background:rgba(232,228,220,.04)}
-.blog-title{font-family:var(--mono);font-size:12px;color:#fff;margin-bottom:3px}
-.blog-sub{font-size:11px;color:var(--text-dim)}
-.blog-arr{font-family:var(--mono);color:var(--line);transition:transform .2s;flex-shrink:0}
-.blog-item:hover .blog-arr{transform:translateX(4px)}
-
-/* CONTACT */
-.c-contact{grid-area:contact;display:flex;flex-direction:column;justify-content:space-between}
-.contact-title{font-family:var(--mono);font-size:1.15rem;color:#fff;line-height:1.25;margin-bottom:.5rem}
-.contact-sub{font-size:12.5px;color:var(--text-dim);line-height:1.65;margin-bottom:1.1rem}
-.contact-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  border:1px solid var(--line);color:var(--line);
-  font-family:var(--mono);font-size:11px;padding:.6rem 1rem;
-  border-radius:8px;transition:background .15s;
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.met{text-align:center}
+.met-n{
+  font-size:clamp(3.5rem,8vw,6.5rem);font-weight:900;
+  letter-spacing:-.025em;color:#111;line-height:1;
 }
-.contact-btn:hover{background:rgba(232,228,220,.08)}
-.rev-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
-.rev-pill{font-family:var(--mono);font-size:9px;color:var(--text-dimmer);border:1px solid rgba(232,228,220,.08);padding:2px 7px;border-radius:20px}
+.met-l{font-size:14px;color:#888;margin-top:.6rem}
 
-/* SOUND */
-.snd-btn{
-  position:fixed;bottom:1.2rem;right:1.2rem;z-index:9000;
-  width:36px;height:36px;background:rgba(14,14,14,.94);
-  border:1px solid var(--line-dim);border-radius:50%;font-size:15px;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:border-color .15s;
+/* THOUGHTS */
+.s-thoughts{padding:8rem 5vw}
+.thought-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:2rem}
+.thought-card{
+  border-radius:16px;overflow:hidden;
+  padding:1.8rem;display:flex;flex-direction:column;
+  justify-content:flex-end;min-height:340px;
+  transition:transform .25s;cursor:pointer;
 }
-.snd-btn:hover{border-color:var(--line)}
+.thought-card:hover{transform:translateY(-5px)}
+.tc-1{background:linear-gradient(160deg,#1c1c1c 0%,#1e2a1c 100%);color:#fff}
+.tc-2{background:linear-gradient(160deg,#1a1a26 0%,#1c1a1a 100%);color:#fff}
+.tc-dark{background:#111;color:#fff;justify-content:space-between}
+.tc-date{
+  font-family:'Courier New',monospace;font-size:11px;
+  color:rgba(255,255,255,.4);margin-bottom:.75rem;letter-spacing:.06em;
+}
+.tc-title{font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:.5rem}
+.tc-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.55}
+.tc-cta{font-size:1.5rem;font-weight:800;line-height:1.3;color:#fff}
+.tc-link{
+  font-size:13px;color:rgba(255,255,255,.55);
+  display:flex;align-items:center;gap:.4rem;margin-top:1.5rem;
+}
+
+/* FOOTER */
+.site-footer{background:#111;color:#fff;padding:4rem 5vw 0;overflow:hidden}
+.footer-top{
+  display:flex;align-items:center;gap:.75rem;
+  padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.soc{
+  width:42px;height:42px;border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:700;
+  letter-spacing:.02em;transition:border-color .15s,background .15s;
+}
+.soc:hover{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
+.footer-body{
+  display:grid;grid-template-columns:1.4fr 1fr;
+  gap:5rem;padding:4rem 0;align-items:start;
+}
+.footer-statement{
+  font-size:clamp(2.5rem,6.5vw,5.5rem);font-weight:900;
+  line-height:1;letter-spacing:-.025em;
+}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.fc-label{
+  font-family:'Courier New',monospace;font-size:11px;
+  color:rgba(255,255,255,.35);letter-spacing:.1em;
+  margin-bottom:1.1rem;text-transform:uppercase;
+}
+.fc-links{display:flex;flex-wrap:wrap;gap:.5rem}
+.fc-pill{
+  border:1px solid rgba(255,255,255,.18);border-radius:100px;
+  padding:.38rem .95rem;font-size:13px;color:rgba(255,255,255,.65);
+  transition:border-color .15s,color .15s;
+}
+.fc-pill:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.fc-email{
+  display:block;font-size:13px;color:rgba(255,255,255,.55);
+  margin-bottom:.5rem;transition:color .15s;
+}
+.fc-email:hover{color:#fff}
+.footer-wm{
+  font-size:clamp(7rem,20vw,18rem);font-weight:900;
+  color:rgba(255,255,255,.035);line-height:.8;
+  letter-spacing:-.03em;margin-top:1rem;
+  user-select:none;pointer-events:none;
+}
+
+/* SCROLL ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
 
 /* RESPONSIVE */
-@media(max-width:900px){
-  .bento{
-    grid-template-columns:1fr 1fr 1.2fr;
-    grid-template-areas:
-      "hero   hero   links"
-      "photo  role1  links"
-      "metrics impact cert"
-      "skills  skills skills"
-      "cr      cr     cr"
-      "blog    blog   contact";
-  }
+@media(max-width:880px){
+  .s-about{grid-template-columns:1fr;padding:7rem 5vw;gap:2.5rem}
+  .about-l-bio,.about-r-text{max-width:100%}
+  .exp-cards,.thought-grid,.metric-row{grid-template-columns:1fr}
+  .footer-body,.footer-cols{grid-template-columns:1fr}
+  .pill-links{display:none}
 }
-@media(max-width:580px){
-  .bento{
-    grid-template-columns:1fr;
-    grid-template-areas:"hero""photo""role1""metrics""impact""skills""cr""cert""blog""contact""links";
-  }
-  .nav-links{display:none}
-  .wrap{padding-left:1rem;padding-right:1rem}
+@media(max-width:540px){
+  .ht-line{font-size:clamp(3.2rem,18vw,5rem)}
+  .manifesto-base,.manifesto-reveal{font-size:1.4rem}
+  .pill-nav{width:92%;left:4%;transform:none}
 }
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-logo">
-    <svg viewBox="0 0 36 30" width="36" height="30" fill="none" aria-label="M">
-      <polyline points="1,6 1,1 6,1"      stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="square"/>
-      <polyline points="30,1 35,1 35,6"    stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="square"/>
-      <polyline points="1,24 1,29 6,29"    stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="square"/>
-      <polyline points="30,29 35,29 35,24" stroke="#e8e4dc" stroke-width="1.5" stroke-linecap="square"/>
-      <polyline points="7,22 7,8 18,17 29,8 29,22" stroke="#e8e4dc" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square" fill="none"/>
-      <circle id="logo-pulse" cx="18" cy="17" r="2.2" fill="#6fcf82"/>
-    </svg>
-    <span>MEGHA.SHIVHARE</span>
-  </div>
-  <div class="nav-links">
-    <a href="#" class="nav-link">PORTFOLIO</a>
-    <a href="blog/" class="nav-link">NOTES</a>
+<!-- PILL NAV -->
+<nav class="pill-nav">
+  <div class="pill">
+    <span class="pill-name">Megha</span>
+    <div class="pill-links">
+      <a href="#about" class="pill-link">About</a>
+      <a href="#stack" class="pill-link">Stack</a>
+      <a href="blog/" class="pill-link">Notes</a>
+    </div>
+    <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="pill-cta">Connect ↗</a>
   </div>
 </nav>
 
-<div class="wrap">
-<div class="bento">
-
 <!-- HERO -->
-<div class="card c-hero">
+<section class="s-hero">
+  <div class="hero-title">
+    <span class="ht-line">DEVOPS</span>
+    <span class="ht-line">ENGINEER</span>
+  </div>
+  <div class="sparkle sp-1">✦</div>
+  <div class="sparkle sp-2">✦</div>
+  <div class="hero-card-wrap" id="hero-card">
+    <div class="hero-card-inner">
+      <div class="card-face card-front">
+        <img src="profile-photo.jpeg" alt="Megha Shivhare">
+      </div>
+      <div class="card-face card-back">
+        <img src="profile-photo.jpeg" alt="Megha Shivhare">
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <span>©2026</span>
+    <span>/BUILDING CLOUD SINCE 2024</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="s-about" id="about">
   <div>
-    <span class="clabel">DevOps Infrastructure Blueprint · Rev.03 · 2026</span>
-    <h1 class="hero-name">MEGHA<br>SHIVHARE</h1>
-    <div class="hero-role">DevOps Engineer</div>
-    <p class="hero-tag">Cloud-native infrastructure on AWS. Cut $16K/month spend in half while improving reliability and delivery speed.</p>
+    <h2 class="about-hey fade-up">Hey!</h2>
+    <p class="about-l-bio fade-up">I'm Megha, a DevOps Engineer based in Bangalore, India. Currently at Blinq.IO, engineering cloud-native infrastructure on AWS.</p>
   </div>
-  <div class="hero-foot">
-    <span class="badge badge-on">● AVAILABLE</span>
-    <span class="badge badge-dim">Bangalore, India</span>
-    <span class="badge badge-dim">AWS SAA</span>
+  <div class="about-photo fade-up">
+    <img src="profile-photo.jpeg" alt="Megha Shivhare">
   </div>
-</div>
+  <div class="fade-up">
+    <p class="about-r-text">I design, automate, and operate cloud infrastructure at scale — from zero-downtime deployments to full observability stacks. AWS Certified Solutions Architect.</p>
+    <p class="about-r-text">Cut AWS spend by <strong>50% ($16K→$8K/month)</strong> at Blinq. Two years shipping production systems on Kubernetes and Terraform.</p>
+    <p class="about-r-text" style="color:#111;font-weight:600;">Currently open to DevOps Engineering roles.</p>
+    <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="about-cta">Let's Connect ↗</a>
+  </div>
+</section>
 
-<!-- PHOTO -->
-<div class="card c-photo">
-  <img src="profile-photo.jpeg" alt="Megha Shivhare">
-</div>
-
-<!-- BLINQ -->
-<div class="card c-role1" style="grid-column:span 2">
-  <span class="clabel">Current Position</span>
-  <div class="role-co">Blinq.IO</div>
-  <div class="role-title">DevOps Engineer <span class="active-pill">● ACTIVE</span></div>
-  <div class="role-dt">Mar 2026 — Present</div>
-  <ul class="role-ul">
-    <li>Reduced AWS spend from <strong>$16K → $8K/month (50%)</strong> via EKS consolidation, Karpenter, and rightsizing</li>
-    <li>Built GitOps delivery with <strong>ArgoCD + Kargo</strong> across all Kubernetes workloads</li>
-    <li>Deployed <strong>Prometheus + Grafana</strong> with Slack routing and SLO dashboards</li>
-    <li>MongoDB production support: backups, DR testing, incident response</li>
-  </ul>
-  <div class="callout-row">
-    <span class="callout">↓ $8K/mo saved</span>
-    <span class="callout">GitOps</span>
-    <span class="callout">Karpenter autoscaling</span>
+<!-- MANIFESTO -->
+<section class="s-manifesto">
+  <div class="manifesto-wrap">
+    <p class="manifesto-base">From zero-downtime deployments to full observability stacks — clean, automated infrastructure built to scale fast, stay reliable, and cut costs. Driven by clarity, structured systems, and GitOps.</p>
+    <p class="manifesto-reveal" id="m-reveal">From zero-downtime deployments to full observability stacks — clean, automated infrastructure built to scale fast, stay reliable, and cut costs. Driven by clarity, structured systems, and GitOps.</p>
   </div>
-  <div class="tags">
-    <span class="tag">AWS EKS</span><span class="tag">ArgoCD</span><span class="tag">Kargo</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">MongoDB</span>
-  </div>
-</div>
+</section>
 
-<!-- LINKS -->
-<div class="card c-links">
-  <span class="clabel">Find me</span>
-  <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="link-btn">
-    <span class="link-icon">◈</span>
-    <div><div>LinkedIn</div><span class="link-meta">megha-shivhare</span></div>
-  </a>
-  <a href="https://github.com/MeghaShivhare" target="_blank" class="link-btn">
-    <span class="link-icon">⌥</span>
-    <div><div>GitHub</div><span class="link-meta">MeghaShivhare</span></div>
-  </a>
-  <a href="mailto:meghashivhare8@gmail.com" class="link-btn">
-    <span class="link-icon">✉</span>
-    <div><div>Email</div><span class="link-meta">meghashivhare8@gmail.com</span></div>
-  </a>
-  <a href="blog/" class="link-btn">
-    <span class="link-icon">◎</span>
-    <div><div>Notes &amp; Blog</div><span class="link-meta">Interview prep · Runbooks</span></div>
-  </a>
-</div>
+<!-- STACK -->
+<section class="s-stack" id="stack">
+  <h2 class="section-title fade-up">Stack</h2>
+  <div class="stack-list">
+    <div class="stack-row fade-up"><span class="sr-name">Cloud Platform</span><span class="sr-tags">AWS · EC2 · EKS · RDS · S3 · IAM · CloudFront · Route53 · CloudWatch</span></div>
+    <div class="stack-row fade-up"><span class="sr-name">Containers</span><span class="sr-tags">Kubernetes (EKS) · Docker · Helm · Karpenter</span></div>
+    <div class="stack-row fade-up"><span class="sr-name">CI/CD &amp; GitOps</span><span class="sr-tags">GitHub Actions · Jenkins · ArgoCD · Kargo</span></div>
+    <div class="stack-row fade-up"><span class="sr-name">Infrastructure as Code</span><span class="sr-tags">Terraform · AWS CloudFormation</span></div>
+    <div class="stack-row fade-up"><span class="sr-name">Observability</span><span class="sr-tags">Prometheus · Grafana · Alertmanager · CloudWatch · QuickSight + Athena</span></div>
+    <div class="stack-row fade-up"><span class="sr-name">Databases</span><span class="sr-tags">MongoDB · PostgreSQL (RDS) · MySQL</span></div>
+    <div class="stack-row fade-up"><span class="sr-name">Languages</span><span class="sr-tags">Bash · Python · Groovy · YAML · SQL</span></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="s-experience" id="work">
+  <div class="exp-header">
+    <h2 class="section-title fade-up">Featured<br>Work</h2>
+  </div>
+  <div class="exp-cards">
+
+    <div class="exp-card ec-1 fade-up">
+      <div>
+        <div class="ec-period">Mar 2026 — Present &nbsp;·&nbsp; ● Active</div>
+        <div class="ec-company">Blinq.IO</div>
+        <div class="ec-role">DevOps Engineer</div>
+      </div>
+      <div>
+        <div>
+          <span class="ec-num">$16K→$8K</span>
+          <span class="ec-statlbl">/ month AWS spend · 50% reduction</span>
+        </div>
+        <ul class="ec-ul">
+          <li>EKS cluster consolidation + Karpenter autoscaling</li>
+          <li>GitOps delivery via ArgoCD + Kargo</li>
+          <li>Prometheus + Grafana + Slack SLO dashboards</li>
+          <li>MongoDB production ops, backups, DR testing</li>
+        </ul>
+        <div class="ec-tags">
+          <span class="ec-tag">AWS EKS</span><span class="ec-tag">ArgoCD</span><span class="ec-tag">Karpenter</span><span class="ec-tag">Terraform</span><span class="ec-tag">Prometheus</span><span class="ec-tag">MongoDB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-card ec-2 fade-up">
+      <div>
+        <div class="ec-period">Jan 2024 — Feb 2026 &nbsp;·&nbsp; 2 Years</div>
+        <div class="ec-company">C&amp;R Software</div>
+        <div class="ec-role">DevOps Engineer [AWS]</div>
+      </div>
+      <div>
+        <div>
+          <span class="ec-num">+40%</span>
+          <span class="ec-statlbl">release frequency · −70% rollbacks</span>
+        </div>
+        <ul class="ec-ul">
+          <li>Jenkins + Helm CI/CD pipelines on EKS</li>
+          <li>70% reduction in rollback incidents</li>
+          <li>Okta SSO for all Kubernetes-hosted applications</li>
+          <li>CloudWatch + Prometheus across all environments</li>
+        </ul>
+        <div class="ec-tags">
+          <span class="ec-tag">Jenkins</span><span class="ec-tag">Helm</span><span class="ec-tag">AWS EKS</span><span class="ec-tag">Docker</span><span class="ec-tag">Okta</span><span class="ec-tag">CloudWatch</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- METRICS -->
-<div class="card c-metrics">
-  <span class="clabel">Key metrics</span>
-  <div class="metrics-grid">
-    <div class="met"><div class="met-val" style="color:var(--green)">50%</div><div class="met-lbl">Cloud Cost Cut</div></div>
-    <div class="met"><div class="met-val">40%</div><div class="met-lbl">Faster Deploys</div></div>
-    <div class="met"><div class="met-val">70%</div><div class="met-lbl">Fewer Rollbacks</div></div>
-    <div class="met"><div class="met-val">2+</div><div class="met-lbl">Yrs Production</div></div>
+<section class="s-metrics">
+  <div class="metric-row">
+    <div class="met fade-up"><div class="met-n">50%</div><div class="met-l">Cloud Cost Reduction</div></div>
+    <div class="met fade-up"><div class="met-n">40%</div><div class="met-l">Faster Release Cycles</div></div>
+    <div class="met fade-up"><div class="met-n">70%</div><div class="met-l">Fewer Rollback Incidents</div></div>
   </div>
-</div>
+</section>
 
-<!-- IMPACT -->
-<div class="card c-impact">
-  <span class="clabel">Test Result — AWS Cost Optimisation</span>
-  <div class="impact-nums">
-    <div class="imp-num">
-      <div class="imp-val before">$16K</div>
-      <div class="imp-lbl">Before / month</div>
-    </div>
-    <div class="imp-arrow">——→</div>
-    <div class="imp-num">
-      <div class="imp-val after" id="cost-counter">$16K</div>
-      <div class="imp-lbl">After · <strong style="color:var(--green)">↓ 50%</strong></div>
-    </div>
+<!-- THOUGHTS -->
+<section class="s-thoughts">
+  <h2 class="section-title fade-up">Thoughts</h2>
+  <div class="thought-grid">
+    <a href="blog/interview-questions.html" class="thought-card tc-1 fade-up">
+      <div>
+        <div class="tc-date">Jul 2026</div>
+        <div class="tc-title">DevOps Most Asked Interview Questions</div>
+        <div class="tc-sub">60+ real questions from real interviews — Kubernetes, Docker, AWS, CI/CD, Terraform, Linux.</div>
+      </div>
+    </a>
+    <a href="blog/" class="thought-card tc-2 fade-up">
+      <div>
+        <div class="tc-date">Coming Soon</div>
+        <div class="tc-title">How I Cut AWS Spend by 50%</div>
+        <div class="tc-sub">EKS consolidation, Karpenter, Spot instances, QuickSight — the full story from $16K to $8K/month.</div>
+      </div>
+    </a>
+    <a href="blog/" class="thought-card tc-dark fade-up">
+      <div class="tc-cta">Explore notes on cloud, GitOps, and DevOps engineering.</div>
+      <div class="tc-link">View All Notes ↗</div>
+    </a>
   </div>
-  <ul class="impact-pills">
-    <li>EKS consolidation (3→1)</li>
-    <li>Spot + Reserved Instances</li>
-    <li>Karpenter bin-packing</li>
-    <li>Workload rightsizing</li>
-    <li>Shared namespace compute</li>
-    <li>QuickSight cost governance</li>
-  </ul>
-</div>
+</section>
 
-<!-- SKILLS -->
-<div class="card c-skills">
-  <span class="clabel">Tech Stack</span>
-  <table class="bom">
-    <thead><tr><th>Category</th><th>Components</th></tr></thead>
-    <tbody>
-      <tr><td class="cat">Cloud</td><td class="val">AWS — EC2, EKS, RDS, S3, IAM, VPC, Route53, CloudFront, Auto Scaling, CloudWatch</td></tr>
-      <tr><td class="cat">Containers</td><td class="val">Kubernetes (EKS) · Docker · Helm · Karpenter</td></tr>
-      <tr><td class="cat">CI/CD &amp; GitOps</td><td class="val">GitHub Actions · Jenkins · ArgoCD · Kargo</td></tr>
-      <tr><td class="cat">IaC</td><td class="val">Terraform · AWS CloudFormation</td></tr>
-      <tr><td class="cat">Observability</td><td class="val">Prometheus · Grafana · Alertmanager · CloudWatch · QuickSight + Athena</td></tr>
-      <tr><td class="cat">Languages</td><td class="val">Bash · Python · Groovy · SQL · YAML</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- CERT -->
-<div class="card c-cert">
-  <span class="clabel">Credentials</span>
-  <div class="cert-item">
-    <div class="cert-name">✓ AWS Certified Solutions Architect</div>
-    <div class="cert-sub">Associate · Active</div>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="soc">in</a>
+    <a href="https://github.com/MeghaShivhare" target="_blank" class="soc">gh</a>
+    <a href="mailto:meghashivhare8@gmail.com" class="soc">✉</a>
   </div>
-  <div class="cert-item">
-    <div class="cert-name">B.E. Information Technology</div>
-    <div class="cert-sub">RCOEM · 8.5 CGPA</div>
-  </div>
-</div>
-
-<!-- C&R -->
-<div class="card c-cr">
-  <span class="clabel">Previous Position</span>
-  <div class="role-co">C&amp;R Software</div>
-  <div class="role-title">DevOps Engineer [AWS] <span class="done-pill">Completed</span></div>
-  <div class="role-dt">Jan 2024 — Feb 2026 · 2 years</div>
-  <ul class="role-ul">
-    <li>Jenkins + Helm CI/CD on EKS — <strong>40% increase in release frequency</strong></li>
-    <li><strong>70% reduction</strong> in rollback incidents through staged delivery and smoke tests</li>
-    <li>Managed AWS: EC2, RDS, IAM, VPC, Route53, CloudFront, Auto Scaling</li>
-    <li>Okta SSO integration for all Kubernetes-hosted applications</li>
-    <li>CloudWatch + Prometheus monitoring across all environments</li>
-  </ul>
-  <div class="callout-row">
-    <span class="callout">+40% release frequency</span>
-    <span class="callout">−70% rollbacks</span>
-    <span class="callout">Okta SSO</span>
-  </div>
-  <div class="tags">
-    <span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">AWS EKS</span><span class="tag">Docker</span><span class="tag">Groovy</span><span class="tag">Okta</span><span class="tag">CloudWatch</span><span class="tag">Bash</span>
-  </div>
-</div>
-
-<!-- BLOG -->
-<div class="card c-blog">
-  <span class="clabel">Notes &amp; Runbooks</span>
-  <a href="blog/interview-questions.html" class="blog-item">
-    <div><div class="blog-title">DevOps Interview Questions</div><div class="blog-sub">60+ real questions — K8s, AWS, CI/CD, Terraform</div></div>
-    <span class="blog-arr">→</span>
-  </a>
-  <a href="blog/" class="blog-item">
-    <div><div class="blog-title">All Notes</div><div class="blog-sub">Cost ops, GitOps, lessons from production</div></div>
-    <span class="blog-arr">→</span>
-  </a>
-</div>
-
-<!-- CONTACT -->
-<div class="card c-contact">
-  <div>
-    <span class="clabel">Say hello</span>
-    <div class="contact-title">Let's Work<br>Together.</div>
-    <p class="contact-sub">Open to DevOps, platform engineering, and SRE roles. Bangalore — open to remote.</p>
-  </div>
-  <div>
-    <a href="mailto:meghashivhare8@gmail.com" class="contact-btn">✉ Get in touch</a>
-    <div class="rev-pills">
-      <span class="rev-pill">Rev 03 · 2026</span>
-      <span class="rev-pill">Production Grade</span>
+  <div class="footer-body">
+    <div class="footer-statement">Open to<br>New<br>Opportunities.</div>
+    <div class="footer-cols">
+      <div class="fc">
+        <div class="fc-label">/Quick links</div>
+        <div class="fc-links">
+          <a href="#" class="fc-pill">Home</a>
+          <a href="#about" class="fc-pill">About</a>
+          <a href="#stack" class="fc-pill">Stack</a>
+          <a href="blog/" class="fc-pill">Notes</a>
+          <a href="mailto:meghashivhare8@gmail.com" class="fc-pill">Contact</a>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fc-label">/Contact</div>
+        <a href="mailto:meghashivhare8@gmail.com" class="fc-email">meghashivhare8@gmail.com</a>
+        <a href="https://www.linkedin.com/in/megha-shivhare/" target="_blank" class="fc-email">linkedin/megha-shivhare</a>
+        <a href="https://github.com/MeghaShivhare" target="_blank" class="fc-email">github/MeghaShivhare</a>
+      </div>
     </div>
   </div>
-</div>
-
-</div>
-</div>
-
-<button class="snd-btn" id="snd-btn" title="Toggle sound">🔊</button>
+  <div class="footer-wm">MEGHA</div>
+</footer>
 
 <script>
-const counter = document.getElementById('cost-counter');
-let started = false;
+// Photo card flip: B&W → color when about scrolls in
+const heroCard = document.getElementById('hero-card');
+const aboutSec = document.getElementById('about');
 new IntersectionObserver(entries => {
-  if(entries[0].isIntersecting && !started){
-    started = true;
-    const dur = 1400, t0 = performance.now();
-    (function tick(now){
-      const p = Math.min((now-t0)/dur,1), e = 1-Math.pow(1-p,3);
-      const v = Math.round(16000 - e*8000);
-      counter.textContent = '$'+(v>=1000?Math.round(v/1000)+'K':v);
-      if(p<1) requestAnimationFrame(tick);
-    })(performance.now());
-  }
-},{threshold:0.5}).observe(counter);
+  heroCard.classList.toggle('flipped', entries[0].isIntersecting);
+},{threshold:0.25}).observe(aboutSec);
 
-let audioCtx=null, soundOn=true;
-const sndBtn=document.getElementById('snd-btn');
-function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
-function playClick(){
-  if(!soundOn)return;
-  try{
-    const ctx=getCtx(),o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.frequency.setValueAtTime(600,ctx.currentTime);
-    o.frequency.exponentialRampToValueAtTime(200,ctx.currentTime+.06);
-    g.gain.setValueAtTime(.07,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.07);
-    o.start();o.stop(ctx.currentTime+.08);
-  }catch(e){}
+// Manifesto scroll-driven text reveal (grey → black, left to right)
+const mReveal = document.getElementById('m-reveal');
+function updateManifesto(){
+  const rect = mReveal.parentElement.getBoundingClientRect();
+  const p = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight * 0.65)));
+  mReveal.style.clipPath = `inset(0 ${(1-p)*100}% 0 0)`;
 }
-sndBtn.addEventListener('click',()=>{soundOn=!soundOn;sndBtn.textContent=soundOn?'🔊':'🔇';if(soundOn)playClick();});
-document.querySelectorAll('a').forEach(el=>el.addEventListener('click',playClick));
+window.addEventListener('scroll', updateManifesto, {passive:true});
+updateManifesto();
+
+// Fade-up on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
