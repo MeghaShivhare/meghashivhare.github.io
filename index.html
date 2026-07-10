@@ -38,7 +38,7 @@ a{color:inherit;text-decoration:none}
 @keyframes spfloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(20deg)}}
 
 /* HERO — full-width dramatic type, no photo */
-.s-hero{min-height:100vh;display:flex;flex-direction:column;padding:2rem 5vw 0;position:relative;overflow:hidden}
+.s-hero{min-height:100vh;display:flex;flex-direction:column;padding:2rem 5vw 0;position:relative;z-index:0;overflow:hidden}
 .hero-meta{display:flex;justify-content:space-between;align-items:center;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.08em;color:#888;text-transform:uppercase}
 .hero-top{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1000px;position:relative}
 .sp-1{position:absolute;top:-8%;right:6%;font-size:2.2rem}
@@ -56,6 +56,14 @@ a{color:inherit;text-decoration:none}
 .hs-num{display:block;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;color:#f97316}
 .hs-label{display:block;font-size:11px;color:#888;margin-top:3px}
 .hs-div{width:1px;height:40px;background:#c0bcb5;margin:0 1.2rem;flex-shrink:0}
+
+/* HERO VISUAL — counting number, wide screens only */
+.hero-visual{position:absolute;top:50%;right:5vw;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-end;text-align:right;max-width:440px}
+.hv-watermark{position:absolute;top:50%;right:-4vw;transform:translateY(-50%);font-size:clamp(9rem,20vw,17rem);font-weight:900;letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1.5px rgba(17,17,17,.08);line-height:1;z-index:-1;user-select:none;white-space:nowrap}
+.hv-eyebrow{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:.75rem}
+.hv-num{font-size:clamp(4.5rem,8vw,7.5rem);font-weight:900;letter-spacing:-.03em;color:#f97316;font-variant-numeric:tabular-nums;line-height:1}
+.hv-delta{font-family:'Courier New',monospace;font-size:13px;color:#888;margin-top:1.1rem;letter-spacing:.04em}
+@media(max-width:1250px){.hero-visual,.hv-watermark{display:none}}
 
 /* marquee ticker — replaces the photo panel with kinetic motion */
 .hero-marquee{overflow:hidden;border-top:1px solid #c0bcb5;margin-top:2.5rem;padding:14px 0}
@@ -213,6 +221,12 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
   </div>
+  <span class="hv-watermark" aria-hidden="true">50%</span>
+  <div class="hero-visual" aria-hidden="true">
+    <span class="hv-eyebrow">Monthly AWS Spend</span>
+    <span class="hv-num" id="costCounter">$16,000</span>
+    <span class="hv-delta">↓ 50% since Mar '24</span>
+  </div>
   <div class="hero-marquee">
     <div class="marquee-track">
       <span>AWS</span><span class="mq-dot">·</span><span>Kubernetes</span><span class="mq-dot">·</span><span>Terraform</span><span class="mq-dot">·</span><span>ArgoCD</span><span class="mq-dot">·</span><span>Kargo</span><span class="mq-dot">·</span><span>GitHub Actions</span><span class="mq-dot">·</span><span>Prometheus</span><span class="mq-dot">·</span><span>Grafana</span><span class="mq-dot">·</span><span>Karpenter</span><span class="mq-dot">·</span><span>Docker</span><span class="mq-dot">·</span><span>GitOps</span><span class="mq-dot">·</span>
@@ -367,6 +381,30 @@ a{color:inherit;text-decoration:none}
 </footer>
 
 <script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Hero cost counter — counts down from $16,000 to $8,000 shortly after load
+const costCounter = document.getElementById('costCounter');
+if(costCounter){
+  if(reduceMotion){
+    costCounter.textContent = '$8,000';
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const from = 16000, to = 8000, duration = 1400, start = performance.now();
+        function tick(now){
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = Math.round(from + (to - from) * eased);
+          costCounter.textContent = '$' + val.toLocaleString();
+          if(p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }, 400);
+    });
+  }
+}
+
 // Scroll-driven manifesto text reveal (grey → black, left to right)
 const mReveal = document.getElementById('m-reveal');
 function updateManifesto(){
